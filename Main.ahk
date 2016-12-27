@@ -121,16 +121,16 @@ $^3::
 
 
 ;[NORMAL ]: 4キー
-;[EDIT   ]: Deleteキー
-;[RANGE  ]: Deleteキー
-;[MOUSE  ]: Deleteキー
+;[EDIT   ]: F4キー
+;[RANGE  ]: F4キー
+;[MOUSE  ]: F4キー
 ;[SPECIAL]: ｢・｣を入力
 $4::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             send ・
         } else {
-            send {Delete}
+            send {F4}
         }
     } else {
         send 4
