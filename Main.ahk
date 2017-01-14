@@ -1683,6 +1683,20 @@ $s::
     return
 
 
+;[NORMAL ]: Shif+sキー
+;[EDIT   ]: Ctrl+Alt+sキー
+;[RANGE  ]: Ctrl+Alt+sキー
+;[MOUSE  ]: Ctrl+Alt+sキー
+;[SPECIAL]: Ctrl+Alt+sキー
+$+s::
+    if (!mode(_MODE.NORMAL)) {
+        send ^!s
+    } else {
+        send +s
+    }
+    return
+
+
 ;[NORMAL ]: Ctrl+Shif+sキー(poderosaの場合は画面更新再開）
 ;[EDIT   ]: Ctrl+Shif+sキー(poderosaの場合は画面更新再開）
 ;[RANGE  ]: Ctrl+Shif+sキー(poderosaの場合は画面更新再開）
