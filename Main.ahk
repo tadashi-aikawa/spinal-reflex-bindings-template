@@ -42,14 +42,10 @@ $Ctrl::
 ;[EDIT   ]: URLをエクスプローラーまたはブラウザで開く
 ;[RANGE  ]: URLをエクスプローラーまたはブラウザで開く
 ;[MOUSE  ]: URLをエクスプローラーまたはブラウザで開く
-;[SPECIAL]: ｢～｣を入力
+;[SPECIAL]: URLをエクスプローラーまたはブラウザで開く
 $1::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send ～
-        } else {
-            openUri()
-        }
+        openUri()
     } else {
         send 1
     }
@@ -60,14 +56,10 @@ $1::
 ;[EDIT   ]: 仮想デスクトップを1つ左に移動
 ;[RANGE  ]: 仮想デスクトップを1つ左に移動
 ;[MOUSE  ]: 仮想デスクトップを1つ左に移動
-;[SPECIAL]: ｢月｣を入力
+;[SPECIAL]: 仮想デスクトップを1つ左に移動
 $2::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send 月
-        } else {
-            send ^#{Left}
-        }
+        send ^#{Left}
     } else {
         send 2
     }
@@ -88,14 +80,10 @@ $^2::
 ;[EDIT   ]: 仮想デスクトップを1つ左に移動
 ;[RANGE  ]: 仮想デスクトップを1つ左に移動
 ;[MOUSE  ]: 仮想デスクトップを1つ左に移動
-;[SPECIAL]: ｢日・｣を入力
+;[SPECIAL]: 仮想デスクトップを1つ左に移動
 $3::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send 日・
-        } else {
-            send ^#{Right}
-        }
+        send ^#{Right}
     } else {
         send 3
     }
@@ -106,17 +94,9 @@ $3::
 ;[EDIT   ]: F3キー
 ;[RANGE  ]: F3キー
 ;[MOUSE  ]: F3キー
-;[SPECIAL]: ｢日～｣を入力
+;[SPECIAL]: F3キー
 $^3::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send 日～
-        } else {
-            send F3
-        }
-    } else {
-        send F3
-    }
+    send {F3}
     return
 
 
@@ -124,34 +104,12 @@ $^3::
 ;[EDIT   ]: F4キー
 ;[RANGE  ]: F4キー
 ;[MOUSE  ]: F4キー
-;[SPECIAL]: ｢・｣を入力
+;[SPECIAL]: F4キー
 $4::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send ・
-        } else {
-            send {F4}
-        }
+        send {F4}
     } else {
         send 4
-    }
-    return
-
-
-;[NORMAL ]: 5キー
-;[EDIT   ]: 選択語句を翻訳する
-;[RANGE  ]: 選択語句を翻訳する
-;[MOUSE  ]: 選択語句を翻訳する
-;[SPECIAL]: ｢日｣を入力
-$5::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send 日
-        } else {
-            translateSelectedWord()
-        }
-    } else {
-        send 5
     }
     return
 
@@ -604,44 +562,22 @@ $TAB::
     }
     return
 
-
-;[NORMAL ]: /キー（コマンドプロンプト: \キー)
-;[EDIT   ]: 翻訳ウィンドウの表示
-;[RANGE  ]: 翻訳ウィンドウの表示
-;[MOUSE  ]: 翻訳ウィンドウの表示
+;[NORMAL ]: /キー
+;[EDIT   ]: /キー
+;[RANGE  ]: /キー
+;[MOUSE  ]: /キー
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             send {NumpadDot}
         } else {
-            setMode(_MODE.NORMAL)
-            InputBox, param, 翻訳文字の入力, , , , 100, , , ,
-            if (!ErrorLevel) {
-                translateWord(param)
-            }
+            send /
         }
     } else {
         send /
     }
     return
-
-$^/::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            send *{Enter}
-        } else {
-            setMode(_MODE.NORMAL)
-            InputBox, param, 翻訳文字の入力, , , , 100, , , ,
-            if (!ErrorLevel) {
-                translateWord(param)
-            }
-        }
-    } else {
-        send /
-    }
-    return
-
 
 ;******************************************************************
 ; アルファベット（50音順)

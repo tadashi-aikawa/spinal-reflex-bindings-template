@@ -21,27 +21,6 @@ openUri() {
 }
 
 
-;【概要】任意の語句で翻訳サイトarc開く
-;【引数】word: 翻訳語句
-;【戻値】なし
-translateWord(word) {
-    Run, http://eow.alc.co.jp/search?q=%word%
-}
-
-
-;【概要】選択された語句を翻訳サイトarc開く
-;【引数】なし
-;【戻値】なし
-translateSelectedWord() {
-	Clipboard =        ;ClipWaitで確実にコピーするため？
-    Send ^c
-    Sleep 200
-    word := Clipboard
-
-    translateWord(word)
-}
-
-
 ;【概要】ウィンドウサイズの最大化⇔元のサイズ
 ;【引数】なし
 ;【戻値】なし
