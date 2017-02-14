@@ -53,13 +53,13 @@ $1::
 
 
 ;[NORMAL ]: 2キー
-;[EDIT   ]: 仮想デスクトップを1つ左に移動
-;[RANGE  ]: 仮想デスクトップを1つ左に移動
-;[MOUSE  ]: 仮想デスクトップを1つ左に移動
-;[SPECIAL]: 仮想デスクトップを1つ左に移動
+;[EDIT   ]: ステップイン (F11)
+;[RANGE  ]: ステップイン (F11)
+;[MOUSE  ]: ステップイン (F11)
+;[SPECIAL]: ステップイン (F11)
 $2::
     if (!mode(_MODE.NORMAL)) {
-        send ^#{Left}
+        send {F11}
     } else {
         send 2
     }
@@ -77,13 +77,13 @@ $^2::
 
 
 ;[NORMAL ]: 3キー
-;[EDIT   ]: 仮想デスクトップを1つ左に移動
-;[RANGE  ]: 仮想デスクトップを1つ左に移動
-;[MOUSE  ]: 仮想デスクトップを1つ左に移動
-;[SPECIAL]: 仮想デスクトップを1つ左に移動
+;[EDIT   ]: ステップオーバー (F10)
+;[RANGE  ]: ステップオーバー (F10)
+;[MOUSE  ]: ステップオーバー (F10)
+;[SPECIAL]: ステップオーバー (F10)
 $3::
     if (!mode(_MODE.NORMAL)) {
-        send ^#{Right}
+        send {F10}
     } else {
         send 3
     }
@@ -114,13 +114,17 @@ $4::
     return
 
 
-;[NORMAL ]: サクラエディタのブロック選択
-;[EDIT   ]: サクラエディタのブロック選択
-;[RANGE  ]: サクラエディタのブロック選択
-;[MOUSE  ]: サクラエディタのブロック選択
-;[SPECIAL]: サクラエディタのブロック選択
-$^6::
-    send +{f6}
+;[NORMAL ]: 5キー
+;[EDIT   ]: 再開 (F8キー)
+;[RANGE  ]: 再開 (F8キー)
+;[MOUSE  ]: 再開 (F8キー)
+;[SPECIAL]: 再開 (F8キー)
+$5::
+    if (!mode(_MODE.NORMAL)) {
+        send {F8}
+    } else {
+        send 5
+    }
     return
 
 
