@@ -262,19 +262,8 @@ $^+vkBAsc028::
 ;※ :
 $vkBAsc028::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            setIME(true)
-            setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.RANGE)) {
-            setIME(true)
-            setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.MOUSE)) {
-            setIME(true)
-            setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.SPECIAL)) {
-            setIME(true)
-            setMode(_MODE.NORMAL)
-        }
+        setIME(true)
+        setMode(_MODE.NORMAL)
     } else {
         send :
     }
@@ -311,19 +300,7 @@ $.::
 ;[MOUSE  ]: 右クリックメニュー
 ;[SPECIAL]: 右クリックメニュー
 $^.::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send {appsKey}
-        } else if (mode(_MODE.RANGE)) {
-            send {appsKey}
-        } else if (mode(_MODE.MOUSE)) {
-            send {appsKey}
-        } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad3}{Enter}
-        }
-    } else {
-        send {appsKey}
-    }
+    send {appsKey}
     return
 
 
@@ -371,19 +348,15 @@ $,::
     return
 
 
-;[NORMAL ]: Ctrl + ,キー（ランチャーメニュー表示）
-;[EDIT   ]: Ctrl + ,キー（eclipse: 次の警告/エラーに移動する)
+;[NORMAL ]: "キー
+;[EDIT   ]: "キー
 ;[RANGE  ]: "キー
 ;[MOUSE  ]: "キー
 ;[SPECIAL]: 2キー
 $^,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("eclipse")) {
-                send ^.
-            } else {
-                send "
-            }
+            send "
         } else if (mode(_MODE.RANGE)) {
             send "
         } else if (mode(_MODE.MOUSE)) {
@@ -392,7 +365,7 @@ $^,::
             send {Numpad2}{Enter}
         }
     } else {
-        send ^`,
+        send "
     }
     return
 
