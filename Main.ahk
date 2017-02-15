@@ -128,100 +128,24 @@ $5::
     return
 
 
-;[NORMAL ]: 8キー
-;[EDIT   ]: シングルコーテーション
-;[RANGE  ]: 8キー
-;[MOUSE  ]: 8キー
-;[SPECIAL]: 8キー
-$8::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send '
-        } else if (mode(_MODE.RANGE)) {
-            send 8
-        } else if (mode(_MODE.MOUSE)) {
-            send 8
-        } else if (mode(_MODE.SPECIAL)) {
-            send 8
-        }
-    } else {
-        send 8
-    }
-    return
-
-
 ;[NORMAL ]: { (中カッコ開始）
-;[EDIT   ]: ページの先頭に移動
-;[RANGE  ]: ページの先頭に選択範囲を移動
-;[MOUSE  ]: ページの先頭に移動
-;[SPECIAL]: ページの先頭に移動
+;[EDIT   ]: { (中カッコ開始）
+;[RANGE  ]: { (中カッコ開始）
+;[MOUSE  ]: { (中カッコ開始）
+;[SPECIAL]: { (中カッコ開始）
 $^8::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send ^{Home}
-        } else if (mode(_MODE.RANGE)) {
-            send +^{Home}
-        } else if (mode(_MODE.MOUSE)) {
-            send ^{Home}
-        } else if (mode(_MODE.SPECIAL)) {
-            send ^{Home}
-        }
-    } else {
-        send {{}
-    }
-    return
-
-
-;[NORMAL ]: 9キー
-;[EDIT   ]: ダブルコーテーション
-;[RANGE  ]: 9キー
-;[MOUSE  ]: 9キー
-;[SPECIAL]: 9キー
-$9::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send "
-        } else if (mode(_MODE.RANGE)) {
-            send 9
-        } else if (mode(_MODE.MOUSE)) {
-            send 9
-        } else if (mode(_MODE.SPECIAL)) {
-            send 9
-        }
-    } else {
-        send 9
-    }
+    send {{}
     return
 
 
 ;[NORMAL ]: } (中カッコ終了）
-;[EDIT   ]: ページの末尾に移動
-;[RANGE  ]: ページの末尾に選択範囲を移動
-;[MOUSE  ]: ページの末尾に移動
-;[SPECIAL]: ページの末尾に移動
+;[EDIT   ]: } (中カッコ終了）
+;[RANGE  ]: } (中カッコ終了）
+;[MOUSE  ]: } (中カッコ終了）
+;[SPECIAL]: } (中カッコ終了）
 $^9::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send ^{End}
-        } else if (mode(_MODE.RANGE)) {
-            send +^{End}
-        } else if (mode(_MODE.MOUSE)) {
-            send ^{End}
-        } else if (mode(_MODE.SPECIAL)) {
-            send ^{End}
-        }
-    } else {
-        send {}}
-    }
+    send {}}
     return
-
-
-;[NORMAL ]: eclipseのビルド
-;[EDIT   ]: eclipseのビルド
-;[RANGE  ]: eclipseのビルド
-;[MOUSE  ]: eclipseのビルド
-;[SPECIAL]: eclipseのビルド
-$^-::send ^{f11}
 
 
 ;******************************************************************
