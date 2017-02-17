@@ -348,24 +348,24 @@ $,::
     return
 
 
-;[NORMAL ]: "キー
-;[EDIT   ]: "キー
-;[RANGE  ]: "キー
-;[MOUSE  ]: "キー
+;[NORMAL ]: Ctrl + , キー
+;[EDIT   ]: Ctrl + , キー
+;[RANGE  ]: Ctrl + , キー
+;[MOUSE  ]: Ctrl + , キー
 ;[SPECIAL]: 2キー
 $^,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send "
+            send ^,
         } else if (mode(_MODE.RANGE)) {
-            send "
+            send ^,
         } else if (mode(_MODE.MOUSE)) {
-            send "
+            send ^,
         } else if (mode(_MODE.SPECIAL)) {
             send {Numpad2}{Enter}
         }
     } else {
-        send "
+        send ^,
     }
     return
 
