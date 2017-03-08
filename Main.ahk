@@ -595,7 +595,7 @@ $+c::
 ;[NORMAL ]: dキー (dからのコンビネーションの場合は 【】を入力してカーソルを間に移動)
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
-;[MOUSE  ]: ポインタを画面中央に移動 (dからのコンビネーションの場合は ポインタを画面中央隅に移動）
+;[MOUSE  ]: ポインタを画面中央に移動
 ;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
 $d::
     if (mode(_MODE.NORMAL)) {
@@ -615,6 +615,8 @@ $d::
     } else if (mode(_MODE.MOUSE)) {
         if (isConbinationKey("$d")) {
             moveMousePointerEdge(2, 2)
+        } else if (isConbinationKey("$;")) {
+            moveMousePointerScreen("RightDown")
         } else {
             moveMousePointer(2, 2)
         }
@@ -656,6 +658,8 @@ $e::
         } else if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$e")) {
                 moveMousePointerEdge(2, 1)
+            } else if (isConbinationKey("$;")) {
+                moveMousePointerScreen("RightUp")
             } else {
                 moveMousePointer(2, 1)
             }
@@ -1462,7 +1466,7 @@ $+q::
 ;[NORMAL ]: rキー(;からのコンビネーションの場合は == を入力する）
 ;[EDIT   ]: 仮想入力モードをスペシャルモードにする
 ;[RANGE  ]: 仮想入力モードをスペシャルモードにする
-;[MOUSE  ]: ポインタを画面右上に移動 (;からのコンビネーションの場合は ポインタを画面右上隅に移動）
+;[MOUSE  ]: ポインタを画面右上に移動 (rからのコンビネーションの場合は ポインタを画面右上隅に移動）
 ;[SPECIAL]: 仮想入力モードを標準にする
 $r::
     if (!mode(_MODE.NORMAL)) {
@@ -1471,8 +1475,6 @@ $r::
         } else if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$r")) {
                 moveMousePointerEdge(3, 1)
-            } else if (isConbinationKey("$;")) {
-                moveMousePointerScreen("RightUp")
             } else {
                 moveMousePointer(3, 1)
             }
@@ -1504,7 +1506,7 @@ $^r::
 ;[NORMAL ]: sキー(;からのコンビネーションの場合は「」を入力して、フォーカスを「」内に移動させる）
 ;[EDIT   ]: 全保存
 ;[RANGE  ]: 全保存
-;[MOUSE  ]: ポインタを画面左隅に移動 (sからのコンビネーションの場合は ポインタを画面左隅に移動）
+;[MOUSE  ]: ポインタを画面左隅に移動
 ;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
 $s::
     if (!mode(_MODE.NORMAL)) {
@@ -1513,6 +1515,8 @@ $s::
         } else if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$s")) {
                 moveMousePointerEdge(1, 2)
+            } else if (isConbinationKey("$;")) {
+                moveMousePointerScreen("LeftDown")
             } else {
                 moveMousePointer(1, 2)
             }
@@ -1652,15 +1656,13 @@ $+u::
 ;[NORMAL ]: v
 ;[EDIT   ]: 貼り付けしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: 貼り付けしてモードをVirtual->NORMALに変更
-;[MOUSE  ]: ポインタを画面右下に移動 (;からのコンビネーションの場合は ポインタを右下画面の中央に移動）
+;[MOUSE  ]: ポインタを画面右下に移動
 ;[SPECIAL]: ↓
 $v::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$v")) {
                 moveMousePointerEdge(3, 3)
-            } else if (isConbinationKey("$;")) {
-                moveMousePointerScreen("RightDown")
             } else {
                 moveMousePointer(3, 3)
             }
@@ -1747,15 +1749,13 @@ $+w::
 ;[NORMAL ]: xキー
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
-;[MOUSE  ]: ポインタを画面左下に移動 (;からのコンビネーションの場合は ポインタを左下画面の中央に移動）
+;[MOUSE  ]: ポインタを画面左下に移動
 ;[SPECIAL]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 $x::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$x")) {
                 moveMousePointerEdge(1, 3)
-            } else if (isConbinationKey("$;")) {
-                moveMousePointerScreen("LeftDown")
             } else {
                 moveMousePointer(1, 3)
             }
