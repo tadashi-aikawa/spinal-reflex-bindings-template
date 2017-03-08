@@ -500,7 +500,7 @@ $/::
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
-;[SPECIAL]: Enterキー
+;[SPECIAL]: アクティブウィンドウを拡張モニタに最大化して移動する
 $a::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -510,7 +510,7 @@ $a::
         } else if (mode(_MODE.MOUSE)) {
             moveMouseLeftScreen()
         } else if (mode(_MODE.SPECIAL)) {
-            send {Enter}
+            MoveWindow("Extra")
         }
     } else {
         if (isConbinationKey("$;")) {
@@ -596,7 +596,7 @@ $+c::
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
 ;[MOUSE  ]: ポインタを画面中央に移動 (dからのコンビネーションの場合は ポインタを画面中央隅に移動）
-;[SPECIAL]: アクティブウィンドウをフルスクリーンの1/4サイズにして画面右下に移動する
+;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
 $d::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKey("$;")) {
@@ -648,7 +648,7 @@ $+d::
 ;[EDIT   ]: 1つ戻る（visio: 前のシートへ移動)
 ;[RANGE  ]: 1つ戻る（visio: 前のシートへ移動)
 ;[MOUSE  ]: ポインタを画面中央上に移動 (eからのコンビネーションの場合は ポインタを画面中央上隅に移動）
-;[SPECIAL]: アクティブウィンドウをフルスクリーンの1/4サイズにして画面右上に移動する
+;[SPECIAL]: アクティブウィンドウを右上に最大化して移動する
 $e::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
@@ -1505,7 +1505,7 @@ $^r::
 ;[EDIT   ]: 全保存
 ;[RANGE  ]: 全保存
 ;[MOUSE  ]: ポインタを画面左隅に移動 (sからのコンビネーションの場合は ポインタを画面左隅に移動）
-;[SPECIAL]: アクティブウィンドウをフルスクリーンの1/4サイズにして画面左下に移動する
+;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
 $s::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
@@ -1698,7 +1698,7 @@ $^v::
 ;[EDIT   ]: ページの先頭に移動
 ;[RANGE  ]: 選択範囲をページの先頭に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
-;[SPECIAL]: アクティブウィンドウをフルスクリーンの1/4サイズにして画面左上に移動する
+;[SPECIAL]: アクティブウィンドウを左上に最大化して移動する
 $w::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKeyAndIMEOn("$;")) {

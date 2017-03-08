@@ -47,6 +47,12 @@ initDisplays() {
         ret[4] := {"label_x":x4, "label_y":y4, "label_id":"dis4_label", "text_id":"dis4_text"}
     }
 
+    x5 := getSettingsValue("ModeLabel", "X5")
+    y5 := getSettingsValue("ModeLabel", "Y5")
+    if (x5 != "ERROR") {
+        ret[5] := {"label_x":x5, "label_y":y5, "label_id":"dis5_label", "text_id":"dis5_text"}
+    }
+
     return ret
 }
 
