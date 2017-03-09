@@ -508,7 +508,11 @@ $a::
         } else if (mode(_MODE.RANGE)) {
             send +{home}
         } else if (mode(_MODE.MOUSE)) {
-            moveMouseLeftScreen()
+            if (isConbinationKey("$;")) {
+                moveMousePointerScreen("Extra")
+            } else {
+                moveMouseLeftScreen()
+            }
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("Extra")
         }
