@@ -197,20 +197,21 @@ $+;::
 
 
 ;[NORMAL ]: 本日の日付を入力(YYYY/MM/DD)
-;[EDIT   ]: 本日の日付を入力(YYYY/MM/DD)
-;[RANGE  ]: 本日の日付を入力(YYYY/MM/DD)
-;[MOUSE  ]: 本日の日付を入力(YYYY/MM/DD)
-;[SPECIAL]: 本日の日付を入力(YYYY/MM/DD)
+;[EDIT   ]: 行末へ移動
+;[RANGE  ]: 行末へ移動
+;[MOUSE  ]: 行末へ移動
+;[SPECIAL]: 行末へ移動
 $^;::
-    if (mode(_MODE.SPECIAL)) {
-        send -{Enter}-{Enter}-{Enter}-{Enter}-{Enter}
-    } else {
+    if (mode(_MODE.NORMAL)) {
         if(isActive("excel")) {
             send ^;
         } else {
             Clipboard = %A_Year%/%A_Mon%/%A_MDay%
             Send, ^v
         }
+    } else {
+        ; Copy => 行末移動の操作でCtrlのupが間に合わず予期せぬ挙動になるのを防ぐため
+        send {end}
     }
     return
 
