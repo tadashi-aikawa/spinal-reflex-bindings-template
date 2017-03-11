@@ -21,6 +21,7 @@ SetMouseDelay, 10
 ; 無変換キー
 $vk1C::
     if (mode(_MODE.NORMAL)) {
+        ;ここでsetIME(false)にしないのは 変換中のカーソル操作ができなくなってしまうため
         setMode(_MODE.EDIT)
     } else {
         setMode(_MODE.NORMAL)
@@ -541,19 +542,23 @@ $#a::
     return
 
 
-;[NORMAL ]: bキー
-;[EDIT   ]: %キー
-;[RANGE  ]: %キー
-;[MOUSE  ]: %キー
-;[SPECIAL]: %キー
+;[NORMAL ]: SNIPPETモードに変更
+;[EDIT   ]: SNIPPETモードに変更
+;[RANGE  ]: SNIPPETモードに変更
+;[MOUSE  ]: SNIPPETモードに変更
+;[SPECIAL]: SNIPPETモードに変更
+;[SNIPPET]: EDITモードに変更
 $b::
     if (!mode(_MODE.NORMAL)) {
-        send `%
+        if (mode(_MODE.SNIPPET)) {
+            setMode(_MODE.EDIT)
+        } else {
+            setMode(_MODE.SNIPPET)
+        }
     } else {
         send b
     }
     return
-
 
 
 ;[NORMAL ]: cキー
@@ -1199,6 +1204,7 @@ $!l::
 ;[RANGE  ]: 日本語入力OFF + モードをNORMALに変更
 ;[MOUSE  ]: 左ドラッグ
 ;[SPECIAL]: 1キー
+;[SNIPPET]: :fork_and_knife:
 $m::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -1211,6 +1217,8 @@ $m::
             send {LButton Down}
         } else if (mode(_MODE.SPECIAL)) {
             send {Numpad1}
+        } else if (mode(_MODE.SNIPPET)) {
+            send :fork_and_knife:
         }
     } else {
         send m
@@ -1584,6 +1592,7 @@ $t::
 ;[RANGE  ]: BackSpace後範囲指定を終了する
 ;[MOUSE  ]: マウスホイールを少し上に動かす
 ;[SPECIAL]: 7
+;[SNIPPET]: :arrow_upper_right:
 $u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -1595,6 +1604,8 @@ $u::
             scrollUpSmall()
         } else if (mode(_MODE.SPECIAL)) {
             send {Numpad7}
+        } else if (mode(_MODE.SNIPPET)) {
+            send :arrow_upper_right:
         }
     } else {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1706,6 +1717,7 @@ $^v::
 ;[RANGE  ]: 選択範囲をページの先頭に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
 ;[SPECIAL]: アクティブウィンドウを左上に最大化して移動する
+;[SNIPPET]: :womans_clothes:
 $w::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1727,6 +1739,8 @@ $w::
         }
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("LeftUp")
+    } else if (mode(_MODE.SNIPPET)) {
+        send :womans_clothes:
     }
     return
 
