@@ -232,6 +232,22 @@ $^+;::
     return
 
 
+;[NORMAL ]: @キー
+;[EDIT   ]: @キー
+;[RANGE  ]: @キー
+;[MOUSE  ]: @キー
+;[SPECIAL]: @キー
+;[SNIPPET]: GitHub形式のコードブロック
+$@::
+    if (mode(_MODE.SNIPPET)) {
+        send ``````{ENTER}{ENTER}``````{UP}
+        setMode(_MODE.NORMAL)
+    } else {
+        send @
+    }
+    return
+
+
 ;[NORMAL ]: 現在の時刻を入力(hh:mm:ss)
 ;[EDIT   ]: 現在の時刻を入力(hh:mm:ss)
 ;[RANGE  ]: 現在の時刻を入力(hh:mm:ss)
