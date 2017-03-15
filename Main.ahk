@@ -582,6 +582,7 @@ $b::
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面中央下に移動 (cからのコンビネーションの場合は ポインタを画面中央下隅に移動）
 ;[SPECIAL]: コピーしてモードをVirtual->NORMALに変更
+;[SNIPPET]: :calendar:
 $c::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
@@ -590,10 +591,12 @@ $c::
             } else {
                 moveMousePointer(2, 3)
             }
+        } else if (mode(_MODE.SNIPPET)) {
+            send :calendar:
         } else {
             setMode(_MODE.EDIT)
             send ^c
-        }
+        } 
     } else {
         send c
     }
