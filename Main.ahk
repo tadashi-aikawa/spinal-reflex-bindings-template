@@ -1419,21 +1419,24 @@ $+o::
     }
     return
 
-
-;[NORMAL ]: pキー
+;[NORMAL ]: pキー(;からのコンビネーションの場合は % を入力する）
 ;[EDIT   ]: pキ－
 ;[RANGE  ]: pキ－
 ;[MOUSE  ]: pキ－
-;[SPECIAL]: *キー
+;[SPECIAL]: %キー
 $p::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
-            send *
+            send `%
         } else {
             send p
         }
     } else {
-        send p
+        if (isConbinationKeyAndIMEOn("$;")) {
+            send {BS}`%
+        } else {
+            send p
+        }
     }
     return
 
