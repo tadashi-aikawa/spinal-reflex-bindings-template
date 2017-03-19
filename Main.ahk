@@ -1135,6 +1135,7 @@ $!k::
 ;[RANGE  ]: 選択範囲を右に移動
 ;[MOUSE  ]: マウスポインタを右に微かに移動
 ;[SPECIAL]: 6キー
+;[SNIPPET]: :fork_and_knife:
 $l::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1150,6 +1151,8 @@ $l::
         moveMouseRightMicro()
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad6}
+    } else if (mode(_MODE.SNIPPET)) {
+        send :fork_and_knife:
     }
     return
 
