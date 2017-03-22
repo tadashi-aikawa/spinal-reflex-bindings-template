@@ -680,6 +680,7 @@ $+d::
 ;[RANGE  ]: 1つ戻る（visio: 前のシートへ移動)
 ;[MOUSE  ]: ポインタを画面中央上に移動 (eからのコンビネーションの場合は ポインタを画面中央上隅に移動）
 ;[SPECIAL]: アクティブウィンドウを右上に最大化して移動する
+;[SNIPPET]: :evergreen_tree::
 $e::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
@@ -692,6 +693,8 @@ $e::
             } else {
                 moveMousePointer(2, 1)
             }
+        } else if (mode(_MODE.SNIPPET)) {
+            send :evergreen_tree:
         } else {
             send !{left}
         }
