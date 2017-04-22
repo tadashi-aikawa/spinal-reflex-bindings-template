@@ -1426,13 +1426,16 @@ $+o::
     return
 
 ;[NORMAL ]: pキー(;からのコンビネーションの場合は % を入力する）
-;[EDIT   ]: pキ－
+;[EDIT   ]: コマンドパレット(Ctrl + Shift + pキー => NORMALモード)
 ;[RANGE  ]: pキ－
 ;[MOUSE  ]: pキ－
 ;[SPECIAL]: %キー
 $p::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
+        if (mode(_MODE.EDIT)) {
+            send ^+p
+            setMode(_MODE.NORMAL)
+        } else if (mode(_MODE.SPECIAL)) {
             send `%
         } else {
             send p
