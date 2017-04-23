@@ -232,14 +232,17 @@ $^+;::
     return
 
 
-;[NORMAL ]: @キー
-;[EDIT   ]: @キー
+;[NORMAL ]: @キ
+;[EDIT   ]: Ctrl + Shift + aキー => NORMALモード
 ;[RANGE  ]: @キー
 ;[MOUSE  ]: @キー
 ;[SPECIAL]: @キー
 ;[SNIPPET]: GitHub形式のコードブロック
 $@::
-    if (mode(_MODE.SNIPPET)) {
+    if (mode(_MODE.EDIT)) {
+        send ^+a
+        setMode(_MODE.NORMAL)
+    } else if (mode(_MODE.SNIPPET)) {
         send ``````{ENTER}{ENTER}``````{UP}
         setMode(_MODE.NORMAL)
     } else {
@@ -494,13 +497,15 @@ $TAB::
     return
 
 ;[NORMAL ]: /キー
-;[EDIT   ]: /キー
+;[EDIT   ]: Win + Tab
 ;[RANGE  ]: /キー
 ;[MOUSE  ]: /キー
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
+        if (mode(_MODE.EDIT)) {
+            send #{TAB}
+        } else if (mode(_MODE.SPECIAL)) {
             send {NumpadDot}
         } else {
             send /
@@ -740,7 +745,7 @@ $+e::
     return
 
 
-;[NORMAL ]: fキー(;からのコンビネーションの場合は「 → 」を入力）
+;[NORMAL ]: fキー(;からのコンビネーションの場合は#）
 ;[EDIT   ]: ページの末尾に移動
 ;[RANGE  ]: 選択範囲をページの末尾に移動
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
@@ -748,10 +753,7 @@ $+e::
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKey("$`;")) {
-            send {BS}
-            sendMultiByte(" ")
-            sendMultiByte("→")
-            sendMultiByte(" ")
+            send {BS}{#}
         } else {
             send f
         }
@@ -807,7 +809,11 @@ $+f::
     return
 
 
-;----- [N]範囲指定モード [R]通常モード [M]範囲指定モード [S]範囲指定モード -----
+;[NORMAL ]: gキー(;からのコンビネーションの場合は$）
+;[EDIT   ]: RANGEモードに切り替え
+;[RANGE  ]: EDITモードに切り替え
+;[MOUSE  ]: RANGEモードに切り替え
+;[SPECIAL]: RANGEモードに切り替え
 $g::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.RANGE)) {
@@ -816,7 +822,11 @@ $g::
             setMode(_MODE.RANGE)
         }
     } else {
-        send g
+        if (isConbinationKey("$`;")) {
+            send {BS}{$}
+        } else {
+            send g
+        }
     }
     return
 
@@ -1548,13 +1558,17 @@ $^r::
     return
 
 ;[NORMAL ]: sキー(;からのコンビネーションの場合は「」を入力して、フォーカスを「」内に移動させる）
-;[EDIT   ]: 全保存
-;[RANGE  ]: 全保存
+;[EDIT   ]: Ctrl+Shift+S
+;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: ポインタを画面左隅に移動
 ;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
 $s::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
+        if (mode(_MODE.EDIT)) {
+            send ^+{s}
+        } else if (mode(_MODE.RANGE)) {
+            send ^+{s}
+        } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftDown")
         } else if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$s")) {
@@ -1564,8 +1578,6 @@ $s::
             } else {
                 moveMousePointer(1, 2)
             }
-        } else {
-            send +^{s}
         }
     } else {
         if (isConbinationKey("$;")) {
