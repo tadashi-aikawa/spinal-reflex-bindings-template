@@ -515,6 +515,25 @@ $/::
     }
     return
 
+;[NORMAL ]: BS
+;[EDIT   ]: BS
+;[RANGE  ]: BS
+;[MOUSE  ]: BS
+;[SPECIAL]: BS
+$PgUp::
+    send {BS}
+    return
+
+;[NORMAL ]: Enter
+;[EDIT   ]: Enter
+;[RANGE  ]: Enter
+;[MOUSE  ]: Enter
+;[SPECIAL]: Enter
+$PgDn::
+    send {Enter}
+    return
+
+
 ;******************************************************************
 ; アルファベット（50音順)
 ;******************************************************************
