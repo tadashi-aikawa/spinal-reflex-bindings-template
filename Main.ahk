@@ -78,13 +78,13 @@ $^2::
 
 
 ;[NORMAL ]: 3キー
-;[EDIT   ]: ステップオーバー (F10)
-;[RANGE  ]: ステップオーバー (F10)
-;[MOUSE  ]: ステップオーバー (F10)
-;[SPECIAL]: ステップオーバー (F10)
+;[EDIT   ]: ウィンドウ切り替え(Win + Tab)
+;[RANGE  ]: ウィンドウ切り替え(Win + Tab)
+;[MOUSE  ]: ウィンドウ切り替え(Win + Tab)
+;[SPECIAL]: ウィンドウ切り替え(Win + Tab)
 $3::
     if (!mode(_MODE.NORMAL)) {
-        send {F10}
+        send #{tab}
     } else {
         send 3
     }
@@ -102,13 +102,13 @@ $^3::
 
 
 ;[NORMAL ]: 4キー
-;[EDIT   ]: F4キー
-;[RANGE  ]: F4キー
-;[MOUSE  ]: F4キー
-;[SPECIAL]: F4キー
+;[EDIT   ]: ステップオーバー (F10)
+;[RANGE  ]: ステップオーバー (F10)
+;[MOUSE  ]: ステップオーバー (F10)
+;[SPECIAL]: ステップオーバー (F10)
 $4::
     if (!mode(_MODE.NORMAL)) {
-        send {F4}
+        send {F10}
     } else {
         send 4
     }
