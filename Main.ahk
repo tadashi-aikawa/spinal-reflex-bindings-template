@@ -768,7 +768,7 @@ $+e::
 ;[EDIT   ]: ページの末尾に移動
 ;[RANGE  ]: 選択範囲をページの末尾に移動
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
-;[SPECIAL]: 右
+;[SPECIAL]: 縦にフルスクリーン
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKey("$`;")) {
@@ -787,7 +787,7 @@ $f::
             moveMousePointer(3, 2)
         }
     } else if (mode(_MODE.SPECIAL)) {
-        send {Right}
+        send #+{UP}
     }
     return
 
