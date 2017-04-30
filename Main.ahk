@@ -78,14 +78,13 @@ $^2::
 
 
 ;[NORMAL ]: 3キー
-;[EDIT   ]: ウィンドウ切り替え(Win + Tab) + ノーマルモード
-;[RANGE  ]: ウィンドウ切り替え(Win + Tab) + ノーマルモード
-;[MOUSE  ]: ウィンドウ切り替え(Win + Tab) + ノーマルモード
-;[SPECIAL]: ウィンドウ切り替え(Win + Tab) + ノーマルモード
+;[EDIT   ]: ウィンドウ切り替え(Win + Tab)
+;[RANGE  ]: ウィンドウ切り替え(Win + Tab)
+;[MOUSE  ]: ウィンドウ切り替え(Win + Tab)
+;[SPECIAL]: ウィンドウ切り替え(Win + Tab)
 $3::
     if (!mode(_MODE.NORMAL)) {
         send #{tab}
-        setMode(_MODE.NORMAL)
     } else {
         send 3
     }
