@@ -543,7 +543,7 @@ $PgDn::
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
-;[SPECIAL]: アクティブウィンドウを拡張モニタに最大化して移動する
+;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
 $a::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -552,12 +552,12 @@ $a::
             send +{home}
         } else if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$;")) {
-                moveMousePointerScreen("Extra")
+                moveMousePointerScreen("LeftDown")
             } else {
                 moveMouseLeftScreen()
             }
         } else if (mode(_MODE.SPECIAL)) {
-            MoveWindow("Extra")
+            MoveWindow("LeftDown")
         }
     } else {
         if (isConbinationKey("$;")) {
@@ -1498,10 +1498,14 @@ $+p::
 ;[EDIT   ]: ウィンドウの最小化
 ;[RANGE  ]: ウィンドウの最小化
 ;[MOUSE  ]: ウィンドウの最小化
-;[SPECIAL]: ウィンドウの最小化
+;[SPECIAL]: アクティブウィンドウを左上に最大化して移動する
 $q::
     if (!mode(_MODE.NORMAL)) {
-        WinMinimize, A
+        if (mode(_MODE.SPECIAL)) {
+            MoveWindow("LeftUp")
+        } else {
+            WinMinimize, A
+        }
     } else {
         send q
     }
@@ -1581,7 +1585,7 @@ $^r::
 ;[EDIT   ]: Ctrl+Shift+S
 ;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: ポインタを画面左隅に移動
-;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
+;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
 $s::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -1589,12 +1593,12 @@ $s::
         } else if (mode(_MODE.RANGE)) {
             send ^+{s}
         } else if (mode(_MODE.SPECIAL)) {
-            MoveWindow("LeftDown")
+            MoveWindow("CenterDown")
         } else if (mode(_MODE.MOUSE)) {
             if (isConbinationKey("$s")) {
                 moveMousePointerEdge(1, 2)
             } else if (isConbinationKey("$;")) {
-                moveMousePointerScreen("LeftDown")
+                moveMousePointerScreen("CenterDown")
             } else {
                 moveMousePointer(1, 2)
             }
@@ -1779,7 +1783,7 @@ $^v::
 ;[EDIT   ]: ページの先頭に移動
 ;[RANGE  ]: 選択範囲をページの先頭に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
-;[SPECIAL]: アクティブウィンドウを左上に最大化して移動する
+;[SPECIAL]: アクティブウィンドウを中央上に最大化して移動する
 ;[SNIPPET]: :womans_clothes:
 $w::
     if (mode(_MODE.NORMAL)) {
@@ -1796,12 +1800,12 @@ $w::
         if (isConbinationKey("$w")) {
             moveMousePointerEdge(1, 1)
         } else if (isConbinationKey("$;")) {
-            moveMousePointerScreen("LeftUp")
+            moveMousePointerScreen("CenterUp")
         } else {
             moveMousePointer(1, 1)
         }
     } else if (mode(_MODE.SPECIAL)) {
-        MoveWindow("LeftUp")
+        MoveWindow("CenterUp")
     } else if (mode(_MODE.SNIPPET)) {
         send :womans_clothes:
     }
