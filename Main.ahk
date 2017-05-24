@@ -53,20 +53,6 @@ $1::
     return
 
 
-;[NORMAL ]: 2キー
-;[EDIT   ]: ステップイン (F11)
-;[RANGE  ]: ステップイン (F11)
-;[MOUSE  ]: ステップイン (F11)
-;[SPECIAL]: ステップイン (F11)
-$2::
-    if (!mode(_MODE.NORMAL)) {
-        send {F11}
-    } else {
-        send 2
-    }
-    return
-
-
 ;[NORMAL ]: F2キー
 ;[EDIT   ]: F2キー
 ;[RANGE  ]: F2キー
@@ -98,34 +84,6 @@ $3::
 ;[SPECIAL]: F3キー
 $^3::
     send {F3}
-    return
-
-
-;[NORMAL ]: 4キー
-;[EDIT   ]: ステップオーバー (F10)
-;[RANGE  ]: ステップオーバー (F10)
-;[MOUSE  ]: ステップオーバー (F10)
-;[SPECIAL]: ステップオーバー (F10)
-$4::
-    if (!mode(_MODE.NORMAL)) {
-        send {F10}
-    } else {
-        send 4
-    }
-    return
-
-
-;[NORMAL ]: 5キー
-;[EDIT   ]: 再開 (F8キー)
-;[RANGE  ]: 再開 (F8キー)
-;[MOUSE  ]: 再開 (F8キー)
-;[SPECIAL]: 再開 (F8キー)
-$5::
-    if (!mode(_MODE.NORMAL)) {
-        send {F8}
-    } else {
-        send 5
-    }
     return
 
 
@@ -348,20 +306,24 @@ $+.::
 
 
 ;[NORMAL ]: ,キー
-;[EDIT   ]: ,キー
-;[RANGE  ]: ,キー
-;[MOUSE  ]: ,キー
+;[EDIT   ]: DEBUGモードに変更
+;[RANGE  ]: DEBUGモードに変更
+;[MOUSE  ]: DEBUGモードに変更
 ;[SPECIAL]: 2キー
+;[SNIPPET]: DEBUGモードに変更
+;[DEBUG  ]: EDITモードに変更
 $,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send `,
+            setMode(_MODE.DEBUG)
         } else if (mode(_MODE.RANGE)) {
-            send `,
+            setMode(_MODE.DEBUG)
         } else if (mode(_MODE.MOUSE)) {
-            send `,
+            setMode(_MODE.DEBUG)
         } else if (mode(_MODE.SPECIAL)) {
             send {Numpad2}
+        } else if (mode(_MODE.SPECIAL)) {
+            setMode(_MODE.EDIT)
         }
     } else {
         send `,
@@ -705,6 +667,7 @@ $+d::
 ;[MOUSE  ]: ポインタを画面中央上に移動 (eからのコンビネーションの場合は ポインタを画面中央上隅に移動）
 ;[SPECIAL]: アクティブウィンドウを右上に最大化して移動する
 ;[SNIPPET]: :evergreen_tree::
+;[DEBUG  ]: 評価を開く
 $e::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
@@ -719,6 +682,8 @@ $e::
             }
         } else if (mode(_MODE.SNIPPET)) {
             send :evergreen_tree:
+        } else if (mode(_MODE.DEBUG)) {
+            send ^u
         } else {
             send !{left}
         }
@@ -999,6 +964,7 @@ $!i::
 ;[RANGE  ]: 選択範囲を左に移動
 ;[MOUSE  ]: マウスポインタを左に微かに移動
 ;[SPECIAL]: 4キー
+;[DEBUG  ]: ステップアウト (SHIFT + F11)
 $j::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1014,6 +980,8 @@ $j::
         moveMouseLeftMicro()
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad4}
+    } else if (mode(_MODE.DEBUG)) {
+        send +{F11}
     }
     return
 
@@ -1087,6 +1055,7 @@ $!j::
 ;[RANGE  ]: 下に選択範囲を移動
 ;[MOUSE  ]: マウスポインタを下に微かに移動
 ;[SPECIAL]: 5キー
+;[DEBUG  ]: ステップオーバー (F10)
 $k::
     if (mode(_MODE.NORMAL)) {
         send k
@@ -1098,6 +1067,8 @@ $k::
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad5}
+    } else if (mode(_MODE.DEBUG)) {
+        send {F10}
     }
     return
 
@@ -1168,6 +1139,7 @@ $!k::
 ;[MOUSE  ]: マウスポインタを右に微かに移動
 ;[SPECIAL]: 6キー
 ;[SNIPPET]: :fork_and_knife:
+;[DEBUG  ]: ステップイン (F11)
 $l::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1185,6 +1157,8 @@ $l::
         send {Numpad6}
     } else if (mode(_MODE.SNIPPET)) {
         send :fork_and_knife:
+    } else if (mode(_MODE.DEBUG)) {
+        send {F11}
     }
     return
 
@@ -1545,6 +1519,8 @@ $+q::
 ;[RANGE  ]: 仮想入力モードをスペシャルモードにする
 ;[MOUSE  ]: ポインタを画面右上に移動 (rからのコンビネーションの場合は ポインタを画面右上隅に移動）
 ;[SPECIAL]: 仮想入力モードを標準にする
+;[DEBUG  ]: 再開
+
 $r::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
@@ -1555,6 +1531,8 @@ $r::
             } else {
                 moveMousePointer(3, 1)
             }
+        } else if (mode(_MODE.DEBUG)) {
+            send {F8}
         } else {
             setMode(_MODE.SPECIAL)
         }
@@ -1585,6 +1563,7 @@ $^r::
 ;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: ポインタを画面左隅に移動
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
+;[DEBUG  ]: 停止
 $s::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -1601,6 +1580,8 @@ $s::
             } else {
                 moveMousePointer(1, 2)
             }
+        } else if (mode(_MODE.DEBUG)) {
+            send ^{F2}
         }
     } else {
         if (isConbinationKey("$;")) {
