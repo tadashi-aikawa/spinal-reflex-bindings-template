@@ -1734,7 +1734,7 @@ $v::
         } else {
             setMode(_MODE.EDIT)
             if (isActive("console")) {
-                send !{space}ep
+                ControlClick, , , , R, , , ,
             } else {
                 send ^v
             }
@@ -1752,7 +1752,7 @@ $v::
 ;[SPECIAL]: 貼り付け
 $^v::
     if (isActive("console")) {
-        send !{space}ep
+        ControlClick, , , , R, , , ,
     } else {
         send ^v
     }
