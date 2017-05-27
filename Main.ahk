@@ -1551,7 +1551,7 @@ $r::
 ;[MOUSE  ]: 更新(poderosa: Ctrl+r)
 ;[SPECIAL]: 更新(poderosa: Ctrl+r)
 $^r::
-    if (isActive("poderosa")) {
+    if (isActive("poderosa") || isActive("console")) {
         send ^r
     } else {
         send {F5}
