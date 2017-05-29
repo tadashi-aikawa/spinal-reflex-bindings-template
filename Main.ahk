@@ -581,28 +581,32 @@ $c::
             send :calendar:
         } else {
             setMode(_MODE.EDIT)
-            send ^c
-        } 
+            if (isActive("mintty")) {
+                send ^{Ins}
+            } else {
+                send ^c
+            }
+        }
     } else {
         send c
     }
     return
 
 
-;[NORMAL ]: Ctrl + cキー
-;[EDIT   ]: Ctrl + cキー（eclipse: コメントの挿入)
-;[RANGE  ]: Ctrl + cキー（eclipse: コメントの挿入)
-;[MOUSE  ]: Ctrl + cキー（eclipse: コメントの挿入)
-;[SPECIAL]: Ctrl + cキー（eclipse: コメントの挿入)
-$+c::
+;[NORMAL ]: コピー
+;[EDIT   ]: コピー
+;[RANGE  ]: コピー
+;[MOUSE  ]: コピー
+;[SPECIAL]: コピー
+$^c::
     if (!mode(_MODE.NORMAL)) {
-        if (isActive("eclipse")) {
-            send +!{j}
+        if (isActive("mintty")) {
+            send ^{Ins}
         } else {
-            send +c
+            send ^c
         }
     } else {
-        send +c
+        send ^c
     }
     return
 
@@ -765,6 +769,8 @@ $f::
 $^f::
     if (isActive("console")) {
         send !{space}ef
+    } else if (isActive("mintty")) {
+        send !{F3}
     } else {
         send ^f
     }
@@ -1312,11 +1318,11 @@ $n::
     }
     return
 
-;[NORMAL ]: Ctrl + N
+;[NORMAL ]: 新規ウィンドウ
 ;[EDIT   ]: 15つ下に移動
 ;[RANGE  ]: 選択範囲を15つ下に移動
-;[MOUSE  ]: Ctrl + N
-;[SPECIAL]: Ctrl + N
+;[MOUSE  ]: 新規ウィンドウ
+;[SPECIAL]: 新規ウィンドウ
 $^n::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -1324,12 +1330,24 @@ $^n::
         } else if (mode(_MODE.RANGE)) {
             sendInput +{down 15}
         } else if (mode(_MODE.MOUSE)) {
-            send ^n
+            if (isActive("mintty")) {
+                send !{F2}
+            } else {
+                send ^n
+            }
         } else if (mode(_MODE.SPECIAL)) {
-            send ^n
+            if (isActive("mintty")) {
+                send !{F2}
+            } else {
+                send ^n
+            }
         }
     } else {
-        send ^n
+        if (isActive("mintty")) {
+            send !{F2}
+        } else {
+            send ^n
+        }
     }
     return
 
@@ -1411,7 +1429,7 @@ $^o::
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("ubuntu")) {
+            if (isActive("poderosa") || isActive("console") || isActive("ubuntu") || isActive("mintty")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1551,7 +1569,7 @@ $r::
 ;[MOUSE  ]: 更新(poderosa: Ctrl+r)
 ;[SPECIAL]: 更新(poderosa: Ctrl+r)
 $^r::
-    if (isActive("poderosa") || isActive("console")) {
+    if (isActive("poderosa") || isActive("console") || isActive("mintty")) {
         send ^r
     } else {
         send {F5}
@@ -1698,7 +1716,7 @@ $^u::
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("ubuntu")) {
+            if (isActive("poderosa") || isActive("console") || isActive("ubuntu") || isActive("mintty")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}
@@ -1733,8 +1751,8 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("console")) {
-                ControlClick, , , , R, , , ,
+            if (isActive("mintty")) {
+                send +{Ins}
             } else {
                 send ^v
             }
@@ -1751,8 +1769,8 @@ $v::
 ;[MOUSE  ]: 貼り付け
 ;[SPECIAL]: 貼り付け
 $^v::
-    if (isActive("console")) {
-        ControlClick, , , , R, , , ,
+    if (isActive("mintty")) {
+        send +{Ins}
     } else {
         send ^v
     }
