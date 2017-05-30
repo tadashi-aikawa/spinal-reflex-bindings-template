@@ -1,4 +1,4 @@
-Spinal reflex bindings template
+﻿Spinal reflex bindings template
 ********************************
 
 

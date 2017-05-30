@@ -265,7 +265,11 @@ $.::
         } else if (mode(_MODE.MOUSE)) {
             ; DO NOTHING
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad3}
+            if (isActive("mintty")) {
+                send 3
+            } else {
+                send {Numpad3}
+            }
         }
     } else {
         send .
@@ -321,7 +325,11 @@ $,::
         } else if (mode(_MODE.MOUSE)) {
             setMode(_MODE.DEBUG)
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad2}
+            if (isActive("mintty")) {
+                send 2
+            } else {
+                send {Numpad2}
+            }
         } else if (mode(_MODE.SPECIAL)) {
             setMode(_MODE.EDIT)
         }
@@ -468,7 +476,11 @@ $/::
         if (mode(_MODE.EDIT)) {
             send #{TAB}
         } else if (mode(_MODE.SPECIAL)) {
-            send {NumpadDot}
+            if (isActive("mintty")) {
+                send .
+            } else {
+                send {NumpadDot}
+            }
         } else {
             send /
         }
@@ -900,7 +912,11 @@ $i::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        send {Numpad8}
+            if (isActive("mintty")) {
+                send 8
+            } else {
+                send {Numpad8}
+            }
     }
     return
 
@@ -985,7 +1001,11 @@ $j::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseLeftMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        send {Numpad4}
+            if (isActive("mintty")) {
+                send 4
+            } else {
+                send {Numpad4}
+            }
     } else if (mode(_MODE.DEBUG)) {
         send +{F11}
     }
@@ -1072,7 +1092,11 @@ $k::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        send {Numpad5}
+            if (isActive("mintty")) {
+                send 5
+            } else {
+                send {Numpad5}
+            }
     } else if (mode(_MODE.DEBUG)) {
         send {F10}
     }
@@ -1160,7 +1184,11 @@ $l::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        send {Numpad6}
+            if (isActive("mintty")) {
+                send 6
+            } else {
+                send {Numpad6}
+            }
     } else if (mode(_MODE.SNIPPET)) {
         send :fork_and_knife:
     } else if (mode(_MODE.DEBUG)) {
@@ -1250,7 +1278,11 @@ $m::
         } else if (mode(_MODE.MOUSE)) {
             send {LButton Down}
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad1}
+            if (isActive("mintty")) {
+                send 1
+            } else {
+                send {Numpad1}
+            }
         } else if (mode(_MODE.SNIPPET)) {
             send :fork_and_knife:
         }
@@ -1382,7 +1414,11 @@ $o::
         } else if (mode(_MODE.MOUSE)) {
             scrollDownSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad9}
+            if (isActive("mintty")) {
+                send 9
+            } else {
+                send {Numpad9}
+            }
         }
     } else {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1668,7 +1704,11 @@ $u::
         } else if (mode(_MODE.MOUSE)) {
             scrollUpSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad7}
+            if (isActive("mintty")) {
+                send 7
+            } else {
+                send {Numpad7}
+            }
         } else if (mode(_MODE.SNIPPET)) {
             send :arrow_upper_right:
         }
