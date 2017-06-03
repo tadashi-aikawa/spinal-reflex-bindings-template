@@ -928,7 +928,7 @@ $i::
 ;[SPECIAL]: 8キー + Enter
 $^i::
     if (mode(_MODE.NORMAL)) {
-        Send i
+        Send ^i
     } else if (mode(_MODE.EDIT)) {
         sendInput {up 5}
     } else if (mode(_MODE.RANGE)) {
@@ -1362,24 +1362,12 @@ $^n::
         } else if (mode(_MODE.RANGE)) {
             sendInput +{down 15}
         } else if (mode(_MODE.MOUSE)) {
-            if (isActive("mintty")) {
-                send !{F2}
-            } else {
-                send ^n
-            }
+            send ^n
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
-                send !{F2}
-            } else {
-                send ^n
-            }
-        }
-    } else {
-        if (isActive("mintty")) {
-            send !{F2}
-        } else {
             send ^n
         }
+    } else {
+        send ^n
     }
     return
 
@@ -1684,6 +1672,19 @@ $t::
         moveScreen()
     } else {
         send t
+    }
+    return
+
+;[NORMAL ]: 新規タブを開く
+;[EDIT   ]: 新規タブを開く
+;[RANGE  ]: 新規タブを開く
+;[MOUSE  ]: 新規タブを開く
+;[SPECIAL]: 新規タブを開く
+$^t::
+    if (isActive("mintty")) {
+        send !{F2}
+    } else {
+        send ^t
     }
     return
 
