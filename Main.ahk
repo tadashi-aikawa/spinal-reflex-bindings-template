@@ -35,6 +35,7 @@ $Ctrl::
     WinActivate, ahk_id %hWindow%
     return
 
+
 ;******************************************************************
 ; 数字キー
 ;******************************************************************
@@ -162,7 +163,7 @@ $+;::
 ;[SPECIAL]: 行末へ移動
 $^;::
     if (mode(_MODE.NORMAL)) {
-        if(isActive("excel")) {
+        if (isActive("excel") || isActive("powerpoint-full")) {
             send ^;
         } else {
             Clipboard = %A_Year%/%A_Mon%/%A_MDay%
