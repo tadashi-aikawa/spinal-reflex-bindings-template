@@ -2,7 +2,7 @@
 ;【引数】なし
 ;【戻値】なし
 openUri() {
-	Clipboard =        ;ClipWaitで確実にコピーするため？
+    Clipboard =        ;ClipWaitで確実にコピーするため？
     Send ^c
     Sleep 200
     word := RegExReplace(Clipboard, "\r\n", "")        ;URLに改行が含まれる場合は削除する
