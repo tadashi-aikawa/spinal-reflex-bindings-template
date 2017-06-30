@@ -202,7 +202,7 @@ $@::
         send ^+a
         setMode(_MODE.NORMAL)
     } else if (mode(_MODE.SNIPPET)) {
-        send ``````^{ENTER}^{ENTER}``````{UP}
+        send ``````{ENTER}{ENTER}``````{UP}
         setMode(_MODE.NORMAL)
     } else {
         send @
