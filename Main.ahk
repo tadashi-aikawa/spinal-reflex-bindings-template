@@ -817,10 +817,13 @@ $+f::
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
 ;[SPECIAL]: RANGEモードに切り替え
+;[SNIPPET]: :globe_with_meridians: 
 $g::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.RANGE)) {
             setMode(_MODE.EDIT)
+        } else if (mode(_MODE.SNIPPET)) {
+            send :globe_with_meridians: 
         } else {
             setMode(_MODE.RANGE)
         }
