@@ -1352,23 +1352,23 @@ $n::
     return
 
 ;[NORMAL ]: 新規ウィンドウ
-;[EDIT   ]: 15つ下に移動
-;[RANGE  ]: 選択範囲を15つ下に移動
+;[EDIT   ]: 新規ウィンドウ
+;[RANGE  ]: 新規ウィンドウ
 ;[MOUSE  ]: 新規ウィンドウ
 ;[SPECIAL]: 新規ウィンドウ
 $^n::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
+        if (isActive("mintty")) {
+            send !{F2}
+        } else {
             sendInput {down 15}
-        } else if (mode(_MODE.RANGE)) {
-            sendInput +{down 15}
-        } else if (mode(_MODE.MOUSE)) {
-            send ^n
-        } else if (mode(_MODE.SPECIAL)) {
-            send ^n
         }
     } else {
-        send ^n
+        if (isActive("mintty")) {
+            send !{F2}
+        } else {
+            send ^n
+        }
     }
     return
 
@@ -1673,19 +1673,6 @@ $t::
         moveScreen()
     } else {
         send t
-    }
-    return
-
-;[NORMAL ]: 新規タブを開く
-;[EDIT   ]: 新規タブを開く
-;[RANGE  ]: 新規タブを開く
-;[MOUSE  ]: 新規タブを開く
-;[SPECIAL]: 新規タブを開く
-$^t::
-    if (isActive("mintty")) {
-        send !{F2}
-    } else {
-        send ^t
     }
     return
 
