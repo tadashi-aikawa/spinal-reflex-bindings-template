@@ -1795,20 +1795,6 @@ $v::
     return
 
 
-;[NORMAL ]: 貼り付け
-;[EDIT   ]: 貼り付け
-;[RANGE  ]: 貼り付け
-;[MOUSE  ]: 貼り付け
-;[SPECIAL]: 貼り付け
-$^v::
-    if (isActive("mintty")) {
-        send +{Ins}
-    } else {
-        send ^v
-    }
-    return
-
-
 ;[NORMAL ]: wキー (;からのコンビネーションの場合は != を入力する）
 ;[EDIT   ]: ページの先頭に移動
 ;[RANGE  ]: 選択範囲をページの先頭に移動
