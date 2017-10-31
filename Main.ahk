@@ -266,7 +266,7 @@ $.::
         } else if (mode(_MODE.MOUSE)) {
             ; DO NOTHING
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 3
             } else {
                 send {Numpad3}
@@ -326,7 +326,7 @@ $,::
         } else if (mode(_MODE.MOUSE)) {
             setMode(_MODE.DEBUG)
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 2
             } else {
                 send {Numpad2}
@@ -399,7 +399,11 @@ $Enter::
             MouseGetPos nowX, nowY
             Click nowX, nowY
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad0}
+            if (isActive("mintty") || isActive("ubuntu")) {
+                send 0
+            } else {
+                send {Numpad0}
+            }
         } else {
             send {Enter}
         }
@@ -420,7 +424,12 @@ $^Enter::
             MouseGetPos nowX, nowY
             send ^{Click nowX, nowY}
         } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad0}{Enter}
+            if (isActive("mintty") || isActive("ubuntu")) {
+                send 0
+            } else {
+                send {Numpad0}
+            }
+            send {Enter}
         } else {
             send ^{Enter}
         }
@@ -478,7 +487,7 @@ $/::
         if (mode(_MODE.EDIT)) {
             send #{TAB}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send .
             } else {
                 send {NumpadDot}
@@ -899,7 +908,7 @@ $i::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 8
             } else {
                 send {Numpad8}
@@ -988,7 +997,7 @@ $j::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseLeftMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 4
             } else {
                 send {Numpad4}
@@ -1079,7 +1088,7 @@ $k::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 5
             } else {
                 send {Numpad5}
@@ -1171,11 +1180,11 @@ $l::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
-                send 6
-            } else {
-                send {Numpad6}
-            }
+        if (isActive("mintty") || isActive("ubuntu")) {
+            send 6
+        } else {
+            send {Numpad6}
+        }
     } else if (mode(_MODE.SNIPPET)) {
         send :fork_and_knife:
     } else if (mode(_MODE.DEBUG)) {
@@ -1265,7 +1274,7 @@ $m::
         } else if (mode(_MODE.MOUSE)) {
             send {LButton Down}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 1
             } else {
                 send {Numpad1}
@@ -1389,7 +1398,7 @@ $o::
         } else if (mode(_MODE.MOUSE)) {
             scrollDownSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 9
             } else {
                 send {Numpad9}
@@ -1679,7 +1688,7 @@ $u::
         } else if (mode(_MODE.MOUSE)) {
             scrollUpSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send 7
             } else {
                 send {Numpad7}
