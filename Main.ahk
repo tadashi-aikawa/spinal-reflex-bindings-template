@@ -467,6 +467,7 @@ $TAB::
     }
     return
 
+
 ;[NORMAL ]: /キー
 ;[EDIT   ]: Win + Tab
 ;[RANGE  ]: /キー
@@ -594,7 +595,7 @@ $c::
             send :calendar:
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send ^{Ins}
             } else {
                 send ^c
@@ -602,24 +603,6 @@ $c::
         }
     } else {
         send c
-    }
-    return
-
-
-;[NORMAL ]: コピー
-;[EDIT   ]: コピー
-;[RANGE  ]: コピー
-;[MOUSE  ]: コピー
-;[SPECIAL]: コピー
-$^c::
-    if (!mode(_MODE.NORMAL)) {
-        if (isActive("mintty")) {
-            send ^{Ins}
-        } else {
-            send ^c
-        }
-    } else {
-        send ^c
     }
     return
 
@@ -1783,7 +1766,7 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("mintty")) {
+            if (isActive("mintty") || isActive("ubuntu")) {
                 send +{Ins}
             } else {
                 send ^v
