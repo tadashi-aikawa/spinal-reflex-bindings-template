@@ -586,7 +586,7 @@ $b::
     return
 
 
-;[NORMAL ]: cキー
+;[NORMAL ]: cキー (;からのコンビネーションの場合はコードブロック)
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面中央下に移動 (cからのコンビネーションの場合は ポインタを画面中央下隅に移動）
@@ -611,7 +611,11 @@ $c::
             }
         }
     } else {
-        send c
+        if (isConbinationKey("$;")) {
+            send {BS}{`` 6}{left 3}
+        } else {
+            send c
+        }
     }
     return
 
@@ -829,7 +833,11 @@ $g::
     return
 
 
-;----- [N]マウス指定モード [R]マウス指定モード [M]通常モード [S]マウス指定モード -----
+;[NORMAL ]: h (;からのコンビネーションの場合は~)
+;[EDIT   ]: MOUSEモードに切り替え
+;[RANGE  ]: MOUSEモードに切り替え
+;[MOUSE  ]: EDITモードに切り替え
+;[SPECIAL]: MOUSEモードに切り替え
 $h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
@@ -838,7 +846,11 @@ $h::
             setMode(_MODE.MOUSE)
         }
     } else {
-        send h
+        if (isConbinationKeyAndIMEOn("$;")) {
+            send {BS}~
+        } else {
+            send h
+        }
     }
     return
 
@@ -1072,7 +1084,7 @@ $!j::
     return
 
 
-;[NORMAL ]: kキー
+;[NORMAL ]: kキー (;からのコンビネーションの場合は``)
 ;[EDIT   ]: 下に移動
 ;[RANGE  ]: 下に選択範囲を移動
 ;[MOUSE  ]: マウスポインタを下に微かに移動
@@ -1080,7 +1092,11 @@ $!j::
 ;[DEBUG  ]: ステップオーバー (F10)
 $k::
     if (mode(_MODE.NORMAL)) {
-        send k
+        if (isConbinationKey("$;")) {
+            send {BS}``{left}``
+        } else {
+            send k
+        }
     } else if (mode(_MODE.EDIT)) {
         send {down}
     } else if (mode(_MODE.RANGE)) {
