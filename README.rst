@@ -45,6 +45,13 @@ Installation
 
 Download this.
 
+And create Settings.ini as following.
+
+```
+[FILE]
+name = home
+```
+
 
 Usage
 =================
@@ -70,8 +77,6 @@ File Description
     * Mouse action definitions.
 * Command.ahk
     * Complex command wrapper.
-* Settings.ini
-    * Apply any settings in ``Settings`` directory.
 * Settings (Directory)
     * Store setting files.
 
@@ -83,3 +88,4 @@ MIT
 ---------
 
 This software is released under the MIT License, see LICENSE.txt.
+
