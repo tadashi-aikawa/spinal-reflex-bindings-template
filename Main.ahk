@@ -87,6 +87,19 @@ $^3::
     send {F3}
     return
 
+;[NORMAL ]: 4
+;[EDIT   ]: ウィンドウ最小化
+;[RANGE  ]: ウィンドウ最小化
+;[MOUSE  ]: ウィンドウ最小化
+;[SPECIAL]: ウィンドウ最小化
+$4::
+    if (!mode(_MODE.NORMAL)) {
+        WinMinimize, A
+    } else {
+        send 4
+    }
+    return
+
 
 ;[NORMAL ]: { (中カッコ開始）
 ;[EDIT   ]: { (中カッコ開始）
@@ -1526,17 +1539,13 @@ $+p::
 
 
 ;[NORMAL ]: qキー
-;[EDIT   ]: ウィンドウの最小化
-;[RANGE  ]: ウィンドウの最小化
-;[MOUSE  ]: ウィンドウの最小化
-;[SPECIAL]: アクティブウィンドウを左上に最大化して移動する
+;[EDIT   ]: tmuxのprefix
+;[RANGE  ]: tmuxのprefix
+;[MOUSE  ]: tmuxのprefix
+;[SPECIAL]: tmuxのprefix
 $q::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            MoveWindow("LeftUp")
-        } else {
-            WinMinimize, A
-        }
+        send ^b
     } else {
         send q
     }
