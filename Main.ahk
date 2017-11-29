@@ -491,14 +491,15 @@ $TAB::
 
 
 ;[NORMAL ]: /キー
-;[EDIT   ]: Win + Tab
-;[RANGE  ]: /キー
-;[MOUSE  ]: /キー
+;[EDIT   ]: tmuxのprefix (モードをNORMALに戻す)
+;[RANGE  ]: tmuxのprefix (モードをNORMALに戻す)
+;[MOUSE  ]: tmuxのprefix (モードをNORMALに戻す)
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send #{TAB}
+            send ^b
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             if (isActive("mintty") || isActive("ubuntu")) {
                 send .
