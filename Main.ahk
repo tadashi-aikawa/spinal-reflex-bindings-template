@@ -1540,13 +1540,14 @@ $+p::
 
 
 ;[NORMAL ]: qキー
-;[EDIT   ]: tmuxのprefix
-;[RANGE  ]: tmuxのprefix
-;[MOUSE  ]: tmuxのprefix
-;[SPECIAL]: tmuxのprefix
+;[EDIT   ]: tmuxのprefix (モードをNORMALに戻す)
+;[RANGE  ]: tmuxのprefix (モードをNORMALに戻す)
+;[MOUSE  ]: tmuxのprefix (モードをNORMALに戻す)
+;[SPECIAL]: tmuxのprefix (モードをNORMALに戻す)
 $q::
     if (!mode(_MODE.NORMAL)) {
         send ^b
+        setMode(_MODE.NORMAL)
     } else {
         send q
     }
