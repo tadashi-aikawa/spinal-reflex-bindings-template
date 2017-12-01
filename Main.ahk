@@ -1543,11 +1543,15 @@ $+p::
 ;[EDIT   ]: tmuxのprefix (モードをNORMALに戻す)
 ;[RANGE  ]: tmuxのprefix (モードをNORMALに戻す)
 ;[MOUSE  ]: tmuxのprefix (モードをNORMALに戻す)
-;[SPECIAL]: tmuxのprefix (モードをNORMALに戻す)
+;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
-        send ^b
-        setMode(_MODE.NORMAL)
+        if (mode(_MODE.SPECIAL)) {
+            MoveWindow("LeftUp")
+        } else {
+            send ^b
+            setMode(_MODE.NORMAL)
+        }
     } else {
         send q
     }
