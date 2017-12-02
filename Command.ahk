@@ -237,9 +237,9 @@ sendMultiByte(keys) {
 setIME(imeOn) {
     if (isActive("ubuntu")) {
         if (imeOn) {
-            send ^+!j
+            send ^+!{HOME}
         } else {
-            send ^+!k
+            send ^+!{END}
         }
     } else {
         IME_SET(imeOn)
