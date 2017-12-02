@@ -823,10 +823,10 @@ $+f::
 
 
 ;[NORMAL ]: gキー(;からのコンビネーションの場合は$）
-;[EDIT   ]: RANGEモードに切り替え (tmuxの場合はコピーモード)
+;[EDIT   ]: RANGEモードに切り替え
 ;[RANGE  ]: EDITモードに切り替え
-;[MOUSE  ]: RANGEモードに切り替え (tmuxの場合はコピーモード)
-;[SPECIAL]: RANGEモードに切り替え (tmuxの場合はコピーモード)
+;[MOUSE  ]: RANGEモードに切り替え
+;[SPECIAL]: RANGEモードに切り替え
 ;[SNIPPET]: :globe_with_meridians: 
 $g::
     if (!mode(_MODE.NORMAL)) {
@@ -835,11 +835,7 @@ $g::
         } else if (mode(_MODE.SNIPPET)) {
             send :globe_with_meridians: 
         } else {
-            if (isActive("mintty") || isActive("ubuntu")) {
-                send ^b[
-            } else {
-                setMode(_MODE.RANGE)
-            }
+            setMode(_MODE.RANGE)
         }
     } else {
         if (isConbinationKey("$`;")) {
