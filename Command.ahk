@@ -235,5 +235,13 @@ sendMultiByte(keys) {
 ;【引数】true: 日本語入力ON / false: 日本語入力OFF
 ;【戻値】なし
 setIME(imeOn) {
-    IME_SET(imeOn)
+    if (isActive("ubuntu")) {
+        if (imeOn) {
+            send ^+!j
+        } else {
+            send ^+!k
+        }
+    } else {
+        IME_SET(imeOn)
+    }
 }
