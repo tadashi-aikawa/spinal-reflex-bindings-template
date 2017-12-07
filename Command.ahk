@@ -237,9 +237,9 @@ sendMultiByte(keys) {
 setIME(imeOn) {
     if (isActive("ubuntu")) {
         if (imeOn) {
-            send ^+{PgUp}
+            send {sc046}
         } else {
-            send ^+{PgDn}
+            send ^{sc046}
         }
     } else {
         IME_SET(imeOn)
