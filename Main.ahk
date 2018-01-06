@@ -1736,10 +1736,18 @@ $^+s::
     return
 
 
-;----- [N][R][M][S]ウィンドウのスクリーン間移動 -----
+;[NORMAL ]: Tキー
+;[EDIT   ]: 一番下に移動
+;[RANGE  ]: 選択範囲を一番下に移動
+;[MOUSE  ]: 一番下に移動
+;[SPECIAL]: 一番下に移動
 $t::
     if (!mode(_MODE.NORMAL)) {
-        moveScreen()
+        if (mode(_MODE.RANGE)) {
+            send +^{END}
+        } else {
+            send ^{END}
+        }
     } else {
         send t
     }
