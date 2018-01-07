@@ -767,8 +767,8 @@ $+e::
 
 
 ;[NORMAL ]: fキー(;からのコンビネーションの場合は#）
-;[EDIT   ]: VIMモードに変更
-;[RANGE  ]: VIMモードに変更
+;[EDIT   ]: VIMモードに変更 + ESC
+;[RANGE  ]: VIMモードに変更 + ESC
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
 ;[SPECIAL]: 縦にフルスクリーン
 ;[VIM]:     EDITモードに戻す
@@ -781,8 +781,10 @@ $f::
         }
     } else if (mode(_MODE.EDIT)) {
         setMode(_MODE.VIM)
+        send {ESC}
     } else if (mode(_MODE.RANGE)) {
         setMode(_MODE.VIM)
+        send {ESC}
     } else if (mode(_MODE.MOUSE)) {
         if (isConbinationKey("$f")) {
             moveMousePointerEdge(3, 2)
@@ -867,80 +869,118 @@ $g::
     return
 
 
-;[NORMAL ]: h (;からのコンビネーションの場合は~)
-;[EDIT   ]: MOUSEモードに切り替え
-;[RANGE  ]: MOUSEモードに切り替え
-;[MOUSE  ]: EDITモードに切り替え
-;[SPECIAL]: MOUSEモードに切り替え
+;[NORMAL ]: hキー (;からのコンビネーションの場合は~) 
+;[EDIT   ]: 左に移動
+;[RANGE  ]: 選択範囲を左に移動
+;[MOUSE  ]: マウスポインタを左に微かに移動
+;[SPECIAL]: ,キー
+;[VIM]:     4キー
+;[DEBUG  ]: ステップアウト (SHIFT + F11)
 $h::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.MOUSE)) {
-            setMode(_MODE.EDIT)
-        } else {
-            setMode(_MODE.MOUSE)
-        }
-    } else {
+    if (mode(_MODE.NORMAL)) {
         if (isConbinationKeyAndIMEOn("$;")) {
             send {BS}~
         } else {
-            send h
+            send h 
         }
+    } else if (mode(_MODE.EDIT)) {
+        send {left}
+    } else if (mode(_MODE.RANGE)) {
+        send +{left}
+    } else if (mode(_MODE.MOUSE)) {
+        moveMouseLeftMicro()
+    } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
+        send `,
+    } else if (mode(_MODE.DEBUG)) {
+        send +{F11}
     }
     return
 
 
-;[NORMAL ]: Ctrl + H
-;[EDIT   ]: 15つ上に移動
-;[RANGE  ]: 選択範囲を15つ上に移動
-;[MOUSE  ]: Ctrl + H
-;[SPECIAL]: Ctrl + H
+;[NORMAL ]: Ctrl + hキー
+;[EDIT   ]: 左に1単語移動
+;[RANGE  ]: 選択範囲を左に1単語移動
+;[MOUSE  ]: マウスポインタを左に移動
+;[SPECIAL]: ,キー
 $^h::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            sendInput {up 15}
-        } else if (mode(_MODE.RANGE)) {
-            sendInput +{up 15}
-        } else if (mode(_MODE.MOUSE)) {
-            send ^h
-        } else if (mode(_MODE.SPECIAL)) {
-            send ^h
-        }
-    } else {
+    if (mode(_MODE.NORMAL)) {
         send ^h
+    } else if (mode(_MODE.EDIT)) {
+        if (isActive("poderose")) {
+            send {ESC}b
+        } else {
+            send ^{left}
+        }
+    } else if (mode(_MODE.RANGE)) {
+        send +^{left}
+    } else if (mode(_MODE.MOUSE)) {
+        moveMouseLeftMiddle()
+    } else if (mode(_MODE.SPECIAL)) {
+        send `,
     }
     return
 
 
 ;[NORMAL ]: Shift + hキー
-;[EDIT   ]: 15つ左に移動
-;[RANGE  ]: 選択範囲を15つ左に移動
-;[MOUSE  ]: Shift + hキー
-;[SPECIAL]: Shift + hキー
+;[EDIT   ]: 左に5つ移動
+;[RANGE  ]: 選択範囲を左に5つ移動
+;[MOUSE  ]: マウスポインタを左に大きく移動
+;[SPECIAL]: 左キー
 $+h::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            sendInput {left 15}
-        } else if (mode(_MODE.RANGE)) {
-            sendInput +{left 15}
-        } else if (mode(_MODE.MOUSE)) {
-            send +h
-        } else if (mode(_MODE.SPECIAL)) {
-            send +h
-        }
-    } else {
+    if (mode(_MODE.NORMAL)) {
         send +h
+    } else if (mode(_MODE.EDIT)) {
+        sendInput {Left 5}
+    } else if (mode(_MODE.RANGE)) {
+        sendInput +{Left 5}
+    } else if (mode(_MODE.MOUSE)) {
+        moveMouseLeftLarge()
+    } else if (mode(_MODE.SPECIAL)) {
+        send `,
     }
     return
 
 
-;[NORMAL ]: iキー (;からのコンビネーションの場合は「{}」を入力）
-;[EDIT   ]: 上に移動
-;[RANGE  ]: 選択範囲を上に移動
-;[MOUSE  ]: マウスポインタを上に微かに移動
+;[NORMAL ]: Alt + hキー
+;[EDIT   ]: Alt + hキー
+;[RANGE  ]: Alt + hキー
+;[MOUSE  ]: マウスポインタを左に少し移動
+;[SPECIAL]: Alt + hキー
+$!h::
+    if (mode(_MODE.NORMAL)) {
+        send !h
+    } else if (mode(_MODE.EDIT)) {
+        send !h
+    } else if (mode(_MODE.RANGE)) {
+        send !h
+    } else if (mode(_MODE.MOUSE)) {
+        moveMouseLeftSmall()
+    } else if (mode(_MODE.SPECIAL)) {
+        send !h
+    }
+    return
+
+
+;[NORMAL ]: i (;からのコンビネーションの場合は「{}」を入力）
+;[EDIT   ]: MOUSEモードに切り替え
+;[RANGE  ]: MOUSEモードに切り替え
+;[MOUSE  ]: EDITモードに切り替え
 ;[SPECIAL]: 8キー
 ;[VIM]:     8キー
 $i::
-    if (mode(_MODE.NORMAL)) {
+    if (!mode(_MODE.NORMAL)) {
+        if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
+            if (isActive("mintty") || isActive("ubuntu")) {
+                send 8
+            } else {
+                send {Numpad8}
+            }
+        } else if (mode(_MODE.MOUSE)) {
+            setMode(_MODE.EDIT)
+        } else {
+            setMode(_MODE.MOUSE)
+        }
+    } else {
         if (isConbinationKeyAndIMEOn("$;")) {
             send {BS}
             sendMultiByte("{{}{}}")
@@ -948,86 +988,57 @@ $i::
         } else {
             send i
         }
-    } else if (mode(_MODE.EDIT)) {
-        send {up}
-    } else if (mode(_MODE.RANGE)) {
-        send +{up}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseUpMicro()
-    } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
-        if (isActive("mintty") || isActive("ubuntu")) {
-            send 8
-        } else {
-            send {Numpad8}
-        }
     }
     return
 
-
-;[NORMAL ]: iキー
-;[EDIT   ]: 上に5つ移動
-;[RANGE  ]: 選択範囲を上に5つ移動
-;[MOUSE  ]: マウスポインタを上に移動
-;[SPECIAL]: 8キー + Enter
+;[NORMAL ]: Ctrl + I
+;[EDIT   ]: 15つ上に移動
+;[RANGE  ]: 選択範囲を15つ上に移動
+;[MOUSE  ]: Ctrl + I
+;[SPECIAL]: Ctrl + I
 $^i::
-    if (mode(_MODE.NORMAL)) {
-        Send ^i
-    } else if (mode(_MODE.EDIT)) {
-        sendInput {up 5}
-    } else if (mode(_MODE.RANGE)) {
-        sendInput +{up 5}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseUpMiddle()
-    } else if (mode(_MODE.SPECIAL)) {
-        send {Numpad8}{Enter}
+    if (!mode(_MODE.NORMAL)) {
+        if (mode(_MODE.EDIT)) {
+            sendInput {up 15}
+        } else if (mode(_MODE.RANGE)) {
+            sendInput +{up 15}
+        } else if (mode(_MODE.MOUSE)) {
+            send ^i
+        } else if (mode(_MODE.SPECIAL)) {
+            send ^i
+        }
+    } else {
+        send ^i
     }
     return
 
 
-;[NORMAL ]: shift + iキー
-;[EDIT   ]: 上に1ページ移動
-;[RANGE  ]: 上に1ページ選択範囲を移動
-;[MOUSE  ]: マウスポインタを上に大きく移動
-;[SPECIAL]: ↑キー
+;[NORMAL ]: Shift + iキー
+;[EDIT   ]: 15つ左に移動
+;[RANGE  ]: 選択範囲を15つ左に移動
+;[MOUSE  ]: Shift + iキー
+;[SPECIAL]: Shift + iキー
 $+i::
-    if (mode(_MODE.NORMAL)) {
-        Send +i
-    } else if (mode(_MODE.EDIT)) {
-        send {PgUp}
-    } else if (mode(_MODE.RANGE)) {
-        send +{PgUp}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseUpLarge()
-    } else if (mode(_MODE.SPECIAL)) {
-        Send ↑
-    }
-    return
-
-
-;[NORMAL ]: Alt + iキー
-;[EDIT   ]: Alt + 上キー
-;[RANGE  ]: Alt + 上キー
-;[MOUSE  ]: マウスポインタを上に少し移動
-;[SPECIAL]: Alt + iキー
-$!i::
-    if (mode(_MODE.NORMAL)) {
-        Send !i
-    } else if (mode(_MODE.EDIT)) {
-        send !{up}
-    } else if (mode(_MODE.RANGE)) {
-        send !{up}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseUpSmall()
-    } else if (mode(_MODE.SPECIAL)) {
-        Send !i
+    if (!mode(_MODE.NORMAL)) {
+        if (mode(_MODE.EDIT)) {
+            sendInput {left 15}
+        } else if (mode(_MODE.RANGE)) {
+            sendInput +{left 15}
+        } else if (mode(_MODE.MOUSE)) {
+            send +i
+        } else if (mode(_MODE.SPECIAL)) {
+            send +i
+        }
+    } else {
+        send +i
     }
     return
 
 
 ;[NORMAL ]: jキー (;からのコンビネーションの場合は''を入力して、フォーカスを''内に移動させる）
-;[EDIT   ]: 左に移動
-;[RANGE  ]: 選択範囲を左に移動
-;[MOUSE  ]: マウスポインタを左に微かに移動
+;[EDIT   ]: 下に移動
+;[RANGE  ]: 選択範囲を下に移動
+;[MOUSE  ]: マウスポインタを下に微かに移動
 ;[SPECIAL]: 4キー
 ;[VIM]:     4キー
 ;[DEBUG  ]: ステップアウト (SHIFT + F11)
@@ -1039,11 +1050,11 @@ $j::
             send j
         }
     } else if (mode(_MODE.EDIT)) {
-        send {left}
+        send {down}
     } else if (mode(_MODE.RANGE)) {
-        send +{left}
+        send +{down}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftMicro()
+        moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
         if (isActive("mintty") || isActive("ubuntu")) {
             send 4
@@ -1057,23 +1068,19 @@ $j::
 
 
 ;[NORMAL ]: Ctrl + jキー
-;[EDIT   ]: 左に1単語移動
-;[RANGE  ]: 選択範囲を左に1単語移動
-;[MOUSE  ]: マウスポインタを左に移動
+;[EDIT   ]: 下に5つ移動
+;[RANGE  ]: 選択範囲を下に5つ移動
+;[MOUSE  ]: マウスポインタを下に移動
 ;[SPECIAL]: 4キー + Enter
 $^j::
     if (mode(_MODE.NORMAL)) {
         send ^j
     } else if (mode(_MODE.EDIT)) {
-        if (isActive("poderose")) {
-            send {ESC}b
-        } else {
-            send ^{left}
-        }
+        sendInput {down 5}
     } else if (mode(_MODE.RANGE)) {
-        send +^{left}
+        sendInput +{down 5}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftMiddle()
+        moveMouseDownMiddle()
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad4}{Enter}
     }
@@ -1081,21 +1088,21 @@ $^j::
 
 
 ;[NORMAL ]: Shift + jキー
-;[EDIT   ]: 左に5つ移動
-;[RANGE  ]: 選択範囲を左に5つ移動
-;[MOUSE  ]: マウスポインタを左に大きく移動
-;[SPECIAL]: 左キー
+;[EDIT   ]: 下に1ページ移動
+;[RANGE  ]: 選択範囲を下に1ページ移動
+;[MOUSE  ]: マウスポインタを下に大きく移動
+;[SPECIAL]: Shift + jキー
 $+j::
     if (mode(_MODE.NORMAL)) {
         send +j
     } else if (mode(_MODE.EDIT)) {
-        sendInput {Left 5}
+        send {PgDn}
     } else if (mode(_MODE.RANGE)) {
-        sendInput +{Left 5}
+        send +{PgDn}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftLarge()
+        moveMouseDownLarge()
     } else if (mode(_MODE.SPECIAL)) {
-        send ←
+        send +j
     }
     return
 
@@ -1103,7 +1110,7 @@ $+j::
 ;[NORMAL ]: Alt + jキー
 ;[EDIT   ]: Alt + jキー
 ;[RANGE  ]: Alt + jキー
-;[MOUSE  ]: マウスポインタを左に少し移動
+;[MOUSE  ]: マウスポインタを下に少し移動
 ;[SPECIAL]: Alt + jキー
 $!j::
     if (mode(_MODE.NORMAL)) {
@@ -1113,17 +1120,16 @@ $!j::
     } else if (mode(_MODE.RANGE)) {
         send !j
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftSmall()
+        moveMouseDownSmall()
     } else if (mode(_MODE.SPECIAL)) {
         send !j
     }
     return
 
-
 ;[NORMAL ]: kキー (;からのコンビネーションの場合は``)
-;[EDIT   ]: 下に移動
-;[RANGE  ]: 下に選択範囲を移動
-;[MOUSE  ]: マウスポインタを下に微かに移動
+;[EDIT   ]: 上に移動
+;[RANGE  ]: 上に選択範囲を移動
+;[MOUSE  ]: マウスポインタを上に微かに移動
 ;[SPECIAL]: 5キー
 ;[VIM]:     5キー
 ;[DEBUG  ]: ステップオーバー (F10)
@@ -1135,11 +1141,11 @@ $k::
             send k
         }
     } else if (mode(_MODE.EDIT)) {
-        send {down}
+        send {up}
     } else if (mode(_MODE.RANGE)) {
-        send +{down}
+        send +{up}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseDownMicro()
+        moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
         if (isActive("mintty") || isActive("ubuntu")) {
             send 5
@@ -1153,19 +1159,19 @@ $k::
 
 
 ;[NORMAL ]: Ctrl + kキー
-;[EDIT   ]: 下に5つ移動
-;[RANGE  ]: 選択範囲を下に5つ移動
-;[MOUSE  ]: マウスポインタを下に移動
+;[EDIT   ]: 上に5つ移動
+;[RANGE  ]: 選択範囲を上に5つ移動
+;[MOUSE  ]: マウスポインタを上に移動
 ;[SPECIAL]: 5キー + Enter
 $^k::
     if (mode(_MODE.NORMAL)) {
         send ^k
     } else if (mode(_MODE.EDIT)) {
-        sendInput {down 5}
+        sendInput {up 5}
     } else if (mode(_MODE.RANGE)) {
-        sendInput +{down 5}
+        sendInput +{up 5}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseDownMiddle()
+        moveMouseUpMiddle()
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad5}{Enter}
     }
@@ -1176,36 +1182,36 @@ $^k::
 ;[EDIT   ]: 下に1ページ移動
 ;[RANGE  ]: 選択範囲を下に1ページ移動
 ;[MOUSE  ]: マウスポインタを下に大きく移動
-;[SPECIAL]: ↓キー
+;[SPECIAL]: Shift + kキー
 $+k::
     if (mode(_MODE.NORMAL)) {
         send +k
     } else if (mode(_MODE.EDIT)) {
-        send {PgDn}
+        send {PgUp}
     } else if (mode(_MODE.RANGE)) {
-        send +{PgDn}
+        send +{PgUp}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseDownLarge()
+        moveMouseUpLarge()
     } else if (mode(_MODE.SPECIAL)) {
-        send ↓
+        send +k
     }
     return
 
 
 ;[NORMAL ]: Alt + kキー
-;[EDIT   ]: Alt + 下キー
-;[RANGE  ]: Alt + 下キー
-;[MOUSE  ]: マウスポインタを下に少し移動
+;[EDIT   ]: Alt + 上キー
+;[RANGE  ]: Alt + 上キー
+;[MOUSE  ]: マウスポインタを上に少し移動
 ;[SPECIAL]: Alt + kキー
 $!k::
     if (mode(_MODE.NORMAL)) {
         send !k
     } else if (mode(_MODE.EDIT)) {
-        send !{down}
+        send !{up}
     } else if (mode(_MODE.RANGE)) {
-        send !{down}
+        send !{up}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseDownSmall()
+        moveMouseUpSmall()
     } else if (mode(_MODE.SPECIAL)) {
         send !k
     }
