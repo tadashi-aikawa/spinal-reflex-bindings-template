@@ -962,9 +962,9 @@ $!h::
 
 
 ;[NORMAL ]: i (;からのコンビネーションの場合は「{}」を入力）
-;[EDIT   ]: MOUSEモードに切り替え
-;[RANGE  ]: MOUSEモードに切り替え
-;[MOUSE  ]: EDITモードに切り替え
+;[EDIT   ]: NORMALモードに切り替え + i
+;[RANGE  ]: NORMALモードに切り替え + i
+;[MOUSE  ]: NORMALモードに切り替え + i
 ;[SPECIAL]: 8キー
 ;[VIM]:     8キー
 $i::
@@ -975,10 +975,9 @@ $i::
             } else {
                 send {Numpad8}
             }
-        } else if (mode(_MODE.MOUSE)) {
-            setMode(_MODE.EDIT)
         } else {
-            setMode(_MODE.MOUSE)
+            setMode(_MODE.NORMAL)
+            send i
         }
     } else {
         if (isConbinationKeyAndIMEOn("$;")) {
@@ -1014,16 +1013,18 @@ $^i::
 
 
 ;[NORMAL ]: Shift + iキー
-;[EDIT   ]: 15つ左に移動
-;[RANGE  ]: 選択範囲を15つ左に移動
+;[EDIT   ]: NORMALモードに切り替え + Shift+i
+;[RANGE  ]: NORMALモードに切り替え + Shift+i
 ;[MOUSE  ]: Shift + iキー
 ;[SPECIAL]: Shift + iキー
 $+i::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            sendInput {left 15}
+            setMode(_MODE.NORMAL)
+            send +i
         } else if (mode(_MODE.RANGE)) {
-            sendInput +{left 15}
+            setMode(_MODE.NORMAL)
+            send +i
         } else if (mode(_MODE.MOUSE)) {
             send +i
         } else if (mode(_MODE.SPECIAL)) {
