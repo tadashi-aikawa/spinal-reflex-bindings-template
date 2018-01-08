@@ -785,11 +785,11 @@ $f::
             send f
         }
     } else if (mode(_MODE.EDIT)) {
-        setMode(_MODE.VIM)
         send {ESC}
+        setMode(_MODE.VIM)
     } else if (mode(_MODE.RANGE)) {
-        setMode(_MODE.VIM)
         send {ESC}
+        setMode(_MODE.VIM)
     } else if (mode(_MODE.MOUSE)) {
         if (isConbinationKey("$f")) {
             moveMousePointerEdge(3, 2)
