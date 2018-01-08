@@ -522,6 +522,22 @@ $/::
     }
     return
 
+
+;[NORMAL ]: ]ボタン
+;[EDIT   ]: MOUSEモード
+;[RANGE  ]: MOUSEモード
+;[MOUSE  ]: MOUSEモード
+;[SPECIAL]: MOUSEモード
+;[DEBUG  ]: MOUSEモード
+;[VIM    ]: MOUSEモード
+$]::
+    if (!mode(_MODE.NORMAL)) {
+        setMode(_MODE.MOUSE)
+    } else {
+        send ]
+    }
+    return
+
 ;[NORMAL ]: BS
 ;[EDIT   ]: BS
 ;[RANGE  ]: BS
