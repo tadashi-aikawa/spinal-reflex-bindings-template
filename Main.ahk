@@ -222,6 +222,21 @@ $@::
     }
     return
 
+;[NORMAL ]: :キー
+;[EDIT   ]: 日本語入力ON + モードをNORMALに変更
+;[RANGE  ]: 日本語入力ON + モードをNORMALに変更
+;[MOUSE  ]: 日本語入力ON + モードをNORMALに変更
+;[SPECIAL]: 日本語入力ON + モードをNORMALに変更
+;※ :
+$vkBAsc028::
+    if (!mode(_MODE.NORMAL)) {
+        setIME(true)
+        setMode(_MODE.NORMAL)
+    } else {
+        send :
+    }
+    return
+
 
 ;[NORMAL ]: 現在の時刻を入力(hh:mm:ss)
 ;[EDIT   ]: 現在の時刻を入力(hh:mm:ss)
@@ -247,35 +262,21 @@ $^+vkBAsc028::
     return
 
 
-;[NORMAL ]: :キー
-;[EDIT   ]: 日本語入力ON + モードをNORMALに変更
-;[RANGE  ]: 日本語入力ON + モードをNORMALに変更
-;[MOUSE  ]: 日本語入力ON + モードをNORMALに変更
-;[SPECIAL]: 日本語入力ON + モードをNORMALに変更
-;※ :
-$vkBAsc028::
-    if (!mode(_MODE.NORMAL)) {
-        setIME(true)
-        setMode(_MODE.NORMAL)
-    } else {
-        send :
-    }
-    return
 
 
 ;[NORMAL ]: .キー
-;[EDIT   ]: =キー
-;[RANGE  ]: =キー
+;[EDIT   ]: $キー + NORMALモード
+;[RANGE  ]: $キー + NORMALモード
 ;[MOUSE  ]: コンビネーションの1キー目
 ;[SPECIAL]: 3キー
 ;[VIM]:     3キー
 $.::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send `=
+            send `$
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
-            send `=
+            send `$
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
             ; DO NOTHING
@@ -325,21 +326,24 @@ $+.::
 
 
 ;[NORMAL ]: ,キー
-;[EDIT   ]: DEBUGモードに変更
-;[RANGE  ]: DEBUGモードに変更
-;[MOUSE  ]: DEBUGモードに変更
+;[EDIT   ]: ^キー + NORMALモード
+;[RANGE  ]: ^キー + NORMALモード
+;[MOUSE  ]: ^キー + NORMALモード
 ;[SPECIAL]: 2キー
 ;[VIM]:     2キー
-;[SNIPPET]: DEBUGモードに変更
-;[DEBUG  ]: EDITモードに変更
+;[SNIPPET]: ^キー + NORMALモード
+;[DEBUG  ]: ^キー + NORMALモード
 $,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            setMode(_MODE.DEBUG)
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
-            setMode(_MODE.DEBUG)
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
-            setMode(_MODE.DEBUG)
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
             if (isActive("mintty") || isActive("ubuntu")) {
                 send 2
@@ -347,7 +351,8 @@ $,::
                 send {Numpad2}
             }
         } else if (mode(_MODE.SPECIAL)) {
-            setMode(_MODE.EDIT)
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         }
     } else {
         send `,
