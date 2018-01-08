@@ -220,6 +220,13 @@ isConbinationKey(key) {
 }
 
 
+;【概要】現在押下されているキーが特定のキーが押されてから特定の時間内に押されているかを返します。
+;【引数】key 特定のキー  millSec: 受付ミリ秒
+;【戻値】true: 押されている
+isConbinationKeyWith(key, millSec) {
+    return (A_PriorHotKey = key and A_TimeSincePriorHotkey < millSec)
+}
+
 ;【概要】マルチバイト文字列をsendします。
 ;        日本語入力のON/OFFに関わらず決定された状態で出力します。
 ;        複数指定することもできます。
