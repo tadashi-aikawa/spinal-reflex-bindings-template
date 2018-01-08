@@ -1669,18 +1669,6 @@ $r::
     }
     return
 
-;[NORMAL ]: 更新(poderosa: Ctrl+r)
-;[EDIT   ]: 更新(poderosa: Ctrl+r)
-;[RANGE  ]: 更新(poderosa: Ctrl+r)
-;[MOUSE  ]: 更新(poderosa: Ctrl+r)
-;[SPECIAL]: 更新(poderosa: Ctrl+r)
-$^r::
-    if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu")) {
-        send ^r
-    } else {
-        send {F5}
-    }
-    return
 
 ;[NORMAL ]: sキー(;からのコンビネーションの場合は「」を入力して、フォーカスを「」内に移動させる）
 ;[EDIT   ]: Ctrl+Shift+S
