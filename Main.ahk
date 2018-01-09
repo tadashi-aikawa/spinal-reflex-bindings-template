@@ -890,94 +890,24 @@ $g::
     return
 
 
-;[NORMAL ]: hキー (;からのコンビネーションの場合は~) 
-;[EDIT   ]: 左に移動
-;[RANGE  ]: 選択範囲を左に移動
-;[MOUSE  ]: マウスポインタを左に微かに移動
-;[SPECIAL]: ,キー
-;[VIM]:     4キー
-;[DEBUG  ]: ステップアウト (SHIFT + F11)
+;[NORMAL ]: h (;からのコンビネーションの場合は~)
+;[EDIT   ]: MOUSEモードに切り替え
+;[RANGE  ]: MOUSEモードに切り替え
+;[MOUSE  ]: EDITモードに切り替え
+;[SPECIAL]: MOUSEモードに切り替え
 $h::
-    if (mode(_MODE.NORMAL)) {
+    if (!mode(_MODE.NORMAL)) {
+        if (mode(_MODE.MOUSE)) {
+            setMode(_MODE.EDIT)
+        } else {
+            setMode(_MODE.MOUSE)
+        }
+    } else {
         if (isConbinationKeyAndIMEOn("$;")) {
             send {BS}~
         } else {
-            send h 
+            send h
         }
-    } else if (mode(_MODE.EDIT)) {
-        send {left}
-    } else if (mode(_MODE.RANGE)) {
-        send +{left}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftMicro()
-    } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
-        send `,
-    } else if (mode(_MODE.DEBUG)) {
-        send +{F11}
-    }
-    return
-
-
-;[NORMAL ]: Ctrl + hキー
-;[EDIT   ]: 左に1単語移動
-;[RANGE  ]: 選択範囲を左に1単語移動
-;[MOUSE  ]: マウスポインタを左に移動
-;[SPECIAL]: ,キー
-$^h::
-    if (mode(_MODE.NORMAL)) {
-        send ^h
-    } else if (mode(_MODE.EDIT)) {
-        if (isActive("poderose")) {
-            send {ESC}b
-        } else {
-            send ^{left}
-        }
-    } else if (mode(_MODE.RANGE)) {
-        send +^{left}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftMiddle()
-    } else if (mode(_MODE.SPECIAL)) {
-        send `,
-    }
-    return
-
-
-;[NORMAL ]: Shift + hキー
-;[EDIT   ]: 左に5つ移動
-;[RANGE  ]: 選択範囲を左に5つ移動
-;[MOUSE  ]: マウスポインタを左に大きく移動
-;[SPECIAL]: 左キー
-$+h::
-    if (mode(_MODE.NORMAL)) {
-        send +h
-    } else if (mode(_MODE.EDIT)) {
-        sendInput {Left 5}
-    } else if (mode(_MODE.RANGE)) {
-        sendInput +{Left 5}
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftLarge()
-    } else if (mode(_MODE.SPECIAL)) {
-        send `,
-    }
-    return
-
-
-;[NORMAL ]: Alt + hキー
-;[EDIT   ]: Alt + hキー
-;[RANGE  ]: Alt + hキー
-;[MOUSE  ]: マウスポインタを左に少し移動
-;[SPECIAL]: Alt + hキー
-$!h::
-    if (mode(_MODE.NORMAL)) {
-        send !h
-    } else if (mode(_MODE.EDIT)) {
-        send !h
-    } else if (mode(_MODE.RANGE)) {
-        send !h
-    } else if (mode(_MODE.MOUSE)) {
-        moveMouseLeftSmall()
-    } else if (mode(_MODE.SPECIAL)) {
-        send !h
     }
     return
 
