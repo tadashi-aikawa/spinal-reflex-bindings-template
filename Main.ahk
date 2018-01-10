@@ -265,18 +265,18 @@ $^+vkBAsc028::
 
 
 ;[NORMAL ]: .キー
-;[EDIT   ]: `キー + NORMALモード
-;[RANGE  ]: `キー + NORMALモード
+;[EDIT   ]: =キー + NORMALモード
+;[RANGE  ]: =キー + NORMALモード
 ;[MOUSE  ]: コンビネーションの1キー目
 ;[SPECIAL]: 3キー
 ;[VIM]:     3キー
 $.::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ``
+            send `=
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
-            send ``
+            send `=
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
         } else if (mode(_MODE.MOUSE)) {
@@ -500,14 +500,14 @@ $TAB::
 
 
 ;[NORMAL ]: /キー
-;[EDIT   ]: tmuxのprefix (モードをNORMALに戻す)
-;[RANGE  ]: tmuxのprefix (モードをNORMALに戻す)
-;[MOUSE  ]: tmuxのprefix (モードをNORMALに戻す)
+;[EDIT   ]: `キー + NORMALモード
+;[RANGE  ]: /キー
+;[MOUSE  ]: /キー
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ^b
+            send ``
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             if (isActive("mintty") || isActive("ubuntu")) {
