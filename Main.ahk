@@ -265,8 +265,8 @@ $^+vkBAsc028::
 
 
 ;[NORMAL ]: .キー
-;[EDIT   ]: `キー
-;[RANGE  ]: `キー
+;[EDIT   ]: `キー + NORMALモード
+;[RANGE  ]: `キー + NORMALモード
 ;[MOUSE  ]: コンビネーションの1キー目
 ;[SPECIAL]: 3キー
 ;[VIM]:     3キー
@@ -274,8 +274,11 @@ $.::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
             send ``
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             send ``
+            setMode(_MODE.NORMAL)
+        } else if (mode(_MODE.RANGE)) {
         } else if (mode(_MODE.MOUSE)) {
             ; DO NOTHING
         } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
@@ -302,14 +305,14 @@ $^.::
 
 
 ;[NORMAL ]: shift + .キー
-;[EDIT   ]: スペースキー × 10
+;[EDIT   ]: `キー×2
 ;[RANGE  ]: shift + .キー
 ;[MOUSE  ]: shift + .キー
 ;[SPECIAL]: shift + .キー
 $+.::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send {space 10}
+            send {`` 2}
         } else if (mode(_MODE.RANGE)) {
             send +.
         } else if (mode(_MODE.MOUSE)) {
@@ -324,21 +327,24 @@ $+.::
 
 
 ;[NORMAL ]: ,キー
-;[EDIT   ]: ダブルコーテーション
-;[RANGE  ]: ダブルコーテーション
-;[MOUSE  ]: ダブルコーテーション
+;[EDIT   ]: シングルコーテーション + モードをNORMALに変更
+;[RANGE  ]: シングルコーテーション + モードをNORMALに変更
+;[MOUSE  ]: シングルコーテーション + モードをNORMALに変更
 ;[SPECIAL]: 2キー
 ;[VIM]:     2キー
-;[SNIPPET]: ダブルコーテーション
-;[DEBUG  ]: ダブルコーテーション
+;[SNIPPET]: シングルコーテーション + モードをNORMALに変更
+;[DEBUG  ]: シングルコーテーション + モードをNORMALに変更
 $,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send "
+            send '
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
-            send "
+            send '
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
-            send "
+            send '
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
             if (isActive("mintty") || isActive("ubuntu")) {
                 send 2
@@ -346,7 +352,8 @@ $,::
                 send {Numpad2}
             }
         } else {
-            send "
+            send '
+            setMode(_MODE.NORMAL)
         }
     } else {
         send `,
@@ -377,14 +384,14 @@ $^,::
 
 
 ;[NORMAL ]: shift + ,キー
-;[EDIT   ]: スペースキー × 5
+;[EDIT   ]: シングルコーテーション×2 
 ;[RANGE  ]: shift + ,キー
 ;[MOUSE  ]: shift + ,キー
 ;[SPECIAL]: shift + ,キー
 $+,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send {space 5}
+            send ''
         } else if (mode(_MODE.RANGE)) {
             send +,
         } else if (mode(_MODE.MOUSE)) {
@@ -1260,7 +1267,7 @@ $!l::
 
 
 ;[NORMAL ]: mキー
-;[EDIT   ]: シングルコーテーション
+;[EDIT   ]: ダブルコーテーション + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力OFF + モードをNORMALに変更
 ;[MOUSE  ]: 左ドラッグ
 ;[SPECIAL]: 1キー
@@ -1269,7 +1276,8 @@ $!l::
 $m::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send '
+            send "
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             setIME(false)
             setMode(_MODE.NORMAL)
