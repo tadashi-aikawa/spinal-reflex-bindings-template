@@ -863,7 +863,7 @@ $+f::
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
 ;[SPECIAL]: RANGEモードに切り替え
-;[VIM]:     Vimモードのジャンプ (gからのコンビネーションでモードをNORMALに切り替え)
+;[VIM]:     Vimモードのジャンプ (gからのコンビネーションでモードをEDITに切り替え)
 ;[SNIPPET]: :globe_with_meridians: 
 $g::
     if (!mode(_MODE.NORMAL)) {
@@ -873,7 +873,7 @@ $g::
             send :globe_with_meridians: 
         } else if (mode(_MODE.VIM)) {
             if (isConbinationKeyWith("$`g", 500)) {
-                setMode(_MODE.NORMAL)
+                setMode(_MODE.EDIT)
             } else {
                 send G 
             }
