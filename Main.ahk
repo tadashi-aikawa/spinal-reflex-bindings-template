@@ -305,14 +305,14 @@ $^.::
 
 
 ;[NORMAL ]: shift + .キー
-;[EDIT   ]: `キー×2
+;[EDIT   ]: 'キー×2
 ;[RANGE  ]: shift + .キー
 ;[MOUSE  ]: shift + .キー
 ;[SPECIAL]: shift + .キー
 $+.::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send {`` 2}
+            send {' 2}
         } else if (mode(_MODE.RANGE)) {
             send +.
         } else if (mode(_MODE.MOUSE)) {
@@ -384,14 +384,15 @@ $^,::
 
 
 ;[NORMAL ]: shift + ,キー
-;[EDIT   ]: シングルコーテーション×2 
+;[EDIT   ]: ダブルコーテーション + モードをNORMALに変更
 ;[RANGE  ]: shift + ,キー
 ;[MOUSE  ]: shift + ,キー
 ;[SPECIAL]: shift + ,キー
 $+,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ''
+            send "
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             send +,
         } else if (mode(_MODE.MOUSE)) {
