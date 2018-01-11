@@ -1907,7 +1907,7 @@ $x::
 ;[RANGE  ]: 元に戻すをやり直す
 ;[MOUSE  ]: 元に戻すをやり直す
 ;[SPECIAL]: 元に戻すをやり直す
-;[VIM]:     Vimモードのyank(y*2) (yからのコンビネーションでモードをNORMALに切り替え)
+;[VIM]:     Vimモードのyank(y*2) (yからのコンビネーションでモードをEDITに切り替え)
 ;[SNIPPET]: :globe_with_meridians: 
 $y::
     if (!mode(_MODE.NORMAL)) {
@@ -1915,7 +1915,7 @@ $y::
             send :globe_with_meridians: 
         } else if (mode(_MODE.VIM)) {
             if (isConbinationKeyWith("$`y", 500)) {
-                setMode(_MODE.NORMAL)
+                setMode(_MODE.EDIT)
             } else {
                 send {y 2} 
             }
