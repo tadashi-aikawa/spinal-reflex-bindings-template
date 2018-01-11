@@ -265,17 +265,19 @@ $^+vkBAsc028::
 
 
 ;[NORMAL ]: .キー
-;[EDIT   ]: `キー
-;[RANGE  ]: `キー
+;[EDIT   ]: $キー + NORMALモード
+;[RANGE  ]: $キー + NORMALモード
 ;[MOUSE  ]: コンビネーションの1キー目
 ;[SPECIAL]: 3キー
 ;[VIM]:     3キー
 $.::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ``
+            send `$
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
-            send ``
+            send `$
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
             ; DO NOTHING
         } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
@@ -324,29 +326,33 @@ $+.::
 
 
 ;[NORMAL ]: ,キー
-;[EDIT   ]: ダブルコーテーション
-;[RANGE  ]: ダブルコーテーション
-;[MOUSE  ]: ダブルコーテーション
+;[EDIT   ]: ^キー + NORMALモード
+;[RANGE  ]: ^キー + NORMALモード
+;[MOUSE  ]: ^キー + NORMALモード
 ;[SPECIAL]: 2キー
 ;[VIM]:     2キー
-;[SNIPPET]: ダブルコーテーション
-;[DEBUG  ]: ダブルコーテーション
+;[SNIPPET]: ^キー + NORMALモード
+;[DEBUG  ]: ^キー + NORMALモード
 $,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send "
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
-            send "
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
-            send "
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL) || mode(_MODE.VIM)) {
             if (isActive("mintty") || isActive("ubuntu")) {
                 send 2
             } else {
                 send {Numpad2}
             }
-        } else {
-            send "
+        } else if (mode(_MODE.SPECIAL)) {
+            send {vkDEsc00D}
+            setMode(_MODE.NORMAL)
         }
     } else {
         send `,
@@ -1260,7 +1266,7 @@ $!l::
 
 
 ;[NORMAL ]: mキー
-;[EDIT   ]: シングルコーテーション
+;[EDIT   ]: 日本語入力OFF + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力OFF + モードをNORMALに変更
 ;[MOUSE  ]: 左ドラッグ
 ;[SPECIAL]: 1キー
@@ -1269,7 +1275,8 @@ $!l::
 $m::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send '
+            setIME(false)
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             setIME(false)
             setMode(_MODE.NORMAL)
