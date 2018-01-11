@@ -15,7 +15,6 @@ _MODE.MOUSE := {"id":3, "color":"FF0000", "label":"Mouse"}
 _MODE.SPECIAL := {"id":4, "color":"0000FF", "label":"Special"}
 _MODE.SNIPPET := {"id":5, "color":"AAAA00", "label":"Snippet"}
 _MODE.DEBUG := {"id":6, "color":"FF00FF", "label":"Debug"}
-_MODE.VIM := {"id":7, "color":"093", "label":"Vim"}
 
 ;-------------------------------
 ;ディスプレイ設定
@@ -60,12 +59,6 @@ initDisplays() {
     y6 := getSettingsValue("ModeLabel", "Y6")
     if (x6 != "ERROR") {
         ret[6] := {"label_x":x6, "label_y":y6, "label_id":"dis6_label", "text_id":"dis6_text"}
-    }
-
-    x7 := getSettingsValue("ModeLabel", "X7")
-    y7 := getSettingsValue("ModeLabel", "Y7")
-    if (x7 != "ERROR") {
-        ret[7] := {"label_x":x7, "label_y":y7, "label_id":"dis7_label", "text_id":"dis7_text"}
     }
 
     return ret
