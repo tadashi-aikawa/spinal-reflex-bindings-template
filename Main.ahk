@@ -1267,7 +1267,7 @@ $!l::
 
 
 ;[NORMAL ]: mキー
-;[EDIT   ]: 日本語入力OFF + モードをNORMALに変更
+;[EDIT   ]: ダブルコーテーション + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力OFF + モードをNORMALに変更
 ;[MOUSE  ]: 左ドラッグ
 ;[SPECIAL]: 1キー
@@ -1276,7 +1276,7 @@ $!l::
 $m::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            setIME(false)
+            send "
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             setIME(false)
