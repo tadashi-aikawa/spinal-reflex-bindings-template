@@ -251,3 +251,7 @@ setIME(imeOn) {
         IME_SET(imeOn)
     }
 }
+
+getIME() {
+    return IME_GET()
+}

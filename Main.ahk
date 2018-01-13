@@ -325,7 +325,7 @@ $+.::
     return
 
 
-;[NORMAL ]: ,キー
+;[NORMAL ]: ,キー (コンビネーションからだと →,<Space>)
 ;[EDIT   ]: DEBUGモードに変更
 ;[RANGE  ]: DEBUGモードに変更
 ;[MOUSE  ]: DEBUGモードに変更
@@ -350,24 +350,31 @@ $,::
             setMode(_MODE.EDIT)
         }
     } else {
+        if (isSecondKey()) {
+            send {Right},{space}
+        } else {
         send `,
+    }
     }
     return
 
 
 ;[NORMAL ]: Ctrl + , キー
-;[EDIT   ]: Ctrl + , キー
-;[RANGE  ]: Ctrl + , キー
-;[MOUSE  ]: Ctrl + , キー
+;[EDIT   ]: Ctrl + , キー + NORMALモード
+;[RANGE  ]: Ctrl + , キー + NORMALモード
+;[MOUSE  ]: Ctrl + , キー + NORMALモード
 ;[SPECIAL]: 2キー
 $^,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
             send ^,
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             send ^,
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
             send ^,
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             send {Numpad2}{Enter}
         }
@@ -496,14 +503,14 @@ $TAB::
 
 
 ;[NORMAL ]: /キー
-;[EDIT   ]: tmuxのprefix (モードをNORMALに戻す)
-;[RANGE  ]: tmuxのprefix (モードをNORMALに戻す)
-;[MOUSE  ]: tmuxのprefix (モードをNORMALに戻す)
+;[EDIT   ]: Ctrl+F + NORMALモード
+;[RANGE  ]: Ctrl+F + NORMALモード
+;[MOUSE  ]: Ctrl+F + NORMALモード
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ^b
+            send ^f
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             if (isActive("mintty") || isActive("ubuntu")) {
@@ -756,8 +763,8 @@ $+e::
 
 
 ;[NORMAL ]: fキー(コンビネーションの場合は#）
-;[EDIT   ]: ページの末尾に移動
-;[RANGE  ]: 選択範囲をページの末尾に移動
+;[EDIT   ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提)
+;[RANGE  ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提)
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
 ;[SPECIAL]: 縦にフルスクリーン
 $f::
@@ -768,9 +775,9 @@ $f::
             send f
         }
     } else if (mode(_MODE.EDIT)) {
-        send ^{End}
+        send ^+b
     } else if (mode(_MODE.RANGE)) {
-        send ^+{End}
+        send ^+b
     } else if (mode(_MODE.MOUSE)) {
         if (isConbinationKey("$f")) {
             moveMousePointerEdge(3, 2)
@@ -821,7 +828,7 @@ $+f::
     return
 
 
-;[NORMAL ]: gキー (コンビネーションの場合 )
+;[NORMAL ]: gキー (コンビネーションの場合は *<space>)
 ;[EDIT   ]: RANGEモードに切り替え
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
@@ -838,7 +845,10 @@ $g::
         }
     } else {
         if (isSecondKey()) {
-            send {Right},{space}
+            imeOn := getIME()
+            setIME(false)
+            send *{space}
+            setIME(imeOn)
         } else {
             send g
         }
@@ -942,14 +952,21 @@ $i::
     return
 
 
-;[NORMAL ]: iキー
+;[NORMAL ]: iキー (コンビネーションの場合 →<Space>{}←)
 ;[EDIT   ]: 上に5つ移動
 ;[RANGE  ]: 選択範囲を上に5つ移動
 ;[MOUSE  ]: マウスポインタを上に移動
 ;[SPECIAL]: 8キー + Enter
 $^i::
     if (mode(_MODE.NORMAL)) {
+        if (isSecondKey()) {
+            send {Right}{space}
+            send {{}{}}
+            Sleep, 50
+            send {Left}
+        } else {
         Send ^i
+        }
     } else if (mode(_MODE.EDIT)) {
         sendInput {up 5}
     } else if (mode(_MODE.RANGE)) {
@@ -1202,7 +1219,10 @@ $!k::
 $l::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
+            imeOn := getIME()
+            setIME(false)
             send _
+            setIME(imeOn)
         } else {
             send l
         }
@@ -1386,17 +1406,13 @@ $n::
     return
 
 ;[NORMAL ]: 新規ウィンドウ
-;[EDIT   ]: 新規ウィンドウ
-;[RANGE  ]: 新規ウィンドウ
-;[MOUSE  ]: 新規ウィンドウ
-;[SPECIAL]: 新規ウィンドウ
+;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー)
+;[RANGE  ]: Ctrl+Shift+F3 (実装のプレビュー)
+;[MOUSE  ]: Ctrl+Shift+F3 (実装のプレビュー)
+;[SPECIAL]: Ctrl+Shift+F3 (実装のプレビュー)
 $^n::
     if (!mode(_MODE.NORMAL)) {
-        if (isActive("mintty")) {
-            send !{F2}
-        } else {
-            sendInput {down 15}
-        }
+        send ^+{F3}
     } else {
         if (isActive("mintty")) {
             send !{F2}
@@ -1445,7 +1461,10 @@ $o::
         }
     } else {
         if (isSecondKey()) {
+            imeOn := getIME()
+            setIME(false)
             send |
+            setIME(imeOn)
         } else {
             send o
         }
@@ -1545,17 +1564,20 @@ $+p::
 
 
 ;[NORMAL ]: qキー
-;[EDIT   ]: tmuxのprefix (モードをNORMALに戻す)
-;[RANGE  ]: tmuxのprefix (モードをNORMALに戻す)
-;[MOUSE  ]: tmuxのprefix (モードをNORMALに戻す)
+;[EDIT   ]: ページの末尾に移動
+;[RANGE  ]: 選択範囲をページの末尾に移動
+;[MOUSE  ]: ページの末尾に移動
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftUp")
+        } else if (mode(_MODE.EDIT)) {
+            send ^{End}
+        } else if (mode(_MODE.RANGE)) {
+            send ^+{End}
         } else {
-            send ^b
-            setMode(_MODE.NORMAL)
+            send ^{End}
         }
     } else {
         send q
@@ -1753,11 +1775,7 @@ $u::
 $^u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa")) {
-                send {ESC}^h
-            } else {
                 send ^{BS}
-            }
         } else if (mode(_MODE.RANGE)) {
             send ^{BS}
             setMode(_MODE.EDIT)
