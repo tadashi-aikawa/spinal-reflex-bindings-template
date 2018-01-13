@@ -125,7 +125,7 @@ $^9::
 ; 記号キー
 ;******************************************************************
 
-;[NORMAL ]: ;キー
+;[NORMAL ]: コンビネーション開始 (コンビの後は;キー)
 ;[EDIT   ]: 行末へ移動
 ;[RANGE  ]: 行末に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
@@ -142,7 +142,9 @@ $;::
             send -
         }
     } else {
-        send `;
+        if (isSecondKey()) {
+            send `;
+        }
     }
     return
 
@@ -401,7 +403,7 @@ $+,::
 ; 特殊キー
 ;******************************************************************
 
-;[NORMAL ]: Enterキー
+;[NORMAL ]: Enterキー (コンビネーション時は;入力後にEnter)
 ;[EDIT   ]: Enterキー
 ;[RANGE  ]: Enterキー
 ;[MOUSE  ]: 左クリック
@@ -421,6 +423,9 @@ $Enter::
             send {Enter}
         }
     } else {
+        if (isSecondKey()) {
+            send `;
+        }
         send {Enter}
     }
     return
@@ -537,7 +542,7 @@ $PgDn::
 ; アルファベット（50音順)
 ;******************************************************************
 
-;[NORMAL ]: aキー(;からのコンビネーションの場合は()を入力して、フォーカスを()内に移動させる）
+;[NORMAL ]: aキー(コンビネーションから場合は()）
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
@@ -558,12 +563,10 @@ $a::
             MoveWindow("LeftDown")
         }
     } else {
-        if (isConbinationKey("$;")) {
-            send {BS}
-            sendMultiByte("(")
-            sendMultiByte(")")
-            send {left}
-            setMode(_MODE.NORMAL)
+        if (isSecondKey()) {
+            send ()
+            Sleep, 50
+            send {Left}
         } else {
             send a
         }
@@ -600,7 +603,7 @@ $b::
     return
 
 
-;[NORMAL ]: cキー (;からのコンビネーションの場合はコードブロック)
+;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面中央下に移動 (cからのコンビネーションの場合は ポインタを画面中央下隅に移動）
@@ -625,8 +628,8 @@ $c::
             }
         }
     } else {
-        if (isConbinationKey("$;")) {
-            send {BS}{`` 6}{left 3}
+        if (isSecondKey()) {
+            send {`` 3}
         } else {
             send c
         }
@@ -634,19 +637,15 @@ $c::
     return
 
 
-;[NORMAL ]: dキー (dからのコンビネーションの場合は 【】を入力してカーソルを間に移動)
+;[NORMAL ]: dキー (コンビネーションの場合は$）
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
 ;[MOUSE  ]: ポインタを画面中央に移動
 ;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
 $d::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKey("$;")) {
-            send, {BS}
-            sendMultiByte("【")
-            sendMultiByte("】")
-            send {left}
-            setMode(_MODE.NORMAL)
+        if (isSecondKey()) {
+            send $
         } else {
             send d
         }
@@ -688,7 +687,7 @@ $+d::
     return
 
 
-;[NORMAL ]: eキー(;からのコンビネーションの場合は = を入力する）
+;[NORMAL ]: eキー (コンビネーションキーの場合は=)
 ;[EDIT   ]: 1つ戻る（visio: 前のシートへ移動)
 ;[RANGE  ]: 1つ戻る（visio: 前のシートへ移動)
 ;[MOUSE  ]: ポインタを画面中央上に移動 (eからのコンビネーションの場合は ポインタを画面中央上隅に移動）
@@ -715,8 +714,8 @@ $e::
             send !{left}
         }
     } else {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}{space}={space}
+        if (isSecondKey()) {
+            send {space}={space}
         } else {
             send e
         }
@@ -756,15 +755,15 @@ $+e::
     return
 
 
-;[NORMAL ]: fキー(;からのコンビネーションの場合は#）
+;[NORMAL ]: fキー(コンビネーションの場合は#）
 ;[EDIT   ]: ページの末尾に移動
 ;[RANGE  ]: 選択範囲をページの末尾に移動
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
 ;[SPECIAL]: 縦にフルスクリーン
 $f::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKey("$`;")) {
-            send {BS}{#}
+        if (isSecondKey()) {
+            send {#}
         } else {
             send f
         }
@@ -822,7 +821,7 @@ $+f::
     return
 
 
-;[NORMAL ]: gキー(;からのコンビネーションの場合は$）
+;[NORMAL ]: gキー (コンビネーションの場合 )
 ;[EDIT   ]: RANGEモードに切り替え
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
@@ -838,8 +837,8 @@ $g::
             setMode(_MODE.RANGE)
         }
     } else {
-        if (isConbinationKey("$`;")) {
-            send {BS}{$}
+        if (isSecondKey()) {
+            send {Right},{space}
         } else {
             send g
         }
@@ -860,8 +859,8 @@ $h::
             setMode(_MODE.MOUSE)
         }
     } else {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}~
+        if (isSecondKey()) {
+            send ~
         } else {
             send h
         }
@@ -913,16 +912,16 @@ $+h::
     return
 
 
-;[NORMAL ]: iキー (;からのコンビネーションの場合は「{}」を入力）
+;[NORMAL ]: iキー (コンビネーションの場合は{}）
 ;[EDIT   ]: 上に移動
 ;[RANGE  ]: 選択範囲を上に移動
 ;[MOUSE  ]: マウスポインタを上に微かに移動
 ;[SPECIAL]: 8キー
 $i::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}
-            sendMultiByte("{{}{}}")
+        if (isSecondKey()) {
+            send {{}{}}
+            Sleep, 50
             send {Left}
         } else {
             send i
@@ -934,11 +933,11 @@ $i::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
-                send 8
-            } else {
-                send {Numpad8}
-            }
+        if (isActive("mintty") || isActive("ubuntu")) {
+            send 8
+        } else {
+            send {Numpad8}
+        }
     }
     return
 
@@ -1003,7 +1002,7 @@ $!i::
     return
 
 
-;[NORMAL ]: jキー (;からのコンビネーションの場合は''を入力して、フォーカスを''内に移動させる）
+;[NORMAL ]: jキー (コンビネーションの場合は''）
 ;[EDIT   ]: 左に移動
 ;[RANGE  ]: 選択範囲を左に移動
 ;[MOUSE  ]: マウスポインタを左に微かに移動
@@ -1011,8 +1010,10 @@ $!i::
 ;[DEBUG  ]: ステップアウト (SHIFT + F11)
 $j::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}{' 2}{left}
+        if (isSecondKey()) {
+            send {' 2}
+            Sleep 50
+            send {Left}
         } else {
             send j
         }
@@ -1106,8 +1107,10 @@ $!j::
 ;[DEBUG  ]: ステップオーバー (F10)
 $k::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKey("$;")) {
-            send {BS}``{left}``
+        if (isSecondKey()) {
+            send ````
+            Sleep 50
+            send {left}
         } else {
             send k
         }
@@ -1189,7 +1192,7 @@ $!k::
     return
 
 
-;[NORMAL ]: lキー (;からのコンビネーションの場合は、_キー）
+;[NORMAL ]: lキー (コンビネーションキーの場合は_)
 ;[EDIT   ]: 右に移動
 ;[RANGE  ]: 選択範囲を右に移動
 ;[MOUSE  ]: マウスポインタを右に微かに移動
@@ -1198,8 +1201,8 @@ $!k::
 ;[DEBUG  ]: ステップイン (F11)
 $l::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}_
+        if (isSecondKey()) {
+            send _
         } else {
             send l
         }
@@ -1287,7 +1290,7 @@ $!l::
     return
 
 
-;[NORMAL ]: mキー
+;[NORMAL ]: mキー (コンビネーションキーの場合は[])
 ;[EDIT   ]: 日本語入力OFF + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力OFF + モードをNORMALに変更
 ;[MOUSE  ]: 左ドラッグ
@@ -1313,7 +1316,13 @@ $m::
             send :fork_and_knife:
         }
     } else {
-        send m
+        if (isSecondKey()) {
+            send []
+            Sleep 50
+            send {left}
+        } else {
+            send m
+        }
     }
     return
 
@@ -1413,7 +1422,7 @@ $+n::
 
 
 ;----- [N]Delete [R]Delete(範囲指定終了) [M]右クリック押下 [M]ホイールダウン-----
-;[NORMAL ]: oキー(;からのコンビネーションの場合は | を入力する）
+;[NORMAL ]: oキー(コンビネーションキーの場合は|)
 ;[EDIT   ]: DELキー
 ;[RANGE  ]: DELキー(処理後に範囲指定を終了する)
 ;[MOUSE  ]: マウスホイールを少し下に動かす
@@ -1435,8 +1444,8 @@ $o::
             }
         }
     } else {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}|
+        if (isSecondKey()) {
+            send |
         } else {
             send o
         }
@@ -1496,7 +1505,7 @@ $+o::
     }
     return
 
-;[NORMAL ]: pキー(;からのコンビネーションの場合は % を入力する）
+;[NORMAL ]: pキー (コンビネーションキーの場合は%)
 ;[EDIT   ]: コマンドパレット(Ctrl + Shift + pキー => NORMALモード)
 ;[RANGE  ]: pキ－
 ;[MOUSE  ]: pキ－
@@ -1512,8 +1521,8 @@ $p::
             send p
         }
     } else {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}`%
+        if (isSecondKey()) {
+            send `%
         } else {
             send p
         }
@@ -1583,13 +1592,12 @@ $+q::
     return
 
 
-;[NORMAL ]: rキー(;からのコンビネーションの場合は == を入力する）
+;[NORMAL ]: rキー (コンビネーションキーの場合は==)
 ;[EDIT   ]: 仮想入力モードをスペシャルモードにする
 ;[RANGE  ]: 仮想入力モードをスペシャルモードにする
 ;[MOUSE  ]: ポインタを画面右上に移動 (rからのコンビネーションの場合は ポインタを画面右上隅に移動）
 ;[SPECIAL]: 仮想入力モードを標準にする
 ;[DEBUG  ]: 再開
-
 $r::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
@@ -1606,8 +1614,8 @@ $r::
             setMode(_MODE.SPECIAL)
         }
     } else {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}{space}=={space}
+        if (isSecondKey()) {
+            send {space}=={space}
         } else {
             send r
         }
@@ -1627,7 +1635,7 @@ $^r::
     }
     return
 
-;[NORMAL ]: sキー(;からのコンビネーションの場合は「」を入力して、フォーカスを「」内に移動させる）
+;[NORMAL ]: sキー (コンビネーションキーの場合は｢｣)
 ;[EDIT   ]: Ctrl+Shift+S
 ;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: ポインタを画面左隅に移動
@@ -1653,10 +1661,9 @@ $s::
             send ^{F2}
         }
     } else {
-        if (isConbinationKey("$;")) {
-            send {BS}
-            sendMultiByte("｢")
-            sendMultiByte("｣")
+        if (isSecondKey()) {
+            sendMultiByte("｢｣")
+            Sleep 50
             send {left}
         } else {
             send s
@@ -1703,7 +1710,7 @@ $t::
     return
 
 
-;[NORMAL ]: uキー
+;[NORMAL ]: uキー (コンビネーションキーの場合は"")
 ;[EDIT   ]: BackSpace
 ;[RANGE  ]: BackSpace後範囲指定を終了する
 ;[MOUSE  ]: マウスホイールを少し上に動かす
@@ -1728,8 +1735,10 @@ $u::
             send :arrow_upper_right:
         }
     } else {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}{" 2}{left}
+        if (isSecondKey()) {
+            send {" 2}
+            Sleep 50
+            send {Left}
         } else {
             send u
         }
@@ -1832,7 +1841,7 @@ $^v::
     return
 
 
-;[NORMAL ]: wキー (;からのコンビネーションの場合は != を入力する）
+;[NORMAL ]: wキー (コンビネーションキーの場合は!=)
 ;[EDIT   ]: ページの先頭に移動
 ;[RANGE  ]: 選択範囲をページの先頭に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
@@ -1840,8 +1849,8 @@ $^v::
 ;[SNIPPET]: :womans_clothes:
 $w::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKeyAndIMEOn("$;")) {
-            send {BS}{space}{!}={space}
+        if (isSecondKey()) {
+            send {space}{!}={space}
         } else {
             send w
         }
@@ -1917,12 +1926,20 @@ $y::
     }
     return
 
-;----- [N]元に戻す [R]元に戻す -----
+;[NORMAL ]: zキー (コンビネーションの場合は!)
+;[EDIT   ]: 元に戻す
+;[RANGE  ]: 元に戻す
+;[MOUSE  ]: 元に戻す
+;[SPECIAL]: 元に戻す
 $z::
     if (!mode(_MODE.NORMAL)) {
         send ^z
     } else {
-        send z
+        if (isSecondKey()) {
+            send {!}
+        } else {
+            send z
+        }
     }
     return
 

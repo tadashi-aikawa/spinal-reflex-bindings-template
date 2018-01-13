@@ -219,6 +219,12 @@ isConbinationKey(key) {
     return (A_PriorHotKey = key and A_TimeSincePriorHotkey < 200)
 }
 
+;【概要】現在押下されているキーが;の後に押されたものかを返します。
+;【引数】なし
+;【戻値】true: 押されている
+isSecondKey() {
+    return (A_PriorHotKey = "$;")
+}
 
 ;【概要】マルチバイト文字列をsendします。
 ;        日本語入力のON/OFFに関わらず決定された状態で出力します。
