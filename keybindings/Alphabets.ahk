@@ -20,7 +20,10 @@ $a::
         }
     } else {
         if (isSecondKey()) {
+            imeOn := getIME()
+            setIME(false)
             send ()
+            setIME(imeOn)
             Sleep, 50
             send {Left}
         } else {
