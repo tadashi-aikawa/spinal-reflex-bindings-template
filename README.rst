@@ -25,7 +25,7 @@ You can customize `Main.ahk` and setting files and so on just you want.
 Requirement
 ===========
 
-* Windows 7, 8, 8.1
+* Windows 7, 8, 8.1, 10
 * `AutoHotkeyU64 <http://ahkscript.org/download/>`_
 * `IME.ahk <http://www6.atwiki.jp/eamat/pages/17.html>`_ (bundled)
 
@@ -35,8 +35,7 @@ Provisioning
 
 If you don't have installed AutoHotkeyU64 yet, install `here <http://ahkscript.org/download/>`_.
 
-If you don't have run EnableUIAccess yet, 
-install `here <http://www.autohotkey.com/board/topic/70449-enable-interaction-with-administrative-programs/>`_ 
+If you don't have run EnableUIAccess yet, install `here <http://www.autohotkey.com/board/topic/70449-enable-interaction-with-administrative-programs/>`_ 
 and run ``EnableUIAccess.ahk``.
 
 
@@ -77,7 +76,12 @@ File Description
     * Mouse action definitions.
 * Command.ahk
     * Complex command wrapper.
-* Settings (Directory)
+* keybindings (Directory)
+    * Alphabets.ahk
+    * Numbers.ahk
+    * Others.ahk
+    * Symbols.ahk
+* settings (Directory)
     * Store setting files.
 
 
