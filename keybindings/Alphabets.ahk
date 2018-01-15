@@ -1227,10 +1227,17 @@ $u::
 $^u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
+            if (isActive("mintty") || isActive("ubuntu")) {
+                send ^w
+            } else {
                 send ^{BS}
+            }
         } else if (mode(_MODE.RANGE)) {
-            send ^{BS}
-            setMode(_MODE.EDIT)
+            if (isActive("mintty") || isActive("ubuntu")) {
+                send ^w
+            } else {
+                send ^{BS}
+            }
         } else if (mode(_MODE.MOUSE)) {
             scrollUpMiddle()
         } else if (mode(_MODE.SPECIAL)) {
