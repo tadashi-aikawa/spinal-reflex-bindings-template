@@ -304,14 +304,14 @@ $+,::
 ;******************************************************************
 
 ;[NORMAL ]: /キー
-;[EDIT   ]: Ctrl+F + NORMALモード
-;[RANGE  ]: Ctrl+F + NORMALモード
-;[MOUSE  ]: Ctrl+F + NORMALモード
+;[EDIT   ]: Ctrl+J + NORMALモード
+;[RANGE  ]: Ctrl+J + NORMALモード
+;[MOUSE  ]: Ctrl+J + NORMALモード
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ^f
+            send ^j
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             if (isActive("mintty") || isActive("ubuntu")) {
