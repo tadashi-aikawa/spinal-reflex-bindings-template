@@ -1147,13 +1147,13 @@ $s::
 
 
 ;[NORMAL ]: Shif+sキー
-;[EDIT   ]: Ctrl+Alt+sキー
-;[RANGE  ]: Ctrl+Alt+sキー
-;[MOUSE  ]: Ctrl+Alt+sキー
-;[SPECIAL]: Ctrl+Alt+sキー
+;[EDIT   ]: Ctrl+Alt+Shift+sキー
+;[RANGE  ]: Ctrl+Alt+Shift+sキー
+;[MOUSE  ]: Ctrl+Alt+Shift+sキー
+;[SPECIAL]: Ctrl+Alt+Shift+sキー
 $+s::
     if (!mode(_MODE.NORMAL)) {
-        send ^!s
+        send ^+!s
     } else {
         send +s
     }
