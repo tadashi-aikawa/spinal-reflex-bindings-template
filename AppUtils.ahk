@@ -28,3 +28,16 @@ isActive(name) {
         return false
     }
 }
+
+;【概要】指定されたプロセスがアクティブであるか
+;【引数】name: プロセス名
+;【戻値】true / false
+isActiveProcess(name) {
+    pName := getSettingsValue("ProcessName", name)
+    WinGet, ahk_process, ProcessName, A
+    if (pName == ahk_process) {
+        return true
+    } else {
+        return false
+    }
+}

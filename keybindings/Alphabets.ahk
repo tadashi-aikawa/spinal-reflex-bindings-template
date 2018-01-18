@@ -126,6 +126,35 @@ $d::
     return
 
 
+;[NORMAL ]: Ctrl + dキー (Dynalist: トピック削除)
+;[EDIT   ]: Ctrl + dキー (Dynalist: トピック削除)
+;[RANGE  ]: Ctrl + dキー
+;[MOUSE  ]: Ctrl + dキー
+;[SPECIAL]: Ctrl + dキー
+$^d::
+    if (mode(_MODE.NORMAL)) {
+        if (isActiveProcess("dynalist")) {
+            send ^+{Del}
+        } else {
+            send ^d
+        }
+    } else if (mode(_MODE.EDIT)) {
+        if (isActiveProcess("dynalist")) {
+            send ^+{Del}
+        } else {
+            send ^d
+        }
+    } else if (mode(_MODE.RANGE)) {
+        send ^d
+    } else if (mode(_MODE.MOUSE)) {
+        send ^d
+    } else if (mode(_MODE.SPECIAL)) {
+        send ^d
+    }
+    return
+    
+
+
 ;[NORMAL ]: Shift + dキー
 ;[EDIT   ]: Enter
 ;[RANGE  ]: Enter
@@ -215,7 +244,7 @@ $+e::
 
 
 ;[NORMAL ]: fキー(コンビネーションの場合は#）
-;[EDIT   ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提)
+;[EDIT   ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提) (Dynalist: 展開トグル)
 ;[RANGE  ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提)
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
 ;[SPECIAL]: 縦にフルスクリーン
@@ -227,7 +256,11 @@ $f::
             send f
         }
     } else if (mode(_MODE.EDIT)) {
-        send ^+b
+        if (isActiveProcess("dynalist")) {
+            send ^.
+        } else {
+            send ^+b
+        }
     } else if (mode(_MODE.RANGE)) {
         send ^+b
     } else if (mode(_MODE.MOUSE)) {
@@ -259,14 +292,18 @@ $^f::
 
 
 ;[NORMAL ]: Shift + fキー
-;[EDIT   ]: Enterキー
+;[EDIT   ]: Enterキー (Dynalist: すべての展開トグル)
 ;[RANGE  ]: Enterキー
 ;[MOUSE  ]: Shift + fキー
 ;[SPECIAL]: Shift + fキー
 $+f::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send {Enter}
+            if (isActiveProcess("dynalist")) {
+                send ^+.
+            } else {
+                send {Enter}
+            }
         } else if (mode(_MODE.RANGE)) {
             send {Enter}
         } else if (mode(_MODE.MOUSE)) {
@@ -1419,3 +1456,4 @@ $z::
         }
     }
     return
+
