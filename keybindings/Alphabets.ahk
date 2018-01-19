@@ -513,7 +513,7 @@ $+i::
 
 
 ;[NORMAL ]: Alt + iキー
-;[EDIT   ]: Alt + 上キー
+;[EDIT   ]: Alt + 上キー (Dynalist: トピックを上へ移動)
 ;[RANGE  ]: Alt + 上キー
 ;[MOUSE  ]: マウスポインタを上に少し移動
 ;[SPECIAL]: Alt + iキー
@@ -521,7 +521,11 @@ $!i::
     if (mode(_MODE.NORMAL)) {
         Send !i
     } else if (mode(_MODE.EDIT)) {
-        send !{up}
+        if (isActiveProcess("dynalist")) {
+            send ^{Up}
+        } else {
+            send !{up}
+        }
     } else if (mode(_MODE.RANGE)) {
         send !{up}
     } else if (mode(_MODE.MOUSE)) {
@@ -703,7 +707,7 @@ $+k::
 
 
 ;[NORMAL ]: Alt + kキー
-;[EDIT   ]: Alt + 下キー
+;[EDIT   ]: Alt + 下キー (Dynalist: トピックを下に移動)
 ;[RANGE  ]: Alt + 下キー
 ;[MOUSE  ]: マウスポインタを下に少し移動
 ;[SPECIAL]: Alt + kキー
@@ -711,7 +715,11 @@ $!k::
     if (mode(_MODE.NORMAL)) {
         send !k
     } else if (mode(_MODE.EDIT)) {
-        send !{down}
+        if (isActiveProcess("dynalist")) {
+            send ^{Down}
+        } else {
+            send !{Down}
+        }
     } else if (mode(_MODE.RANGE)) {
         send !{down}
     } else if (mode(_MODE.MOUSE)) {
