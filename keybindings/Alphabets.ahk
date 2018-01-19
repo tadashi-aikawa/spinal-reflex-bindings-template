@@ -906,13 +906,17 @@ $+m::
 
 
 ;[NORMAL ]: Nキー
-;[EDIT   ]: F3キー相当
+;[EDIT   ]: F3キー相当 (Dynalist: Zoom in)
 ;[RANGE  ]: F3キー相当
 ;[MOUSE  ]: F3キー相当
 ;[SPECIAL]: F3キー相当
 $n::
     if (!mode(_MODE.NORMAL)) {
-        send {F3}
+        if (isActiveProcess("dynalist")) {
+            send ^]
+        } else {
+            send {F3}
+        }
     } else {
         send n
     }
