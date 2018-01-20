@@ -931,13 +931,17 @@ $n::
     return
 
 ;[NORMAL ]: 新規ウィンドウ
-;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー)
+;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー) (Dynalist: Zoom out)
 ;[RANGE  ]: Ctrl+Shift+F3 (実装のプレビュー)
 ;[MOUSE  ]: Ctrl+Shift+F3 (実装のプレビュー)
 ;[SPECIAL]: Ctrl+Shift+F3 (実装のプレビュー)
 $^n::
     if (!mode(_MODE.NORMAL)) {
-        send ^+{F3}
+        if (isActiveProcess("dynalist")) {
+            send ^[
+        } else {
+            send ^+{F3}
+        }
     } else {
         if (isActive("mintty")) {
             send !{F2}
