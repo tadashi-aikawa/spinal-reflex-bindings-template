@@ -106,7 +106,7 @@ $+c::
         send +c
     } else if (mode(_MODE.EDIT)) {
         if (isActiveProcess("dynalist")) {
-            send ^!c
+            send ^+c
         } else {
             send +c
         }
