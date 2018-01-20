@@ -134,7 +134,7 @@ $^+vkBAsc028::
     return
 
 
-;[NORMAL ]: :キー
+;[NORMAL ]: :キー (コンビネーションからだと →:<Space>)
 ;[EDIT   ]: 日本語入力ON + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力ON + モードをNORMALに変更
 ;[MOUSE  ]: 日本語入力ON + モードをNORMALに変更
@@ -145,7 +145,11 @@ $vkBAsc028::
         setIME(true)
         setMode(_MODE.NORMAL)
     } else {
-        send :
+        if (isSecondKey()) {
+            send {Right}:{space}
+        } else {
+            send :
+        }
     }
     return
 
@@ -246,8 +250,8 @@ $,::
         if (isSecondKey()) {
             send {Right},{space}
         } else {
-        send `,
-    }
+            send `,
+        }
     }
     return
 
