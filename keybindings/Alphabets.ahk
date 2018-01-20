@@ -978,7 +978,6 @@ $o::
             send {del}
         } else if (mode(_MODE.RANGE)) {
             send {del}
-            setMode(_MODE.EDIT)
         } else if (mode(_MODE.MOUSE)) {
             scrollDownSmall()
         } else if (mode(_MODE.SPECIAL)) {
@@ -1009,11 +1008,7 @@ $o::
 $^o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa")) {
-                send {ESC}d
-            } else {
-                send ^{del}
-            }
+            send ^{del}
         } else if (mode(_MODE.RANGE)) {
             send ^{del}
             setMode(_MODE.EDIT)
@@ -1304,17 +1299,9 @@ $u::
 $^u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
-                send ^w
-            } else {
-                send ^{BS}
-            }
+            send ^{BS}
         } else if (mode(_MODE.RANGE)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
-                send ^w
-            } else {
-                send ^{BS}
-            }
+            send ^{BS}
         } else if (mode(_MODE.MOUSE)) {
             scrollUpMiddle()
         } else if (mode(_MODE.SPECIAL)) {
