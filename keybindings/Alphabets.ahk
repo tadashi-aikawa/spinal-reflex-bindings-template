@@ -1435,7 +1435,7 @@ $+w::
     return
 
 
-;[NORMAL ]: xキー
+;[NORMAL ]: xキー(コンビネーションから場合は【】）
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面左下に移動
@@ -1453,7 +1453,13 @@ $x::
             send ^x
         }
     } else {
-        send x
+        if (isSecondKey()) {
+            sendMultiByte("【】")
+            Sleep 50
+            send {left}
+        } else {
+            send x
+        }
     }
     return
 
