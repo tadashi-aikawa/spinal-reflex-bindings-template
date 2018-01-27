@@ -514,7 +514,7 @@ $+i::
 
 ;[NORMAL ]: Alt + iキー
 ;[EDIT   ]: Alt + 上キー (Dynalist: トピックを上へ移動)
-;[RANGE  ]: Alt + 上キー
+;[RANGE  ]: Alt + 上キー (Dynalist: トピックを上へ移動)
 ;[MOUSE  ]: マウスポインタを上に少し移動
 ;[SPECIAL]: Alt + iキー
 $!i::
@@ -527,7 +527,11 @@ $!i::
             send !{up}
         }
     } else if (mode(_MODE.RANGE)) {
-        send !{up}
+        if (isActiveProcess("dynalist")) {
+            send ^{Up}
+        } else {
+            send !{up}
+        }
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpSmall()
     } else if (mode(_MODE.SPECIAL)) {
@@ -614,17 +618,25 @@ $+j::
 
 
 ;[NORMAL ]: Alt + jキー
-;[EDIT   ]: Alt + jキー
-;[RANGE  ]: Alt + jキー
+;[EDIT   ]: Alt + jキー (Dynalist: トピックを左に移動)
+;[RANGE  ]: Alt + jキー (Dynalist: トピックを左に移動)
 ;[MOUSE  ]: マウスポインタを左に少し移動
 ;[SPECIAL]: Alt + jキー
 $!j::
     if (mode(_MODE.NORMAL)) {
         send !j
     } else if (mode(_MODE.EDIT)) {
-        send !j
+        if (isActiveProcess("dynalist")) {
+            send +{TAB}
+        } else {
+            send !j
+        }
     } else if (mode(_MODE.RANGE)) {
-        send !j
+        if (isActiveProcess("dynalist")) {
+            send +{TAB}
+        } else {
+            send !j
+        }
     } else if (mode(_MODE.MOUSE)) {
         moveMouseLeftSmall()
     } else if (mode(_MODE.SPECIAL)) {
@@ -708,7 +720,7 @@ $+k::
 
 ;[NORMAL ]: Alt + kキー
 ;[EDIT   ]: Alt + 下キー (Dynalist: トピックを下に移動)
-;[RANGE  ]: Alt + 下キー
+;[RANGE  ]: Alt + 下キー (Dynalist: トピックを下に移動)
 ;[MOUSE  ]: マウスポインタを下に少し移動
 ;[SPECIAL]: Alt + kキー
 $!k::
@@ -721,7 +733,11 @@ $!k::
             send !{Down}
         }
     } else if (mode(_MODE.RANGE)) {
-        send !{down}
+        if (isActiveProcess("dynalist")) {
+            send ^{Down}
+        } else {
+            send !{Down}
+        }
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownSmall()
     } else if (mode(_MODE.SPECIAL)) {
@@ -812,17 +828,25 @@ $+l::
 
 
 ;[NORMAL ]: Alt + lキー
-;[EDIT   ]: Alt + lキー
-;[RANGE  ]: Alt + lキー
+;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動)
+;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動)
 ;[MOUSE  ]: マウスポインタ右に少し移動
 ;[SPECIAL]: Alt + lキー
 $!l::
     if (mode(_MODE.NORMAL)) {
         send !l
     } else if (mode(_MODE.EDIT)) {
-        send !l
+        if (isActiveProcess("dynalist")) {
+            send {TAB}
+        } else {
+            send !l
+        }
     } else if (mode(_MODE.RANGE)) {
-        send !l
+        if (isActiveProcess("dynalist")) {
+            send {TAB}
+        } else {
+            send !l
+        }
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightSmall()
     } else if (mode(_MODE.SPECIAL)) {
