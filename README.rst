@@ -25,7 +25,7 @@ You can customize `Main.ahk` and setting files and so on just you want.
 Requirement
 ===========
 
-* Windows 7, 8, 8.1, 10
+* Windows 10
 * `AutoHotkeyU64 <http://ahkscript.org/download/>`_
 * `IME.ahk <http://www6.atwiki.jp/eamat/pages/17.html>`_ (bundled)
 
