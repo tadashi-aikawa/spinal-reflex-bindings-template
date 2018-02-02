@@ -1111,7 +1111,7 @@ $+p::
     return
 
 
-;[NORMAL ]: qキー
+;[NORMAL ]: qキー(コンビネーションから場合はコンビネーション無効化）
 ;[EDIT   ]: ページの末尾に移動
 ;[RANGE  ]: 選択範囲をページの末尾に移動
 ;[MOUSE  ]: ページの末尾に移動
@@ -1128,7 +1128,9 @@ $q::
             send ^{End}
         }
     } else {
-        send q
+        if (!isSecondKey()) {
+          send q
+        }
     }
     return
 
