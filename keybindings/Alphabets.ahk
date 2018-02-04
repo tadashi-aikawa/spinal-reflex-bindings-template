@@ -855,7 +855,7 @@ $!l::
     return
 
 
-;[NORMAL ]: mキー (コンビネーションキーの場合は[])
+;[NORMAL ]: mキー (コンビネーションキーの場合はダブルコーテーション)
 ;[EDIT   ]: 日本語入力OFF + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力OFF + モードをNORMALに変更
 ;[MOUSE  ]: 左ドラッグ
@@ -882,9 +882,7 @@ $m::
         }
     } else {
         if (isSecondKey()) {
-            send []
-            Sleep 50
-            send {left}
+            send "
         } else {
             send m
         }
@@ -1365,7 +1363,7 @@ $+u::
     return
 
 
-;[NORMAL ]: v
+;[NORMAL ]: v (コンビネーションキーの場合はシングルコーテーション) 
 ;[EDIT   ]: 貼り付けしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: 貼り付けしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面右下に移動
@@ -1389,7 +1387,11 @@ $v::
             }
         }
     } else {
-        send v
+        if (isSecondKey()) {
+            send '
+        } else {
+            send v
+        }
     }
     return
 
