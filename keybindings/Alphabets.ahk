@@ -307,8 +307,6 @@ $f::
 $^f::
     if (isActive("console")) {
         send !{space}ef
-    } else if (isActive("mintty")) {
-        send !{F3}
     } else {
         send ^f
     }
