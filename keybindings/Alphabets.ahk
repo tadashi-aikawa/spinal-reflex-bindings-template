@@ -395,16 +395,16 @@ $h::
           
           
 ;[NORMAL ]: Ctrl + H
-;[EDIT   ]: 15つ上に移動
-;[RANGE  ]: 選択範囲を15つ上に移動
+;[EDIT   ]: 5つ左に移動
+;[RANGE  ]: 選択範囲を5つ左に移動
 ;[MOUSE  ]: Ctrl + H
 ;[SPECIAL]: Ctrl + H
 $^h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            sendInput {up 15}
+            sendInput {Left 5}
         } else if (mode(_MODE.RANGE)) {
-            sendInput +{up 15}
+            sendInput +{Left 5}
         } else if (mode(_MODE.MOUSE)) {
             send ^h
         } else if (mode(_MODE.SPECIAL)) {
@@ -424,9 +424,9 @@ $^h::
 $+h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            sendInput {left 15}
+            sendInput {Left 15}
         } else if (mode(_MODE.RANGE)) {
-            sendInput +{left 15}
+            sendInput +{Left 15}
         } else if (mode(_MODE.MOUSE)) {
             send +h
         } else if (mode(_MODE.SPECIAL)) {
@@ -439,9 +439,9 @@ $+h::
 
 
 ;[NORMAL ]: iキー (コンビネーションの場合は{}）
-;[EDIT   ]: 上に移動
-;[RANGE  ]: 選択範囲を上に移動
-;[MOUSE  ]: マウスポインタを上に微かに移動
+;[EDIT   ]: iキー
+;[RANGE  ]: iキー
+;[MOUSE  ]: iキー
 ;[SPECIAL]: 8キー
 $i::
     if (mode(_MODE.NORMAL)) {
@@ -453,11 +453,11 @@ $i::
             send i
         }
     } else if (mode(_MODE.EDIT)) {
-        send {up}
+        send i
     } else if (mode(_MODE.RANGE)) {
-        send +{up}
+        send i
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseUpMicro()
+        send i
     } else if (mode(_MODE.SPECIAL)) {
         if (isActive("mintty") || isActive("ubuntu")) {
             send 8
@@ -468,10 +468,10 @@ $i::
     return
 
 
-;[NORMAL ]: iキー (コンビネーションの場合 →<Space>{}←)
-;[EDIT   ]: 上に5つ移動
-;[RANGE  ]: 選択範囲を上に5つ移動
-;[MOUSE  ]: マウスポインタを上に移動
+;[NORMAL ]: Ctrl + iキー (コンビネーションの場合 →<Space>{}←)
+;[EDIT   ]: Ctrl + iキー
+;[RANGE  ]: Ctrl + iキー
+;[MOUSE  ]: Ctrl + iキー
 ;[SPECIAL]: 8キー + Enter
 $^i::
     if (mode(_MODE.NORMAL)) {
@@ -481,14 +481,14 @@ $^i::
             Sleep, 50
             send {Left}
         } else {
-        Send ^i
+            Send ^i
         }
     } else if (mode(_MODE.EDIT)) {
-        sendInput {up 5}
+        Send ^i
     } else if (mode(_MODE.RANGE)) {
-        sendInput +{up 5}
+        Send ^i
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseUpMiddle()
+        Send ^i
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad8}{Enter}
     }
@@ -710,9 +710,9 @@ $+k::
     if (mode(_MODE.NORMAL)) {
         send +k
     } else if (mode(_MODE.EDIT)) {
-        send {PgDn}
+        send {PgUp}
     } else if (mode(_MODE.RANGE)) {
-        send +{PgDn}
+        send +{PgUp}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpLarge()
     } else if (mode(_MODE.SPECIAL)) {
