@@ -368,27 +368,32 @@ $g::
 
 
 ;[NORMAL ]: h (;からのコンビネーションの場合は~)
-;[EDIT   ]: MOUSEモードに切り替え
-;[RANGE  ]: MOUSEモードに切り替え
-;[MOUSE  ]: EDITモードに切り替え
-;[SPECIAL]: MOUSEモードに切り替え
+;[EDIT   ]: 左に移動
+;[RANGE  ]: 選択範囲を左に移動
+;[MOUSE  ]: マウスポインタを左に微かに移動
+;[SPECIAL]: hキー
+;[DEBUG  ]: ステップアウト (SHIFT + F11)
 $h::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.MOUSE)) {
-            setMode(_MODE.EDIT)
-        } else {
-            setMode(_MODE.MOUSE)
-        }
-    } else {
+    if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
             send ~
         } else {
             send h
         }
+    } else if (mode(_MODE.EDIT)) {
+        send {Left}
+    } else if (mode(_MODE.RANGE)) {
+        send +{Left}
+    } else if (mode(_MODE.MOUSE)) {
+        moveMouseLeftMicro()
+    } else if (mode(_MODE.SPECIAL)) {
+        send h
+    } else if (mode(_MODE.DEBUG)) {
+        send +{F11}
     }
     return
-
-
+          
+          
 ;[NORMAL ]: Ctrl + H
 ;[EDIT   ]: 15つ上に移動
 ;[RANGE  ]: 選択範囲を15つ上に移動
@@ -549,7 +554,7 @@ $j::
         if (isSecondKey()) {
             send {' 2}
             Sleep 50
-            send {Down}
+            send {Left}
         } else {
             send j
         }
@@ -572,8 +577,8 @@ $j::
 
 
 ;[NORMAL ]: Ctrl + jキー
-;[EDIT   ]: 下に1単語移動
-;[RANGE  ]: 選択範囲を下に1単語移動
+;[EDIT   ]: 下に5つ移動
+;[RANGE  ]: 選択範囲を下に5つ移動
 ;[MOUSE  ]: マウスポインタを下に移動
 ;[SPECIAL]: 4キー + Enter
 $^j::
@@ -583,10 +588,10 @@ $^j::
         if (isActive("poderose")) {
             send {ESC}b
         } else {
-            send ^{Down}
+            sendInput {Down 5}
         }
     } else if (mode(_MODE.RANGE)) {
-        send +^{Down}
+        sendInput +{Down 5}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMiddle()
     } else if (mode(_MODE.SPECIAL)) {
@@ -596,17 +601,17 @@ $^j::
 
 
 ;[NORMAL ]: Shift + jキー
-;[EDIT   ]: 下に5つ移動
-;[RANGE  ]: 選択範囲を下に5つ移動
+;[EDIT   ]: 下に1ページ移動
+;[RANGE  ]: 選択範囲を下に1ページ移動
 ;[MOUSE  ]: マウスポインタを下に大きく移動
 ;[SPECIAL]: 左キー
 $+j::
     if (mode(_MODE.NORMAL)) {
         send +j
     } else if (mode(_MODE.EDIT)) {
-        sendInput {Down 5}
+        send {PgDn}
     } else if (mode(_MODE.RANGE)) {
-        sendInput +{Down 5}
+        send +{PgDn}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownLarge()
     } else if (mode(_MODE.SPECIAL)) {
