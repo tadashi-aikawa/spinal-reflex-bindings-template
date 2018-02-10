@@ -264,9 +264,9 @@ $+e::
 
 
 ;[NORMAL ]: fキー(コンビネーションの場合は$）
-;[EDIT   ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提) (Dynalist: 展開トグル)
-;[RANGE  ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提)
-;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
+;[EDIT   ]: 行末へ移動
+;[RANGE  ]: 行末に選択範囲を移動
+;[MOUSE  ]: ポインタを１画面分右に移動
 ;[SPECIAL]: 縦にフルスクリーン
 $f::
     if (mode(_MODE.NORMAL)) {
@@ -276,19 +276,11 @@ $f::
             send f
         }
     } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^.
-        } else {
-            send ^+b
-        }
+        send {end}
     } else if (mode(_MODE.RANGE)) {
-        send ^+b
+        send +{end}
     } else if (mode(_MODE.MOUSE)) {
-        if (isConbinationKey("$f")) {
-            moveMousePointerEdge(3, 2)
-        } else {
-            moveMousePointer(3, 2)
-        }
+        moveMouseRightScreen()
     } else if (mode(_MODE.SPECIAL)) {
         send #+{UP}
     }
@@ -393,7 +385,7 @@ $h::
 ;[NORMAL ]: Ctrl + H
 ;[EDIT   ]: 5つ左に移動
 ;[RANGE  ]: 選択範囲を5つ左に移動
-;[MOUSE  ]: Ctrl + H
+;[MOUSE  ]: マウスポインタを左に移動
 ;[SPECIAL]: Ctrl + H
 $^h::
     if (!mode(_MODE.NORMAL)) {
@@ -402,7 +394,7 @@ $^h::
         } else if (mode(_MODE.RANGE)) {
             sendInput +{Left 5}
         } else if (mode(_MODE.MOUSE)) {
-            send ^h
+            moveMouseLeftMiddle()
         } else if (mode(_MODE.SPECIAL)) {
             send ^h
         }
@@ -415,7 +407,7 @@ $^h::
 ;[NORMAL ]: Shift + hキー
 ;[EDIT   ]: 15つ左に移動
 ;[RANGE  ]: 選択範囲を15つ左に移動
-;[MOUSE  ]: Shift + hキー
+;[MOUSE  ]: マウスポインタを大きく左に移動
 ;[SPECIAL]: Shift + hキー
 $+h::
     if (!mode(_MODE.NORMAL)) {
@@ -424,7 +416,7 @@ $+h::
         } else if (mode(_MODE.RANGE)) {
             sendInput +{Left 15}
         } else if (mode(_MODE.MOUSE)) {
-            send +h
+            moveMouseLeftLarge()
         } else if (mode(_MODE.SPECIAL)) {
             send +h
         }
@@ -435,9 +427,9 @@ $+h::
 
 
 ;[NORMAL ]: iキー (コンビネーションの場合は{}）
-;[EDIT   ]: iキー
-;[RANGE  ]: iキー
-;[MOUSE  ]: iキー
+;[EDIT   ]: MOUSEモードに変更
+;[RANGE  ]: MOUSEモードに変更
+;[MOUSE  ]: NORMALモードに変更
 ;[SPECIAL]: 8キー
 $i::
     if (mode(_MODE.NORMAL)) {
@@ -449,11 +441,11 @@ $i::
             send i
         }
     } else if (mode(_MODE.EDIT)) {
-        send i
+        setMode(_MODE.MOUSE)
     } else if (mode(_MODE.RANGE)) {
-        send i
+        setMode(_MODE.MOUSE)
     } else if (mode(_MODE.MOUSE)) {
-        send i
+        setMode(_MODE.NORMAL)
     } else if (mode(_MODE.SPECIAL)) {
         if (isActive("mintty") || isActive("ubuntu")) {
             send 8
