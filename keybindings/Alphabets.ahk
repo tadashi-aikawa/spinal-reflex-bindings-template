@@ -786,22 +786,18 @@ $l::
     return
 
 
-;[NORMAL ]: lキー
-;[EDIT   ]: 右に1単語移動
-;[RANGE  ]: 選択範囲を右に1単語移動
-;[MOUSE  ]: マウスポインタを右に移動
+;[NORMAL ]: Ctrl+lキー
+;[EDIT   ]: 右に5つ移動
+;[RANGE  ]: 選択範囲を右に5つ移動
+;[MOUSE  ]: マウスポインタを右にそこそこ移動
 ;[SPECIAL]: 6キー + Enter
 $^l::
     if (mode(_MODE.NORMAL)) {
-        send ^l
+        send +l
     } else if (mode(_MODE.EDIT)) {
-        if (isActive("poderosa")) {
-            send {ESC}f
-        } else {
-            send ^{right}
-        }
+        sendInput {Right 5}
     } else if (mode(_MODE.RANGE)) {
-        send +^{right}
+        sendInput +{Right 5}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightMiddle()
     } else if (mode(_MODE.SPECIAL)) {
@@ -811,21 +807,21 @@ $^l::
 
 
 ;[NORMAL ]: Shift + lキー
-;[EDIT   ]: 右に5つ移動
-;[RANGE  ]: 選択範囲を右に5つ移動
+;[EDIT   ]: 右に15つ移動
+;[RANGE  ]: 選択範囲を右に15つ移動
 ;[MOUSE  ]: マウスポインタを右に大きく移動
-;[SPECIAL]: →キー
+;[SPECIAL]: Shift + lキー
 $+l::
     if (mode(_MODE.NORMAL)) {
         send +l
     } else if (mode(_MODE.EDIT)) {
-        sendInput {Right 5}
+        sendInput {Right 15}
     } else if (mode(_MODE.RANGE)) {
-        sendInput +{Right 5}
+        sendInput +{Right 15}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightLarge()
     } else if (mode(_MODE.SPECIAL)) {
-        send →
+        send +l
     }
     return
 
