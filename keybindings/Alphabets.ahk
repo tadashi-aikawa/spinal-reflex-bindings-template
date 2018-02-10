@@ -1,4 +1,4 @@
-﻿;[NORMAL ]: aキー(コンビネーションから場合は()）
+﻿;[NORMAL ]: aキー(コンビネーションから場合は^）
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
@@ -20,12 +20,7 @@ $a::
         }
     } else {
         if (isSecondKey()) {
-            imeOn := getIME()
-            setIME(false)
-            send ()
-            setIME(imeOn)
-            Sleep, 50
-            send {Left}
+            send {^}
         } else {
             send a
         }
@@ -43,20 +38,21 @@ $#a::
     return
 
 
-;[NORMAL ]: SNIPPETモードに変更
-;[EDIT   ]: SNIPPETモードに変更
-;[RANGE  ]: SNIPPETモードに変更
-;[MOUSE  ]: SNIPPETモードに変更
-;[SPECIAL]: SNIPPETモードに変更
-;[SNIPPET]: EDITモードに変更
+;[NORMAL ]: bキー
+;[EDIT   ]: 1単語左へ移動する
+;[RANGE  ]: 選択範囲を1単語左に移動
+;[MOUSE  ]: bキー
+;[SPECIAL]: bキー
 $b::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SNIPPET)) {
-            setMode(_MODE.EDIT)
-        } else {
-            setMode(_MODE.SNIPPET)
-        }
-    } else {
+    if (mode(_MODE.NORMAL)) {
+        send b
+    } else if (mode(_MODE.EDIT)) {
+        send ^{Left}
+    } else if (mode(_MODE.RANGE)) {
+        send ^+{Left}
+    } else if (mode(_MODE.MOUSE)) {
+        send b
+    } else if (mode(_MODE.SPECIAL)) {
         send b
     }
     return
@@ -120,7 +116,7 @@ $+c::
     return
 
 
-;[NORMAL ]: dキー (コンビネーションの場合は$）
+;[NORMAL ]: dキー (コンビネーションの場合は#）
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
 ;[MOUSE  ]: ポインタを画面中央に移動
@@ -128,7 +124,7 @@ $+c::
 $d::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
-            send $
+            send {#}
         } else {
             send d
         }
@@ -267,7 +263,7 @@ $+e::
     return
 
 
-;[NORMAL ]: fキー(コンビネーションの場合は#）
+;[NORMAL ]: fキー(コンビネーションの場合は$）
 ;[EDIT   ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提) (Dynalist: 展開トグル)
 ;[RANGE  ]: ブラケット移動 (Ctrl+Shift+Bにキーバインドする前提)
 ;[MOUSE  ]: ポインタを画面中央右に移動 (fからのコンビネーションの場合は ポインタを画面中央右隅に移動）
@@ -275,7 +271,7 @@ $+e::
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
-            send {#}
+            send {$}
         } else {
             send f
         }
@@ -793,7 +789,7 @@ $l::
 ;[SPECIAL]: 6キー + Enter
 $^l::
     if (mode(_MODE.NORMAL)) {
-        send +l
+        send ^l
     } else if (mode(_MODE.EDIT)) {
         sendInput {Right 5}
     } else if (mode(_MODE.RANGE)) {
@@ -1204,7 +1200,7 @@ $^r::
     }
     return
 
-;[NORMAL ]: sキー (コンビネーションキーの場合は｢｣)
+;[NORMAL ]: sキー (コンビネーションキーの場合は())
 ;[EDIT   ]: Ctrl+Shift+S
 ;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: ポインタを画面左隅に移動
@@ -1231,9 +1227,12 @@ $s::
         }
     } else {
         if (isSecondKey()) {
-            sendMultiByte("｢｣")
-            Sleep 50
-            send {left}
+            imeOn := getIME()
+            setIME(false)
+            send ()
+            setIME(imeOn)
+            Sleep, 50
+            send {Left}
         } else {
             send s
         }
@@ -1410,11 +1409,11 @@ $^v::
 
 
 ;[NORMAL ]: wキー (コンビネーションキーの場合は!=)
-;[EDIT   ]: ページの先頭に移動
-;[RANGE  ]: 選択範囲をページの先頭に移動
+;[EDIT   ]: 1単語右に移動
+;[RANGE  ]: 選択範囲を1単語右に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
 ;[SPECIAL]: アクティブウィンドウを中央上に最大化して移動する
-;[SNIPPET]: :womans_clothes:
+;[SNIPPET]: wキー
 $w::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
@@ -1423,9 +1422,9 @@ $w::
             send w
         }
     } else if (mode(_MODE.EDIT)) {
-        send ^{Home}
+        send ^{Right}
     } else if (mode(_MODE.RANGE)) {
-        send ^+{Home}
+        send ^+{Right}
     } else if (mode(_MODE.MOUSE)) {
         if (isConbinationKey("$w")) {
             moveMousePointerEdge(1, 1)
@@ -1436,8 +1435,6 @@ $w::
         }
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("CenterUp")
-    } else if (mode(_MODE.SNIPPET)) {
-        send :womans_clothes:
     }
     return
 
