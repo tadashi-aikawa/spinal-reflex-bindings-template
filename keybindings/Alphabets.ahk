@@ -264,8 +264,8 @@ $+e::
 
 
 ;[NORMAL ]: fキー(コンビネーションの場合は$）
-;[EDIT   ]: 行末へ移動
-;[RANGE  ]: 行末に選択範囲を移動
+;[EDIT   ]: 一番上に移動
+;[RANGE  ]: 選択範囲を一番上に移動
 ;[MOUSE  ]: ポインタを１画面分右に移動
 ;[SPECIAL]: 縦にフルスクリーン
 $f::
@@ -276,9 +276,9 @@ $f::
             send f
         }
     } else if (mode(_MODE.EDIT)) {
-        send {end}
+        send ^{Home}
     } else if (mode(_MODE.RANGE)) {
-        send +{end}
+        send +^{Home}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightScreen()
     } else if (mode(_MODE.SPECIAL)) {
@@ -302,20 +302,16 @@ $^f::
 
 
 ;[NORMAL ]: Shift + fキー
-;[EDIT   ]: Enterキー (Dynalist: すべての展開トグル)
-;[RANGE  ]: Enterキー
+;[EDIT   ]: 一番下に移動
+;[RANGE  ]: 選択範囲を一番下に移動
 ;[MOUSE  ]: Shift + fキー
 ;[SPECIAL]: Shift + fキー
 $+f::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActiveProcess("dynalist")) {
-                send ^+.
-            } else {
-                send {Enter}
-            }
+            send ^{End}
         } else if (mode(_MODE.RANGE)) {
-            send {Enter}
+            send +^{End}
         } else if (mode(_MODE.MOUSE)) {
             send +f
         } else if (mode(_MODE.SPECIAL)) {
@@ -1193,7 +1189,7 @@ $^r::
     return
 
 ;[NORMAL ]: sキー (コンビネーションキーの場合は())
-;[EDIT   ]: Ctrl+Shift+S
+;[EDIT   ]: Ctrl+Shift+S (Dynalistの場合は展開/格納)
 ;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: ポインタを画面左隅に移動
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
@@ -1201,7 +1197,11 @@ $^r::
 $s::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send ^+{s}
+            if (isActiveProcess("dynalist")) {
+                send ^+.
+            } else {
+                send ^+{s}
+            }
         } else if (mode(_MODE.RANGE)) {
             send ^+{s}
         } else if (mode(_MODE.SPECIAL)) {
