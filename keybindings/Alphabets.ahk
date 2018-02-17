@@ -422,6 +422,38 @@ $+h::
     return
 
 
+;[NORMAL ]: Alt + hキー
+;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動)
+;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動)
+;[MOUSE  ]: マウスポインタを大きく左に移動
+;[SPECIAL]: Alt + hキー
+$!h::
+    if (!mode(_MODE.NORMAL)) {
+        if (mode(_MODE.EDIT)) {
+            send !h
+        } else if (mode(_MODE.EDIT)) {
+            if (isActiveProcess("dynalist")) {
+                send {TAB}
+            } else {
+                send !{Left}
+            }
+        } else if (mode(_MODE.RANGE)) {
+            if (isActiveProcess("dynalist")) {
+                send {TAB}
+            } else {
+                send !{Left}
+            }
+        } else if (mode(_MODE.MOUSE)) {
+            moveMouseLeftLarge()
+        } else if (mode(_MODE.SPECIAL)) {
+            send !h
+        }
+    } else {
+        send !h
+    }
+    return
+
+
 ;[NORMAL ]: iキー (コンビネーションの場合は{}）
 ;[EDIT   ]: MOUSEモードに変更
 ;[RANGE  ]: MOUSEモードに変更
@@ -500,25 +532,17 @@ $+i::
 
 
 ;[NORMAL ]: Alt + iキー
-;[EDIT   ]: Alt + 上キー (Dynalist: トピックを上へ移動)
-;[RANGE  ]: Alt + 上キー (Dynalist: トピックを上へ移動)
+;[EDIT   ]: Alt + iキー
+;[RANGE  ]: Alt + iキー
 ;[MOUSE  ]: マウスポインタを上に少し移動
 ;[SPECIAL]: Alt + iキー
 $!i::
     if (mode(_MODE.NORMAL)) {
         Send !i
     } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^{Up}
-        } else {
-            send !{up}
-        }
+        Send !i
     } else if (mode(_MODE.RANGE)) {
-        if (isActiveProcess("dynalist")) {
-            send ^{Up}
-        } else {
-            send !{up}
-        }
+        Send !i
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpSmall()
     } else if (mode(_MODE.SPECIAL)) {
@@ -605,8 +629,8 @@ $+j::
 
 
 ;[NORMAL ]: Alt + jキー
-;[EDIT   ]: Alt + jキー (Dynalist: トピックを左に移動)
-;[RANGE  ]: Alt + jキー (Dynalist: トピックを左に移動)
+;[EDIT   ]: Alt + jキー (Dynalist: トピックを下に移動)
+;[RANGE  ]: Alt + jキー (Dynalist: トピックを下に移動)
 ;[MOUSE  ]: マウスポインタを下に少し移動
 ;[SPECIAL]: Alt + jキー
 $!j::
@@ -614,15 +638,15 @@ $!j::
         send !j
     } else if (mode(_MODE.EDIT)) {
         if (isActiveProcess("dynalist")) {
-            send +{TAB}
+            send ^{Down}
         } else {
-            send !j
+            send !{Down}
         }
     } else if (mode(_MODE.RANGE)) {
         if (isActiveProcess("dynalist")) {
-            send +{TAB}
+            send ^{Down}
         } else {
-            send !j
+            send !{Down}
         }
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownSmall()
@@ -706,8 +730,8 @@ $+k::
 
 
 ;[NORMAL ]: Alt + kキー
-;[EDIT   ]: Alt + 上キー (Dynalist: トピックを下に移動)
-;[RANGE  ]: Alt + 上キー (Dynalist: トピックを下に移動)
+;[EDIT   ]: Alt + 上キー (Dynalist: トピックを上に移動)
+;[RANGE  ]: Alt + 上キー (Dynalist: トピックを上に移動)
 ;[MOUSE  ]: マウスポインタを上に少し移動
 ;[SPECIAL]: Alt + kキー
 $!k::
