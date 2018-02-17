@@ -1036,7 +1036,7 @@ $^o::
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("ubuntu") || isActive("mintty")) {
+            if (isActive("poderosa") || isActive("console") || isActive("mintty")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1181,7 +1181,7 @@ $r::
 ;[MOUSE  ]: 更新(poderosa: Ctrl+r)
 ;[SPECIAL]: 更新(poderosa: Ctrl+r)
 $^r::
-    if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu")) {
+    if (isActive("poderosa") || isActive("console") || isActive("mintty")) {
         send ^r
     } else {
         send {F5}
@@ -1335,7 +1335,7 @@ $^u::
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("ubuntu") || isActive("mintty")) {
+            if (isActive("poderosa") || isActive("console") || isActive("mintty")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}
@@ -1370,7 +1370,7 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isActive("mintty")) {
                 send +{Ins}
             } else {
                 send ^v
