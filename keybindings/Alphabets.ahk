@@ -1410,20 +1410,6 @@ $v::
     return
 
 
-;[NORMAL ]: 貼り付け
-;[EDIT   ]: 貼り付け
-;[RANGE  ]: 貼り付け
-;[MOUSE  ]: 貼り付け
-;[SPECIAL]: 貼り付け
-$^v::
-    if (isActive("mintty")) {
-        send +{Ins}
-    } else {
-        send ^v
-    }
-    return
-
-
 ;[NORMAL ]: wキー (コンビネーションキーの場合は!=)
 ;[EDIT   ]: 1単語右に移動
 ;[RANGE  ]: 選択範囲を1単語右に移動
