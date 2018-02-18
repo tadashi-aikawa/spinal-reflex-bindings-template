@@ -386,7 +386,11 @@ $h::
 $^h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
+          if (isActive("mintty")) {
+            send 5h
+          } else {
             sendInput {Left 5}
+          }
         } else if (mode(_MODE.RANGE)) {
             sendInput +{Left 5}
         } else if (mode(_MODE.MOUSE)) {
@@ -408,7 +412,11 @@ $^h::
 $+h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
+          if (isActive("mintty")) {
+            send 15h
+          } else {
             sendInput {Left 15}
+          }
         } else if (mode(_MODE.RANGE)) {
             sendInput +{Left 15}
         } else if (mode(_MODE.MOUSE)) {
@@ -593,8 +601,8 @@ $^j::
     if (mode(_MODE.NORMAL)) {
         send ^j
     } else if (mode(_MODE.EDIT)) {
-        if (isActive("poderose")) {
-            send {ESC}b
+        if (isActive("mintty")) {
+            send 5j
         } else {
             sendInput {Down 5}
         }
@@ -698,7 +706,11 @@ $^k::
     if (mode(_MODE.NORMAL)) {
         send ^k
     } else if (mode(_MODE.EDIT)) {
-        sendInput {Up 5}
+        if (isActive("mintty")) {
+          send 5k
+        } else {
+          sendInput {Up 5}
+        }
     } else if (mode(_MODE.RANGE)) {
         sendInput +{Up 5}
     } else if (mode(_MODE.MOUSE)) {
@@ -803,7 +815,11 @@ $^l::
     if (mode(_MODE.NORMAL)) {
         send ^l
     } else if (mode(_MODE.EDIT)) {
+      if (isActive("mintty")) {
+        send 5l
+      } else {
         sendInput {Right 5}
+      }
     } else if (mode(_MODE.RANGE)) {
         sendInput +{Right 5}
     } else if (mode(_MODE.MOUSE)) {
@@ -823,7 +839,11 @@ $+l::
     if (mode(_MODE.NORMAL)) {
         send +l
     } else if (mode(_MODE.EDIT)) {
+      if (isActive("mintty")) {
+        send 15l
+      } else {
         sendInput {Right 15}
+      }
     } else if (mode(_MODE.RANGE)) {
         sendInput +{Right 15}
     } else if (mode(_MODE.MOUSE)) {
