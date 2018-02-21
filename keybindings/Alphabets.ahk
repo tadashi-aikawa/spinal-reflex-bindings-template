@@ -593,8 +593,8 @@ $^j::
     if (mode(_MODE.NORMAL)) {
         send ^j
     } else if (mode(_MODE.EDIT)) {
-        if (isActive("mintty")) {
-            send 5j
+        if (isActive("poderose")) {
+            send {ESC}b
         } else {
             sendInput {Down 5}
         }
@@ -698,11 +698,7 @@ $^k::
     if (mode(_MODE.NORMAL)) {
         send ^k
     } else if (mode(_MODE.EDIT)) {
-        if (isActive("mintty")) {
-          send 5k
-        } else {
-          sendInput {Up 5}
-        }
+        sendInput {Up 5}
     } else if (mode(_MODE.RANGE)) {
         sendInput +{Up 5}
     } else if (mode(_MODE.MOUSE)) {
