@@ -6,7 +6,7 @@
 ;[EDIT   ]: 行末へ移動
 ;[RANGE  ]: 行末に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
-;[SPECIAL]: - (ハイフン)
+;[SPECIAL]: コロン
 $;::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -16,7 +16,7 @@ $;::
         } else if (mode(_MODE.MOUSE)) {
             moveMouseRightScreen()
         } else if (mode(_MODE.SPECIAL)) {
-            send -
+            send :
         }
     } else {
         if (isSecondKey()) {

@@ -267,7 +267,7 @@ $+e::
 ;[EDIT   ]: 一番上に移動
 ;[RANGE  ]: 選択範囲を一番上に移動
 ;[MOUSE  ]: ポインタを１画面分右に移動
-;[SPECIAL]: 縦にフルスクリーン
+;[SPECIAL]: ハイフン
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
@@ -282,7 +282,7 @@ $f::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightScreen()
     } else if (mode(_MODE.SPECIAL)) {
-        send #+{UP}
+        send -
     }
     return
 
@@ -1081,14 +1081,14 @@ $+o::
 ;[EDIT   ]: コマンドパレット(Ctrl + Shift + pキー => NORMALモード)
 ;[RANGE  ]: pキ－
 ;[MOUSE  ]: pキ－
-;[SPECIAL]: %キー
+;[SPECIAL]: ハイフン
 $p::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
             send ^+p
             setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
-            send `%
+            send -
         } else {
             send p
         }
