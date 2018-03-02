@@ -430,16 +430,14 @@ $+h::
 $!h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send !h
-        } else if (mode(_MODE.EDIT)) {
             if (isActiveProcess("dynalist")) {
-                send {TAB}
+                send +{TAB}
             } else {
                 send !{Left}
             }
         } else if (mode(_MODE.RANGE)) {
             if (isActiveProcess("dynalist")) {
-                send {TAB}
+                send +{TAB}
             } else {
                 send !{Left}
             }
