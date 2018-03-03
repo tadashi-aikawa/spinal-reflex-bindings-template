@@ -327,12 +327,15 @@ $+f::
 ;[EDIT   ]: RANGEモードに切り替え
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
-;[SPECIAL]: RANGEモードに切り替え
+;[SPECIAL]: G+NORMALモードに切り替え(Vimジャンプ用)
 ;[SNIPPET]: :globe_with_meridians: 
 $g::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.RANGE)) {
             setMode(_MODE.EDIT)
+        } else if (mode(_MODE.SPECIAL)) {
+            send G
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SNIPPET)) {
             send :globe_with_meridians: 
         } else {
