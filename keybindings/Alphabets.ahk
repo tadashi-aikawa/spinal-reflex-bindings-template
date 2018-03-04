@@ -323,7 +323,7 @@ $+f::
     return
 
 
-;[NORMAL ]: gキー (コンビネーションの場合は *<space>)
+;[NORMAL ]: gキー (コンビネーションの場合は &)
 ;[EDIT   ]: RANGEモードに切り替え
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
@@ -343,10 +343,7 @@ $g::
         }
     } else {
         if (isSecondKey()) {
-            imeOn := getIME()
-            setIME(false)
-            send *{space}
-            setIME(imeOn)
+            send &
         } else {
             send g
         }
