@@ -48,7 +48,7 @@ $+;::
     return
 
 
-;[NORMAL ]: 本日の日付を入力(YYYY/MM/DD)
+;[NORMAL ]: セミコロン
 ;[EDIT   ]: 行末へ移動
 ;[RANGE  ]: 行末へ移動
 ;[MOUSE  ]: 行末へ移動
@@ -58,8 +58,7 @@ $^;::
         if (isActive("excel") || isActive("powerpoint-full")) {
             send ^;
         } else {
-            Clipboard = %A_Year%/%A_Mon%/%A_MDay%
-            Send, ^v
+            send `;
         }
     } else {
         ; Copy => 行末移動の操作でCtrlのupが間に合わず予期せぬ挙動になるのを防ぐため
