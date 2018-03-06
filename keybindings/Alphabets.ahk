@@ -1282,12 +1282,21 @@ $^+s::
     return
 
 
-;----- [N][R][M][S]ウィンドウのスクリーン間移動 -----
+;[NORMAL ]: tキー (コンビネーションキーの場合は今日の日付をクリップボードに登録)
+;[EDIT   ]: ウィンドウの移動
+;[RANGE  ]: ウィンドウの移動
+;[MOUSE  ]: ウィンドウの移動
+;[SPECIAL]: ウィンドウの移動
+;[SNIPPET]: ウィンドウの移動
 $t::
     if (!mode(_MODE.NORMAL)) {
         moveScreen()
     } else {
-        send t
+        if (isSecondKey()) {
+           Clipboard = %A_Year%/%A_Mon%/%A_MDay%
+        } else {
+            send t
+        }
     }
     return
 
