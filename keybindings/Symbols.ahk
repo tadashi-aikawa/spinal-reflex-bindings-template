@@ -2,7 +2,7 @@
 ; セミコロン
 ;******************************************************************
 
-;[NORMAL ]: コンビネーション開始 (コンビの後は末尾に;キー)
+;[NORMAL ]: コンビネーション開始
 ;[EDIT   ]: 行末へ移動
 ;[RANGE  ]: 行末に選択範囲を移動
 ;[MOUSE  ]: ポインタを１画面分左に移動
@@ -19,10 +19,7 @@ $;::
             send :
         }
     } else {
-        if (isSecondKey()) {
-            send {End}
-            send `;
-        }
+        ; Do nothing...
     }
     return
 
@@ -49,18 +46,17 @@ $+;::
     return
 
 
-;[NORMAL ]: セミコロン
+;[NORMAL ]: セミコロン (コンビネーションからだと行末に移動してセミコロン)
 ;[EDIT   ]: 行末へ移動
 ;[RANGE  ]: 行末へ移動
 ;[MOUSE  ]: 行末へ移動
 ;[SPECIAL]: 行末へ移動
 $^;::
     if (mode(_MODE.NORMAL)) {
-        if (isActive("excel") || isActive("powerpoint-full")) {
-            send ^;
-        } else {
-            send `;
+        if (isSecondKey()) {
+            send {End}
         }
+        send `;
     } else {
         ; Copy => 行末移動の操作でCtrlのupが間に合わず予期せぬ挙動になるのを防ぐため
         send {end}
@@ -110,30 +106,6 @@ $@::
 ; コロン
 ;******************************************************************
 
-;[NORMAL ]: 現在の時刻を入力(hh:mm:ss)
-;[EDIT   ]: 現在の時刻を入力(hh:mm:ss)
-;[RANGE  ]: 現在の時刻を入力(hh:mm:ss)
-;[MOUSE  ]: 現在の時刻を入力(hh:mm:ss)
-;[SPECIAL]: 現在の時刻を入力(hh:mm:ss)
-;※ Ctrl + :
-$^vkBAsc028::
-    Clipboard = %A_Hour%:%A_Min%:%A_Sec%
-    Send, ^v
-    return
-
-
-;[NORMAL ]: 現在の時刻を入力(hhmmss)
-;[EDIT   ]: 現在の時刻を入力(hhmmss)
-;[RANGE  ]: 現在の時刻を入力(hhmmss)
-;[MOUSE  ]: 現在の時刻を入力(hhmmss)
-;[SPECIAL]: 現在の時刻を入力(hhmmss)
-;※ Ctrl + Shift + :
-$^+vkBAsc028::
-    Clipboard = %A_Hour%%A_Min%%A_Sec%
-    Send, ^v
-    return
-
-
 ;[NORMAL ]: :キー (コンビネーションからだと →:<Space>)
 ;[EDIT   ]: 日本語入力ON + モードをNORMALに変更
 ;[RANGE  ]: 日本語入力ON + モードをNORMALに変更
@@ -151,6 +123,38 @@ $vkBAsc028::
             send :
         }
     }
+    return
+
+
+;[NORMAL ]: Ctrl+: (コンビネーションからだと行末に移動してコロン)
+;[EDIT   ]: Ctrl+: 
+;[RANGE  ]: Ctrl+:
+;[MOUSE  ]: Ctrl+:
+;[SPECIAL]: Ctrl+:
+;※ Ctrl + :
+$^vkBAsc028::
+    if (mode(_MODE.NORMAL)) {
+        if (isSecondKey()) {
+            send {End}
+            send :
+        } else {
+            send ^:
+        }
+    } else {
+        send ^:
+    }
+    return
+
+
+;[NORMAL ]: 現在の時刻を入力(hhmmss)
+;[EDIT   ]: 現在の時刻を入力(hhmmss)
+;[RANGE  ]: 現在の時刻を入力(hhmmss)
+;[MOUSE  ]: 現在の時刻を入力(hhmmss)
+;[SPECIAL]: 現在の時刻を入力(hhmmss)
+;※ Ctrl + Shift + :
+$^+vkBAsc028::
+    Clipboard = %A_Hour%%A_Min%%A_Sec%
+    Send, ^v
     return
 
 
@@ -256,27 +260,29 @@ $,::
     return
 
 
-;[NORMAL ]: Ctrl + , キー
-;[EDIT   ]: Ctrl + , キー + NORMALモード
-;[RANGE  ]: Ctrl + , キー + NORMALモード
-;[MOUSE  ]: Ctrl + , キー + NORMALモード
+;[NORMAL ]: Ctrl + , キー (コンビネーションからだと行末に移動してカンマ)
+;[EDIT   ]: Ctrl + , キー
+;[RANGE  ]: Ctrl + , キー
+;[MOUSE  ]: Ctrl + , キー
 ;[SPECIAL]: 2キー
 $^,::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
             send ^,
-            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.RANGE)) {
             send ^,
-            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.MOUSE)) {
             send ^,
-            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             send {Numpad2}{Enter}
         }
     } else {
-        send ^,
+        if (isSecondKey()) {
+            send {End}
+            send `,
+        } else {
+            send ^,
+        }
     }
     return
 
