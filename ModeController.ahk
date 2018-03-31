@@ -77,6 +77,10 @@ setMode(mode) {
     global g_mode, _MODE, _DISPLAYS
     g_mode := mode
 
+    ;ここを通過した後、500行はスレッド割り込みを禁止する
+    ;モードを素早くON -> OFFにすると全てをONにする前にOFFが先行して一部ラベルが表示されたままになるため
+    Thread, Interrupt, -1, 500
+
     if (mode(_MODE.NORMAL)) {
         hideLine()
         return
