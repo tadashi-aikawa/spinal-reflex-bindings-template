@@ -1203,7 +1203,7 @@ $r::
 ;[MOUSE  ]: 更新(poderosa: Ctrl+r)
 ;[SPECIAL]: 更新(poderosa: Ctrl+r)
 $^r::
-    if (isActive("poderosa") || isActive("console") || isActive("mintty")) {
+    if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu")) {
         send ^r
     } else {
         send {F5}
