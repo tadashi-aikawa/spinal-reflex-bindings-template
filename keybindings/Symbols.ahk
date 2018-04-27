@@ -112,7 +112,7 @@ $@::
 ;[MOUSE  ]: 日本語入力ON + モードをNORMALに変更
 ;[SPECIAL]: 日本語入力ON + モードをNORMALに変更
 ;※ :
-$vkBAsc028::
+$SC028::
     if (!mode(_MODE.NORMAL)) {
         setIME(true)
         setMode(_MODE.NORMAL)
@@ -132,7 +132,7 @@ $vkBAsc028::
 ;[MOUSE  ]: Ctrl+:
 ;[SPECIAL]: Ctrl+:
 ;※ Ctrl + :
-$^vkBAsc028::
+$^SC028::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
             send {End}
@@ -152,7 +152,7 @@ $^vkBAsc028::
 ;[MOUSE  ]: 現在の時刻を入力(hhmmss)
 ;[SPECIAL]: 現在の時刻を入力(hhmmss)
 ;※ Ctrl + Shift + :
-$^+vkBAsc028::
+$^+SC028::
     Clipboard = %A_Hour%%A_Min%%A_Sec%
     Send, ^v
     return
