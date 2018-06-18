@@ -1139,6 +1139,20 @@ $q::
 
 
 
+;[NORMAL ]: ウィンドウを閉じる
+;[EDIT   ]: ウィンドウを閉じる
+;[RANGE  ]: ウィンドウを閉じる
+;[MOUSE  ]: ウィンドウを閉じる
+;[SPECIAL]: ウィンドウを閉じる
+$^q::
+    if (isActive("console")) {
+        send !{space}c
+    } else {
+        send !{f4}
+    }
+    return
+
+
 ;[NORMAL ]: Shift + Q
 ;[EDIT   ]: Ctrl + Shift + Q
 ;[RANGE  ]: Ctrl + Shift + Q
@@ -1458,7 +1472,7 @@ $+w::
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面左下に移動
-;[SPECIAL]: Window削除
+;[SPECIAL]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 $x::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
@@ -1467,8 +1481,6 @@ $x::
             } else {
                 moveMousePointer(1, 3)
             }
-        } else if (mode(_MODE.SPECIAL)) {
-            send !{F4}
         } else {
             setMode(_MODE.EDIT)
             send ^x
