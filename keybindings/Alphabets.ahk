@@ -1115,20 +1115,20 @@ $+p::
 
 
 ;[NORMAL ]: qキー(コンビネーションから場合はコンビネーション無効化）
-;[EDIT   ]: ページの末尾に移動
-;[RANGE  ]: 選択範囲をページの末尾に移動
-;[MOUSE  ]: ページの末尾に移動
+;[EDIT   ]: Ctrl + q
+;[RANGE  ]: Ctrl + q
+;[MOUSE  ]: Ctrl + q
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftUp")
         } else if (mode(_MODE.EDIT)) {
-            send ^{End}
+            send ^q
         } else if (mode(_MODE.RANGE)) {
-            send ^+{End}
+            send ^q
         } else {
-            send ^{End}
+            send ^q
         }
     } else {
         if (!isSecondKey()) {
