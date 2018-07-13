@@ -1058,7 +1058,7 @@ $^o::
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu")) {
+            if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu") || isActive("intellij")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1366,7 +1366,7 @@ $^u::
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu")) {
+            if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu") || isActive("intellij")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}
