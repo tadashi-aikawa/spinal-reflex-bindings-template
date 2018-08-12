@@ -970,11 +970,7 @@ $^n::
             send ^+{F3}
         }
     } else {
-        if (isActive("mintty")) {
-            send !{F2}
-        } else {
-            send ^n
-        }
+        send ^n
     }
     return
 
