@@ -1397,11 +1397,7 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("mintty")) {
-                send +{Ins}
-            } else {
-                send ^v
-            }
+            send +{Ins}
         }
     } else {
         if (isSecondKey()) {
@@ -1413,7 +1409,7 @@ $v::
     return
 
 
-;[NORMAL ]: wキー (コンビネーションキーの場合は!=)
+;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W)
 ;[EDIT   ]: 1単語右に移動
 ;[RANGE  ]: 選択範囲を1単語右に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
@@ -1422,7 +1418,7 @@ $v::
 $w::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
-            send {space}{!}={space}
+            send ^w
         } else {
             send w
         }
