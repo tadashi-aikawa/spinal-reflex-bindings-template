@@ -92,14 +92,18 @@ $c::
     return
 
 
-;[NORMAL ]: Shift + cキー
+;[NORMAL ]: Shift + cキー (コンビネーションの場合は:calendar:)
 ;[EDIT   ]: Shift + cキー (Dynalist: チェックリスト切り替えトグル)
 ;[RANGE  ]: Shift + cキー
 ;[MOUSE  ]: Shift + cキー
 ;[SPECIAL]: Shift + cキー
 $+c::
     if (mode(_MODE.NORMAL)) {
-        send +c
+        if (isConbinationKey("$;")) {
+          send :calendar:
+        } else {
+          send +c
+        }
     } else if (mode(_MODE.EDIT)) {
         if (isActiveProcess("dynalist")) {
             send ^+c
