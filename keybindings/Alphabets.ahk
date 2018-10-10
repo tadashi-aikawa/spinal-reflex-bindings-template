@@ -899,24 +899,20 @@ $m::
     return
 
 
-;[NORMAL ]: ウィンドウを最小化する
-;[EDIT   ]: 15つ下に移動
-;[RANGE  ]: 選択範囲を15つ下に移動
-;[MOUSE  ]: ウィンドウを最小化する
+;[NORMAL ]: Ctrl+M
+;[EDIT   ]: Ctrl+M
+;[RANGE  ]: Ctrl+M
+;[MOUSE  ]: Ctrl+M
 ;[SPECIAL]: 1キー
 $^m::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            sendInput {down 15}
-        } else if (mode(_MODE.RANGE)) {
-            sendInput +{down 15}
-        } else if (mode(_MODE.MOUSE)) {
-            WinMinimize, A
-        } else if (mode(_MODE.SPECIAL)) {
+        if (mode(_MODE.SPECIAL)) {
             send {Numpad1}{Enter}
+        } else {
+            send ^m
         }
     } else {
-        WinMinimize, A
+        send ^m
     }
     return
 
