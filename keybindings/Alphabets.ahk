@@ -1397,11 +1397,7 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("mintty") || isActive("ubuntu")) {
-                send +{Ins}
-            } else {
-                send ^v
-            }
+            send +{Ins}
         }
     } else {
         if (isSecondKey()) {
