@@ -76,7 +76,7 @@ $c::
             send :calendar:
         } else {
             setMode(_MODE.EDIT)
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal()) {
                 send ^{Ins}
             } else {
                 send ^c
@@ -477,7 +477,7 @@ $i::
     } else if (mode(_MODE.MOUSE)) {
         setMode(_MODE.NORMAL)
     } else if (mode(_MODE.SPECIAL)) {
-        if (isActive("mintty") || isActive("ubuntu")) {
+        if (isTerminal()) {
             send 8
         } else {
             send {Numpad8}
@@ -575,7 +575,7 @@ $j::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal()) {
                 send 4
             } else {
                 send {Numpad4}
@@ -680,7 +680,7 @@ $k::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal()) {
                 send 5
             } else {
                 send {Numpad5}
@@ -783,7 +783,7 @@ $l::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        if (isActive("mintty") || isActive("ubuntu")) {
+        if (isTerminal()) {
             send 6
         } else {
             send {Numpad6}
@@ -881,7 +881,7 @@ $m::
         } else if (mode(_MODE.MOUSE)) {
             send {LButton Down}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal()) {
                 send 1
             } else {
                 send {Numpad1}
@@ -1004,7 +1004,7 @@ $o::
         } else if (mode(_MODE.MOUSE)) {
             scrollDownSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal()) {
                 send 9
             } else {
                 send {Numpad9}
@@ -1054,7 +1054,7 @@ $^o::
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu") || isActive("intellij")) {
+            if (isTerminal() || isActive("intellij")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1199,7 +1199,7 @@ $r::
 ;[MOUSE  ]: 更新(poderosa: Ctrl+r)
 ;[SPECIAL]: 更新(poderosa: Ctrl+r)
 $^r::
-    if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu")) {
+    if (isTerminal()) {
         send ^r
     } else {
         send {F5}
@@ -1313,7 +1313,7 @@ $u::
         } else if (mode(_MODE.MOUSE)) {
             scrollUpSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal()) {
                 send 7
             } else {
                 send {Numpad7}
@@ -1362,7 +1362,7 @@ $^u::
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActive("poderosa") || isActive("console") || isActive("mintty") || isActive("ubuntu") || isActive("intellij")) {
+            if (isTerminal() || isActive("intellij")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}

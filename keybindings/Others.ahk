@@ -43,7 +43,7 @@ $Space::
 ;----- いかなる場合も『日本語入力』『モード』をOFFにする -----
 $ESC::
     send {ESC}
-    if (isActive("mintty")) {
+    if (isTerminal()) {
         setIME(false)
         setMode(_MODE.NORMAL)
     }
@@ -65,7 +65,7 @@ $Enter::
             MouseGetPos nowX, nowY
             Click nowX, nowY
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 0
             } else {
                 send {Numpad0}
@@ -93,7 +93,7 @@ $^Enter::
             MouseGetPos nowX, nowY
             send ^{Click nowX, nowY}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isActive("mintty") || isActive("ubuntu")) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 0
             } else {
                 send {Numpad0}

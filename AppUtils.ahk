@@ -29,6 +29,12 @@ isActive(name) {
     }
 }
 
+;【概要】指定されたウィンドウがターミナルか (ゆるい判定..)
+;【戻値】true / false
+isTerminal() {
+    return isActive("mintty") || isActive("cmder")
+}
+
 ;【概要】指定されたプロセスがアクティブであるか
 ;【引数】name: プロセス名
 ;【戻値】true / false
