@@ -426,9 +426,9 @@ $+h::
     return
 
 
-;[NORMAL ]: Alt + hキー
-;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動)
-;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動)
+;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, cmder: タブを左に移動)
+;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, cmder: タブを左に移動)
+;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動, cmder: タブを左に移動))
 ;[MOUSE  ]: マウスポインタを大きく左に移動
 ;[SPECIAL]: Alt + hキー
 $!h::
@@ -436,12 +436,16 @@ $!h::
         if (mode(_MODE.EDIT)) {
             if (isActiveProcess("dynalist")) {
                 send +{TAB}
+            } else if (isActive("cmder")) {
+                send ^+{TAB}
             } else {
                 send !{Left}
             }
         } else if (mode(_MODE.RANGE)) {
             if (isActiveProcess("dynalist")) {
                 send +{TAB}
+            } else if (isActive("cmder")) {
+                send ^+{TAB}
             } else {
                 send !{Left}
             }
@@ -451,7 +455,11 @@ $!h::
             send !h
         }
     } else {
-        send !h
+        if (isActive("cmder")) {
+            send ^+{TAB}
+        } else {
+            send !h
+        }
     }
     return
 
@@ -836,23 +844,31 @@ $+l::
     return
 
 
-;[NORMAL ]: Alt + lキー
-;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動)
-;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動)
+;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, cmder: タブを右に移動)
+;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, cmder: タブを右に移動))
+;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動, cmder: タブを右に移動))
 ;[MOUSE  ]: マウスポインタ右に少し移動
 ;[SPECIAL]: Alt + lキー
 $!l::
     if (mode(_MODE.NORMAL)) {
-        send !l
+        if (isActive("cmder")) {
+            send ^{TAB}
+        } else {
+            send !l
+        }
     } else if (mode(_MODE.EDIT)) {
         if (isActiveProcess("dynalist")) {
             send {TAB}
+        } else if (isActive("cmder")) {
+            send ^{TAB}
         } else {
             send !l
         }
     } else if (mode(_MODE.RANGE)) {
         if (isActiveProcess("dynalist")) {
             send {TAB}
+        } else if (isActive("cmder")) {
+            send ^{TAB}
         } else {
             send !l
         }
