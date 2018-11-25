@@ -1232,7 +1232,7 @@ $s::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
             if (isActiveProcess("dynalist")) {
-                send ^+.
+                send ^.
             } else {
                 send ^+{s}
             }
@@ -1267,13 +1267,17 @@ $s::
 
 
 ;[NORMAL ]: Shif+sキー
-;[EDIT   ]: Ctrl+Alt+Shift+sキー
-;[RANGE  ]: Ctrl+Alt+Shift+sキー
-;[MOUSE  ]: Ctrl+Alt+Shift+sキー
-;[SPECIAL]: Ctrl+Alt+Shift+sキー
+;[EDIT   ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
+;[RANGE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
+;[MOUSE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
+;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 $+s::
     if (!mode(_MODE.NORMAL)) {
-        send ^+!s
+        if (isActiveProcess("dynalist")) {
+            send ^+.
+        } else {
+            send ^+!s
+        }
     } else {
         send +s
     }
