@@ -1070,7 +1070,7 @@ $^o::
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isTerminal() || isActive("intellij")) {
+            if (isTerminal() || isActive("intellij") || isActive("ubuntu")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1382,7 +1382,7 @@ $^u::
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isTerminal() || isActive("intellij")) {
+            if (isTerminal() || isActive("intellij") || isActive("ubuntu")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}
