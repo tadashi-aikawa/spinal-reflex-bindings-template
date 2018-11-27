@@ -485,7 +485,7 @@ $i::
     } else if (mode(_MODE.MOUSE)) {
         setMode(_MODE.NORMAL)
     } else if (mode(_MODE.SPECIAL)) {
-        if (isTerminal()) {
+        if (isTerminal() || isActive("ubuntu")) {
             send 8
         } else {
             send {Numpad8}
@@ -583,7 +583,7 @@ $j::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal()) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 4
             } else {
                 send {Numpad4}
@@ -688,7 +688,7 @@ $k::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal()) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 5
             } else {
                 send {Numpad5}
@@ -791,7 +791,7 @@ $l::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        if (isTerminal()) {
+        if (isTerminal() || isActive("ubuntu")) {
             send 6
         } else {
             send {Numpad6}
@@ -897,7 +897,7 @@ $m::
         } else if (mode(_MODE.MOUSE)) {
             send {LButton Down}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal()) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 1
             } else {
                 send {Numpad1}
@@ -1020,7 +1020,7 @@ $o::
         } else if (mode(_MODE.MOUSE)) {
             scrollDownSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal()) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 9
             } else {
                 send {Numpad9}
@@ -1333,7 +1333,7 @@ $u::
         } else if (mode(_MODE.MOUSE)) {
             scrollUpSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal()) {
+            if (isTerminal() || isActive("ubuntu")) {
                 send 7
             } else {
                 send {Numpad7}
