@@ -1126,24 +1126,26 @@ $+p::
     return
 
 
-;[NORMAL ]: qキー(コンビネーションから場合はコンビネーション無効化）
-;[EDIT   ]: Ctrl + q
-;[RANGE  ]: Ctrl + q
-;[MOUSE  ]: Ctrl + q
+;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
+;[EDIT   ]: Ctrl + Shift + q
+;[RANGE  ]: Ctrl + Shift + q
+;[MOUSE  ]: Ctrl + Shift + q
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftUp")
         } else if (mode(_MODE.EDIT)) {
-            send ^q
+            send ^+q
         } else if (mode(_MODE.RANGE)) {
-            send ^q
+            send ^+q
         } else {
-            send ^q
+            send ^+q
         }
     } else {
-        if (!isSecondKey()) {
+        if (isSecondKey()) {
+          send ^+q
+        } else {
           send q
         }
     }
