@@ -6,7 +6,12 @@
 $a::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send {home}
+            ; minttyのときはvimがShiftを必要とすることがある...
+            if (isActive("mintty")) {
+              send +{home}
+            } else {
+              send {home}
+            }
         } else if (mode(_MODE.RANGE)) {
             send +{home}
         } else if (mode(_MODE.MOUSE)) {

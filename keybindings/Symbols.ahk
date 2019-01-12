@@ -10,7 +10,12 @@
 $;::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            send {end}
+            ; minttyのときはvimがShiftを必要とすることがある...
+            if (isActive("mintty")) {
+              send +{end}
+            } else {
+              send {end}
+            }
         } else if (mode(_MODE.RANGE)) {
             send +{end}
         } else if (mode(_MODE.MOUSE)) {
