@@ -1300,7 +1300,7 @@ $^+s::
     return
 
 
-;[NORMAL ]: tキー (コンビネーションキーの場合は今日の日付をクリップボードに登録)
+;[NORMAL ]: tキー (コンビネーションキーの場合は今日の日付)
 ;[EDIT   ]: ウィンドウの移動
 ;[RANGE  ]: ウィンドウの移動
 ;[MOUSE  ]: ウィンドウの移動
@@ -1311,9 +1311,30 @@ $t::
         moveScreen()
     } else {
         if (isSecondKey()) {
-           Clipboard = %A_Year%/%A_Mon%/%A_MDay%
+            Clipboard = %A_Year%-%A_Mon%-%A_MDay%
+            Send, ^v
         } else {
             send t
+        }
+    }
+    return
+
+
+;[NORMAL ]: Shift+tキー (コンビネーションキーの場合は現在のタイムスタンプ)
+;[EDIT   ]: Shift+tキー
+;[RANGE  ]: Shift+tキー
+;[MOUSE  ]: Shift+tキー
+;[SPECIAL]: Shift+tキー
+;[SNIPPET]: Shift+tキー
+$+t::
+    if (!mode(_MODE.NORMAL)) {
+        send +t
+    } else {
+        if (isSecondKey()) {
+            Clipboard = %A_Year%-%A_Mon%-%A_MDay%T%A_Hour%:%A_Min%:%A_Sec%+09:00
+            Send, ^v
+        } else {
+            send +t
         }
     }
     return
