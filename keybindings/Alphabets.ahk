@@ -956,7 +956,7 @@ $+m::
     return
 
 
-;[NORMAL ]: Nキー
+;[NORMAL ]: Nキー (コンビネーションの場合は =>)
 ;[EDIT   ]: F3キー相当 (Dynalist: Zoom in)
 ;[RANGE  ]: F3キー相当
 ;[MOUSE  ]: F3キー相当
@@ -969,9 +969,14 @@ $n::
             send {F3}
         }
     } else {
-        send n
+        if (isSecondKey()) {
+            send {space}=>{space}
+        } else {
+            send n
+        }
     }
     return
+
 
 ;[NORMAL ]: 新規ウィンドウ
 ;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー) (Dynalist: Zoom out)
@@ -1532,12 +1537,20 @@ $x::
     return
 
 
-;----- [N]元に戻すをやめる [R]元に戻すをやめる -----
+;[NORMAL ]: yキー (コンビネーションの場合は ->)
+;[EDIT   ]: 元に戻すのをやめる
+;[RANGE  ]: 元に戻すのをやめる
+;[MOUSE  ]: 元に戻すのをやめる
+;[SPECIAL]: 元に戻すのをやめる
 $y::
     if (!mode(_MODE.NORMAL)) {
         send ^y
     } else {
-        send y
+        if (isSecondKey()) {
+            send {space}->{space}
+        } else {
+            send y
+        }
     }
     return
 
