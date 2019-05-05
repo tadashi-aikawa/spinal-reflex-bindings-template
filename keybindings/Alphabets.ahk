@@ -1075,7 +1075,7 @@ $^o::
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isTerminal() || isActive("intellij") || isActive("ubuntu")) {
+            if (isTerminal() || isActive("intellij") || isActive("ubuntu") || isActive("vscode")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1216,13 +1216,13 @@ $r::
     }
     return
 
-;[NORMAL ]: 更新(poderosa: Ctrl+r)
-;[EDIT   ]: 更新(poderosa: Ctrl+r)
-;[RANGE  ]: 更新(poderosa: Ctrl+r)
-;[MOUSE  ]: 更新(poderosa: Ctrl+r)
-;[SPECIAL]: 更新(poderosa: Ctrl+r)
+;[NORMAL ]: 更新
+;[EDIT   ]: 更新
+;[RANGE  ]: 更新
+;[MOUSE  ]: 更新
+;[SPECIAL]: 更新
 $^r::
-    if (isTerminal()) {
+    if (isTerminal() || isActive("vscode")) {
         send ^r
     } else {
         send {F5}
@@ -1410,7 +1410,7 @@ $^u::
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isTerminal() || isActive("intellij") || isActive("ubuntu")) {
+            if (isTerminal() || isActive("intellij") || isActive("ubuntu") || isActive("vscode")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}
