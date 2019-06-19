@@ -2,12 +2,16 @@
 ;[EDIT   ]: URLをエクスプローラーまたはブラウザで開く
 ;[RANGE  ]: URLをエクスプローラーまたはブラウザで開く
 ;[MOUSE  ]: URLをエクスプローラーまたはブラウザで開く
-;[SPECIAL]: URLをエクスプローラーまたはブラウザで開く
+;[SPECIAL]: ウィンドウを左半分に寄せる
 $1::
-    if (!mode(_MODE.NORMAL)) {
-        openUri()
-    } else {
+    if (mode(_MODE.NORMAL)) {
         send 1
+    } else {
+        if (mode(_MODE.SPECIAL)) {
+            send #{Left}
+        } else {
+            openUri()
+        }
     }
     return
 
