@@ -1512,7 +1512,8 @@ $+w::
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[MOUSE  ]: ポインタを画面左下に移動
-;[SPECIAL]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
+;[SPECIAL]: ウィンドウを右半分に寄せる
+
 $x::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
@@ -1521,6 +1522,8 @@ $x::
             } else {
                 moveMousePointer(1, 3)
             }
+        } else if (mode(_MODE.SPECIAL)) {
+            send #{Right}
         } else {
             setMode(_MODE.EDIT)
             send ^x
@@ -1558,16 +1561,18 @@ $y::
 ;[EDIT   ]: 元に戻す
 ;[RANGE  ]: 元に戻す
 ;[MOUSE  ]: 元に戻す
-;[SPECIAL]: 元に戻す
+;[SPECIAL]: ウィンドウを左半分に寄せる
 $z::
-    if (!mode(_MODE.NORMAL)) {
-        send ^z
-    } else {
+    if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
             send {!}
         } else {
             send z
         }
+    } else if (mode(_MODE.SPECIAL)) {
+        send #{Left}
+    } else {
+        send ^z
     }
     return
 
