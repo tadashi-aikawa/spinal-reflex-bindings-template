@@ -1222,7 +1222,7 @@ $r::
 ;[MOUSE  ]: 更新
 ;[SPECIAL]: 更新
 $^r::
-    if (isTerminal() || isActive("vscode")) {
+    if (isTerminal() || isActive("vscode") || isActive("intellij")) {
         send ^r
     } else {
         send {F5}
