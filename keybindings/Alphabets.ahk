@@ -199,6 +199,22 @@ $+d::
     return
 
 
+;[NORMAL ]: Alt + D
+;[EDIT   ]: デバッグを開始してデバッグモードに移行
+;[RANGE  ]: デバッグを開始してデバッグモードに移行
+;[MOUSE  ]: デバッグを開始してデバッグモードに移行
+;[SPECIAL]: デバッグを開始してデバッグモードに移行
+;[DEBUG  ]: デバッグを開始してデバッグモードに移行
+$!d::
+    if (mode(_MODE.NORMAL)) {
+        send !d
+    } else {
+        send !d
+        setMode(_MODE.DEBUG)
+    }
+    return
+
+
 ;[NORMAL ]: eキー (コンビネーションキーの場合は=)
 ;[EDIT   ]: 1つ戻る（visio: 前のシートへ移動)
 ;[RANGE  ]: 1つ戻る（visio: 前のシートへ移動)
@@ -272,6 +288,7 @@ $+e::
 ;[RANGE  ]: 選択範囲を一番上に移動
 ;[MOUSE  ]: ポインタを１画面分右に移動
 ;[SPECIAL]: 縦にフルスクリーン
+;[DEBUG  ]: ステップオーバー (F10)
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
@@ -287,6 +304,8 @@ $f::
         moveMouseRightScreen()
     } else if (mode(_MODE.SPECIAL)) {
         send #+{UP}
+    } else if (mode(_MODE.DEBUG)) {
+        send {F10}
     }
     return
 
@@ -332,7 +351,7 @@ $+f::
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
 ;[SPECIAL]: G+NORMALモードに切り替え(Vimジャンプ用)
-;[SNIPPET]: :globe_with_meridians: 
+;[DEBUG  ]: ステップイン (F11)
 $g::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.RANGE)) {
@@ -340,8 +359,8 @@ $g::
         } else if (mode(_MODE.SPECIAL)) {
             send G
             setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.SNIPPET)) {
-            send :globe_with_meridians: 
+        } else if (mode(_MODE.DEBUG)) {
+            send {F11}
         } else {
             setMode(_MODE.RANGE)
         }
@@ -1203,7 +1222,7 @@ $r::
                 moveMousePointer(3, 1)
             }
         } else if (mode(_MODE.DEBUG)) {
-            send {F8}
+            send !r
         } else {
             setMode(_MODE.SPECIAL)
         }
@@ -1462,7 +1481,7 @@ $v::
 ;[RANGE  ]: 選択範囲を1単語右に移動
 ;[MOUSE  ]: ポインタを画面左上に移動 (;からのコンビネーションの場合は ポインタを左上画面の中央に移動）
 ;[SPECIAL]: アクティブウィンドウを中央上に最大化して移動する
-;[SNIPPET]: wキー
+;[DEBUG  ]: ブレークポイントトグル
 $w::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
@@ -1484,6 +1503,8 @@ $w::
         }
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("CenterUp")
+    } else if (mode(_MODE.DEBUG)) {
+        send ^+b
     }
     return
 
