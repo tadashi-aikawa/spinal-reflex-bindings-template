@@ -1222,7 +1222,7 @@ $r::
                 moveMousePointer(3, 1)
             }
         } else if (mode(_MODE.DEBUG)) {
-            send !r
+            send {F8}
         } else {
             setMode(_MODE.SPECIAL)
         }
