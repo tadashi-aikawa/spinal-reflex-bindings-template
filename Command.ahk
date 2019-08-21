@@ -166,7 +166,7 @@ getMonitorLocationInPointer() {
 
 
 ;【概要】ウィンドウを最適な大きさで、任意の場所に移動する
-;【引数】場所 (LeftUp / LeftDown / RightUp / RightDown )
+;【引数】場所 (LeftUp / LeftDown / CenterUp / CenterDown / RightUp / RightDown )
 ;【戻値】なし
 MoveWindow(location) {
     locX := getSettingsValue("QuickMoveWindow", location . "LocX")
@@ -181,6 +181,21 @@ MoveWindow(location) {
     if (isFull) {
         WinMaximize, A
     }
+}
+
+
+;【概要】ウィンドウをアクティブにする
+;【引数】場所 (LeftUp / LeftDown / CenterUp / CenterDown / RightUp / RightDown )
+;【戻値】なし
+ActivateWindow(location) {
+    locX := getSettingsValue("QuickMoveWindow", location . "LocX")
+    locY := getSettingsValue("QuickMoveWindow", location . "LocY")
+    winX := getSettingsValue("QuickMoveWindow", location . "WinX")
+    winY := getSettingsValue("QuickMoveWindow", location . "WinY")
+
+    padding := 50
+    hwnd := getWindowHandlerAtPosition(locX + padding, locY + padding)
+    WinActivate, ahk_id %hwnd%
 }
 
 
