@@ -150,6 +150,21 @@ $TAB::
     return
 
 
+;[NORMAL ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
+;[EDIT   ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
+;[RANGE  ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
+;[MOUSE  ]: Ctrl + TABキー
+;[SPECIAL]: Ctrl + TABキー
+$^TAB::
+    if (isActiveProcess("chrome")) {
+        ;CLUTを使用
+        send !a
+    } else {
+        send ^{TAB}
+    }
+    return
+
+
 ;******************************************************************
 ; PageUp PageDown
 ;******************************************************************
