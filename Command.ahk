@@ -203,7 +203,7 @@ ActivateWindow(location) {
 ;【引数】x: 横の揺れ幅, y: 縦の揺れ幅
 ;【戻値】なし
 ShakeWindow(x, y) {
-    WinGetPos, winX, winY
+    WinGetPos, winX, winY, , , A
     WinMove, A, , winX + x, winY + y
     WinMove, A, , winX - x, winY - y
     WinMove, A, , winX, winY

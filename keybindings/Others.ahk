@@ -23,6 +23,7 @@ $vk1C::
 $Ctrl::
     MouseGetPos, , , hWindow
     WinActivate, ahk_id %hWindow%
+    ShakeWindow(3, 0)
     return
 
 ;******************************************************************
