@@ -975,14 +975,17 @@ $+m::
 
 
 ;[NORMAL ]: Nキー (コンビネーションの場合は =>)
-;[EDIT   ]: F3キー相当 (Dynalist: Zoom in)
-;[RANGE  ]: F3キー相当
-;[MOUSE  ]: F3キー相当
-;[SPECIAL]: F3キー相当
+;[EDIT   ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
+;[RANGE  ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
+;[MOUSE  ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
+;[SPECIAL]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
 $n::
     if (!mode(_MODE.NORMAL)) {
         if (isActiveProcess("dynalist")) {
             send ^]
+        } else if (isActiveProcess("chrome")) {
+            send ^t
+            setMode(_MODE.NORMAL)
         } else {
             send {F3}
         }
@@ -1150,22 +1153,20 @@ $+p::
 
 
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
-;[EDIT   ]: Ctrl + Shift + q
-;[RANGE  ]: Ctrl + Shift + q
-;[MOUSE  ]: Ctrl + Shift + q
+;[EDIT   ]: Ctrl + Shift + q (Chrome: タブを閉じる)
+;[RANGE  ]: Ctrl + Shift + q (Chrome: タブを閉じる)
+;[MOUSE  ]: Ctrl + Shift + q (Chrome: タブを閉じる)
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftUp")
-        } else if (mode(_MODE.EDIT)) {
-            send ^+q
-        } else if (mode(_MODE.MOUSE)) {
-            send ^+q
-        } else if (mode(_MODE.RANGE)) {
-            send ^+q
         } else {
-            send ^+q
+            if (isActiveProcess("chrome")) {
+                send ^w
+            } else {
+                send ^+q
+            }
         }
     } else {
         if (isSecondKey()) {
