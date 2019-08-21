@@ -64,6 +64,7 @@ changeWindowSizeDualMax() {
 }
 
 
+; deprecated
 ;【概要】マウスカーソルを画面９分割の場所に移動する
 ;【引数】xとyの座標番号
 ;【戻値】なし
@@ -85,6 +86,7 @@ moveMousePointer(indexX, indexY) {
 }
 
 
+; deprecated
 ;【概要】マウスカーソルを画面９方向の端に表示する
 ;【引数】xとyの座標番号
 ;【戻値】なし
@@ -108,6 +110,7 @@ moveMousePointerEdge(indexX, indexY) {
     CoordMode, Mouse, Relative
 }
 
+; deprecated
 ;【概要】マウスカーソルを各モニタの中央に移動する
 ;【引数】場所 (LeftUp / LeftDown / RightUp / RightDown )
 ;【戻値】なし
@@ -131,13 +134,13 @@ moveMousePointerScreen(location) {
     CoordMode, Mouse, Relative
 }
 
+; deprecated
 ;【概要】ポインタが存在するモニタ位置を取得する
 ;【引数】なし
 ;【戻値】LeftUp / LeftDown / RightUp / RightDown 
 getMonitorLocationInPointer() {
     CoordMode, Mouse, Screen
     MouseGetPos, mX, mY
-    CoordMode, Mouse, 
 
     leftUpLocX := getSettingsValue("QuickMoveWindow", "LeftUpLocX")
     leftUpLocY := getSettingsValue("QuickMoveWindow", "LeftUpLocY")
@@ -184,6 +187,20 @@ MoveWindow(location) {
 }
 
 
+;【概要】指定位置のウィンドウハンドラを取得する
+;【引数】px: x座標, py: y座標
+;【戻値】Window handler
+getWindowHandlerAtPosition(px, py) {
+    VarSetCapacity(POINT, 8, 0x00)
+    NumPut(PX, POINT, 0x00, "int")
+    NumPut(PY, POINT, 0x04, "int")
+    HWND := DllCall("WindowFromPoint", "Int64", NumGet(POINT, 0x00, "int64"))
+    ANCESTOR_HWND := DllCall("GetAncestor", "UInt", HWND, "UInt", GA_ROOT := 2)
+    WinExist("ahk_id" . ANCESTOR_HWND)
+    return %ANCESTOR_HWND%
+}
+
+
 ;【概要】ウィンドウをアクティブにする
 ;【引数】場所 (LeftUp / LeftDown / CenterUp / CenterDown / RightUp / RightDown )
 ;【戻値】なし
@@ -199,7 +216,21 @@ ActivateWindow(location) {
 }
 
 
-;【概要】ウィンドウを揺らします
+;【概要】アクティブウィンドウの中央にカーソルを移動します
+;【引数】なし
+;【戻値】なし
+MoveCenterInActiveWindow() {
+    WinGetPos, winX, winY, width, height, A
+    CoordMode, Mouse, Screen
+    MouseGetPos, mX, mY
+
+    moveMouse(winX + width / 2 - mX, winY + height / 2 - mY)
+
+    CoordMode, Mouse, Relative
+}
+
+
+;【概要】アクティブウィンドウを揺らします
 ;【引数】x: 横の揺れ幅, y: 縦の揺れ幅
 ;【戻値】なし
 ShakeWindow(x, y) {

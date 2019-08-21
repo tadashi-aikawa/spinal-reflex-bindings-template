@@ -20,10 +20,15 @@ $vk1C::
 ;******************************************************************
 
 ;----- マウスカーソル配下のウィンドウをアクティブにする -----
+; コンビネーション時はアクティブウィンドウの中央にマウスカーソルを召喚する
 $Ctrl::
-    MouseGetPos, , , hWindow
-    WinActivate, ahk_id %hWindow%
-    ShakeWindow(3, 0)
+    if (isSecondKey()) {
+        MoveCenterInActiveWindow()
+    } else {
+        MouseGetPos, , , hWindow
+        WinActivate, ahk_id %hWindow%
+        ShakeWindow(3, 0)
+    }
     return
 
 ;******************************************************************
@@ -31,7 +36,7 @@ $Ctrl::
 ;******************************************************************
 
 $Space::
-    if (isConbinationKey("$;")) {
+    if (isSecondKey()) {
         Send {Right}{Space}
     } else {
         Send {Space}
