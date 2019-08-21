@@ -224,6 +224,8 @@ $e::
             send :evergreen_tree:
         } else if (mode(_MODE.DEBUG)) {
             send ^u
+        } else {
+            send !{left}
         }
     } else {
         if (isSecondKey()) {
