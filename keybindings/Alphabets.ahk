@@ -57,17 +57,12 @@ $b::
 ;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
-;[MOUSE  ]: ポインタを画面中央下に移動 (cからのコンビネーションの場合は ポインタを画面中央下隅に移動）
+;[MOUSE  ]:
 ;[SPECIAL]: コピーしてモードをVirtual->NORMALに変更
 ;[SNIPPET]: :calendar:
 $c::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$c")) {
-                moveMousePointerEdge(2, 3)
-            } else {
-                moveMousePointer(2, 3)
-            }
         } else if (mode(_MODE.SNIPPET)) {
             send :calendar:
         } else {
@@ -1448,16 +1443,11 @@ $+u::
 ;[NORMAL ]: v (コンビネーションキーの場合はシングルコーテーション) 
 ;[EDIT   ]: 貼り付けしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: 貼り付けしてモードをVirtual->NORMALに変更
-;[MOUSE  ]: ポインタを画面右下に移動
+;[MOUSE  ]:
 ;[SPECIAL]: ↓
 $v::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$v")) {
-                moveMousePointerEdge(3, 3)
-            } else {
-                moveMousePointer(3, 3)
-            }
         } else if (mode(_MODE.SPECIAL)) {
             send {down}
         } else {
@@ -1526,17 +1516,11 @@ $+w::
 ;[NORMAL ]: xキー(コンビネーションから場合は【】）
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
-;[MOUSE  ]: ポインタを画面左下に移動
+;[MOUSE  ]
 ;[SPECIAL]: ウィンドウを右半分に寄せる
-
 $x::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$x")) {
-                moveMousePointerEdge(1, 3)
-            } else {
-                moveMousePointer(1, 3)
-            }
         } else if (mode(_MODE.SPECIAL)) {
             send #{Right}
         } else {
