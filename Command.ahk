@@ -199,6 +199,17 @@ ActivateWindow(location) {
 }
 
 
+;【概要】ウィンドウを揺らします
+;【引数】x: 横の揺れ幅, y: 縦の揺れ幅
+;【戻値】なし
+ShakeWindow(x, y) {
+    WinGetPos, winX, winY
+    WinMove, A, , winX + x, winY + y
+    WinMove, A, , winX - x, winY - y
+    WinMove, A, , winX, winY
+}
+
+
 ;【概要】ウィンドウをスクリーン単位で移動します
 ;【引数】なし
 ;【戻値】なし

@@ -135,6 +135,7 @@ $d::
     } else if (mode(_MODE.MOUSE)) {
         ActivateWindow("CenterDown")
         setMode(_MODE.NORMAL)
+        ShakeWindow(3, 0)
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("RightDown")
     }
@@ -167,7 +168,6 @@ $^d::
         send ^d
     }
     return
-    
 
 
 ;[NORMAL ]: Shift + dキー
@@ -220,6 +220,7 @@ $e::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("CenterUp")
             setMode(_MODE.NORMAL)
+            ShakeWindow(3, 0)
         } else if (mode(_MODE.SNIPPET)) {
             send :evergreen_tree:
         } else if (mode(_MODE.DEBUG)) {
@@ -287,8 +288,9 @@ $f::
     } else if (mode(_MODE.RANGE)) {
         send +^{Home}
     } else if (mode(_MODE.MOUSE)) {
-        moveMousePointerScreen("RightDown")
+        ActivateWindow("RightDown")
         setMode(_Mode.NORMAL)
+        ShakeWindow(3, 0)
     } else if (mode(_MODE.SPECIAL)) {
         send #+{UP}
     } else if (mode(_MODE.DEBUG)) {
@@ -1220,6 +1222,7 @@ $r::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("RightUp")
             setMode(_MODE.NORMAL)
+            ShakeWindow(3, 0)
         } else if (mode(_MODE.DEBUG)) {
             send {F8}
         } else {
@@ -1268,6 +1271,7 @@ $s::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("LeftDown")
             setMode(_MODE.NORMAL)
+            ShakeWindow(3, 0)
         } else if (mode(_MODE.DEBUG)) {
             send ^{F2}
         }
@@ -1490,6 +1494,7 @@ $w::
     } else if (mode(_MODE.MOUSE)) {
         ActivateWindow("LeftUp")
         setMode(_MODE.NORMAL)
+        ShakeWindow(3, 0)
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("CenterUp")
     } else if (mode(_MODE.DEBUG)) {
