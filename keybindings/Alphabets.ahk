@@ -1,7 +1,7 @@
 ﻿;[NORMAL ]: aキー(コンビネーションから場合は^）
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
-;[MOUSE  ]: 左下のエリアにフォーカスを移してEDITモードに
+;[MOUSE  ]
 ;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
 $a::
     if (!mode(_MODE.NORMAL)) {
@@ -10,12 +10,6 @@ $a::
         } else if (mode(_MODE.RANGE)) {
             send +{home}
         } else if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$;")) {
-                moveMousePointerScreen("LeftDown")
-            } else {
-                ActivateWindow("LeftDown")
-                setMode(_MODE.EDIT)
-            }
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftDown")
         }
@@ -124,7 +118,7 @@ $+c::
 ;[NORMAL ]: dキー (コンビネーションの場合は#）
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
-;[MOUSE  ]: 右下のエリアにフォーカスを移してEDITモードに
+;[MOUSE  ]: 中央下のエリアにフォーカスを移してEDITモードに
 ;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
 $d::
     if (mode(_MODE.NORMAL)) {
@@ -138,14 +132,8 @@ $d::
     } else if (mode(_MODE.RANGE)) {
         send {BS}
     } else if (mode(_MODE.MOUSE)) {
-        if (isConbinationKey("$d")) {
-            moveMousePointerEdge(2, 2)
-        } else if (isConbinationKey("$;")) {
-            moveMousePointerScreen("RightDown")
-        } else {
-            ActivateWindow("RightDown")
-            setMode(_MODE.EDIT)
-        }
+        ActivateWindow("CenterDown")
+        setMode(_MODE.EDIT)
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("RightDown")
     }
@@ -220,7 +208,7 @@ $!d::
 ;[NORMAL ]: eキー (コンビネーションキーの場合は=)
 ;[EDIT   ]: 1つ戻る
 ;[RANGE  ]: 1つ戻る
-;[MOUSE  ]: 右上のエリアにフォーカスを移してEDITモードに
+;[MOUSE  ]: 中央上のエリアにフォーカスを移してEDITモードに
 ;[SPECIAL]: アクティブウィンドウを右上に最大化して移動する
 ;[SNIPPET]: :evergreen_tree::
 ;[DEBUG  ]: 評価を開く
@@ -229,14 +217,8 @@ $e::
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("RightUp")
         } else if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$e")) {
-                moveMousePointerEdge(2, 1)
-            } else if (isConbinationKey("$;")) {
-                moveMousePointerScreen("RightUp")
-            } else {
-                ActivateWindow("RightUp")
-                setMode(_MODE.EDIT)
-            }
+            ActivateWindow("CenterUp")
+            setMode(_MODE.EDIT)
         } else if (mode(_MODE.SNIPPET)) {
             send :evergreen_tree:
         } else if (mode(_MODE.DEBUG)) {
@@ -287,7 +269,7 @@ $+e::
 ;[NORMAL ]: fキー(コンビネーションの場合は$）
 ;[EDIT   ]: 一番上に移動
 ;[RANGE  ]: 選択範囲を一番上に移動
-;[MOUSE  ]: ポインタを１画面分右に移動
+;[MOUSE  ]: 右下のエリアにフォーカスを移してEDITモードに
 ;[SPECIAL]: 縦にフルスクリーン
 ;[DEBUG  ]: ステップオーバー (F10)
 $f::
@@ -302,7 +284,7 @@ $f::
     } else if (mode(_MODE.RANGE)) {
         send +^{Home}
     } else if (mode(_MODE.MOUSE)) {
-        moveMouseRightScreen()
+        moveMousePointerScreen("RightDown")
     } else if (mode(_MODE.SPECIAL)) {
         send #+{UP}
     } else if (mode(_MODE.DEBUG)) {
@@ -1166,7 +1148,7 @@ $+p::
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
 ;[EDIT   ]: Ctrl + Shift + q
 ;[RANGE  ]: Ctrl + Shift + q
-;[MOUSE  ]: 左上のエリアにフォーカスを移してEDITモードに
+;[MOUSE  ]: Ctrl + Shift + q
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
@@ -1175,8 +1157,7 @@ $q::
         } else if (mode(_MODE.EDIT)) {
             send ^+q
         } else if (mode(_MODE.MOUSE)) {
-            ActivateWindow("LeftUp")
-            setMode(_MODE.EDIT)
+            send ^+q
         } else if (mode(_MODE.RANGE)) {
             send ^+q
         } else {
@@ -1224,7 +1205,7 @@ $+q::
 ;[NORMAL ]: rキー (コンビネーションキーの場合は==)
 ;[EDIT   ]: 仮想入力モードをスペシャルモードにする
 ;[RANGE  ]: 仮想入力モードをスペシャルモードにする
-;[MOUSE  ]: ポインタを画面右上に移動 (rからのコンビネーションの場合は ポインタを画面右上隅に移動）
+;[MOUSE  ]: 右上のエリアにフォーカスを移してEDITモードに
 ;[SPECIAL]: 仮想入力モードを標準にする
 ;[DEBUG  ]: 再開
 $r::
@@ -1232,11 +1213,8 @@ $r::
         if (mode(_MODE.SPECIAL)) {
             setMode(_MODE.EDIT)
         } else if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$r")) {
-                moveMousePointerEdge(3, 1)
-            } else {
-                moveMousePointer(3, 1)
-            }
+            ActivateWindow("RightUp")
+            setMode(_MODE.EDIT)
         } else if (mode(_MODE.DEBUG)) {
             send {F8}
         } else {
@@ -1267,7 +1245,7 @@ $^r::
 ;[NORMAL ]: sキー (コンビネーションキーの場合は())
 ;[EDIT   ]: Ctrl+Shift+S (Dynalistの場合は展開/格納) 
 ;[RANGE  ]: Ctrl+Shift+S
-;[MOUSE  ]: 中央下のエリアにフォーカスを移してEDITモードに
+;[MOUSE  ]: 左下のエリアにフォーカスを移してEDITモードに
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
 ;[DEBUG  ]: 停止
 $s::
@@ -1283,14 +1261,8 @@ $s::
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("CenterDown")
         } else if (mode(_MODE.MOUSE)) {
-            if (isConbinationKey("$s")) {
-                moveMousePointerEdge(1, 2)
-            } else if (isConbinationKey("$;")) {
-                moveMousePointerScreen("CenterDown")
-            } else {
-                ActivateWindow("CenterDown")
-                setMode(_MODE.EDIT)
-            }
+            ActivateWindow("LeftDown")
+            setMode(_MODE.EDIT)
         } else if (mode(_MODE.DEBUG)) {
             send ^{F2}
         }
@@ -1496,7 +1468,7 @@ $v::
 ;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W)
 ;[EDIT   ]: 1単語右に移動
 ;[RANGE  ]: 選択範囲を1単語右に移動
-;[MOUSE  ]: 中央上のエリアにフォーカスを移してEDITモードに
+;[MOUSE  ]: 左上のエリアにフォーカスを移してEDITモードに
 ;[SPECIAL]: アクティブウィンドウを中央上に最大化して移動する
 ;[DEBUG  ]: ブレークポイントトグル
 $w::
@@ -1511,14 +1483,8 @@ $w::
     } else if (mode(_MODE.RANGE)) {
         send ^+{Right}
     } else if (mode(_MODE.MOUSE)) {
-        if (isConbinationKey("$w")) {
-            moveMousePointerEdge(1, 1)
-        } else if (isConbinationKey("$;")) {
-            moveMousePointerScreen("CenterUp")
-        } else {
-            ActivateWindow("CenterUp")
-            setMode(_MODE.EDIT)
-        }
+        ActivateWindow("LeftUp")
+        setMode(_MODE.EDIT)
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("CenterUp")
     } else if (mode(_MODE.DEBUG)) {
