@@ -130,14 +130,13 @@ MoveCenterInActiveWindow() {
     CoordMode, Mouse, Relative
 }
 
-;【概要】アクティブウィンドウを揺らします
-;【引数】x: 横の揺れ幅, y: 縦の揺れ幅
+;【概要】アクティブウィンドウをフラッシュします
+;【引数】なし
 ;【戻値】なし
-ShakeWindow(x, y) {
-    WinGetPos, winX, winY, , , A
-    WinMove, A, , winX + x, winY + y
-    WinMove, A, , winX - x, winY - y
-    WinMove, A, , winX, winY
+FlashWindow() {
+    WinSet, Transparent, 128, A
+    Sleep, 50
+    WinSet, Transparent, OFF, A
 }
 
 ;【概要】ウィンドウをスクリーン単位で移動します

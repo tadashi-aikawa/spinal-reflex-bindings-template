@@ -27,7 +27,7 @@ $Ctrl::
     } else {
         MouseGetPos, , , hWindow
         WinActivate, ahk_id %hWindow%
-        ShakeWindow(3, 0)
+        FlashWindow() 
     }
     return
 
