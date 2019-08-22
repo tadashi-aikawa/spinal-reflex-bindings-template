@@ -1240,11 +1240,7 @@ return
 ;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 $+s::
     if (isSecondKey()) {
-        ; TODO: お試し
-        SetTitleMatchMode, 2
-        WinGet, hwnd, ID, Slack
-        WinActivate, ahk_id %hwnd%
-        SetTitleMatchMode, 1
+        ActivateWindowByTitle("Slack")
     } else {
         if (!mode(_MODE.NORMAL)) {
             if (isActiveProcess("dynalist")) {
@@ -1290,7 +1286,7 @@ $t::
     }
 return
 
-;[NORMAL ]: Shift+tキー (コンビネーションキーの場合は現在のタイムスタンプ)
+;[NORMAL ]: Shift+tキー (コンビネーションキーの場合はTodoist/Togglをアクティブにする)
 ;[EDIT   ]: Shift+tキー
 ;[RANGE  ]: Shift+tキー
 ;[MOUSE  ]: Shift+tキー
@@ -1301,10 +1297,29 @@ $+t::
         send +t
     } else {
         if (isSecondKey()) {
+            ActivateWindowByTitle("Todoist")
+            ActivateWindowByTitle("Toggl")
+        } else {
+            send +t
+        }
+    }
+return
+
+;[NORMAL ]: Alt+tキー (コンビネーションキーの場合は現在のタイムスタンプ)
+;[EDIT   ]: Alt+tキー
+;[RANGE  ]: Alt+tキー
+;[MOUSE  ]: Alt+tキー
+;[SPECIAL]: Alt+tキー
+;[SNIPPET]: Alt+tキー
+$!t::
+    if (!mode(_MODE.NORMAL)) {
+        send !t
+    } else {
+        if (isSecondKey()) {
             Clipboard = %A_Year%-%A_Mon%-%A_MDay%T%A_Hour%:%A_Min%:%A_Sec%+09:00
             Send, ^v
         } else {
-            send +t
+            send !t
         }
     }
 return

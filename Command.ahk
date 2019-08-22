@@ -107,6 +107,16 @@ ActivateWindow(location) {
     WinActivate, ahk_id %hwnd%
 }
 
+;【概要】タイトルの文字列を含むウィンドウをアクティブにする
+;【引数】タイトル(部分一致)
+;【戻値】なし
+ActivateWindowByTitle(title) {
+    SetTitleMatchMode, 2
+    WinGet, hwnd, ID, %title%
+    WinActivate, ahk_id %hwnd%
+    SetTitleMatchMode, 1
+}
+
 ;【概要】アクティブウィンドウの中央にカーソルを移動します
 ;【引数】なし
 ;【戻値】なし
