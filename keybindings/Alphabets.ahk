@@ -21,8 +21,7 @@ $a::
             send a
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: アクティブウィンドウを常時最前面表示にする
 ;[EDIT   ]: アクティブウィンドウを常時最前面表示にする
@@ -31,8 +30,7 @@ $a::
 ;[SPECIAL]: アクティブウィンドウを常時最前面表示にする
 $#a::
     WinSet, Topmost, Toggle, A
-    return
-
+return
 
 ;[NORMAL ]: bキー
 ;[EDIT   ]: 1単語左へ移動する
@@ -51,8 +49,7 @@ $b::
     } else if (mode(_MODE.SPECIAL)) {
         send b
     }
-    return
-
+return
 
 ;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
@@ -80,8 +77,7 @@ $c::
             send c
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + cキー (コンビネーションの場合は:calendar:)
 ;[EDIT   ]: Shift + cキー (Dynalist: チェックリスト切り替えトグル)
@@ -91,25 +87,24 @@ $c::
 $+c::
     if (mode(_MODE.NORMAL)) {
         if (isConbinationKey("$;")) {
-          send :calendar:
-        } else {
-          send +c
-        }
-    } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^+c
-        } else {
-            send +c
-        }
-    } else if (mode(_MODE.RANGE)) {
-        send +c
-    } else if (mode(_MODE.MOUSE)) {
-        send +c
-    } else if (mode(_MODE.SPECIAL)) {
+            send :calendar:
+    } else {
         send +c
     }
-    return
-
+} else if (mode(_MODE.EDIT)) {
+    if (isActiveProcess("dynalist")) {
+        send ^+c
+    } else {
+        send +c
+    }
+} else if (mode(_MODE.RANGE)) {
+    send +c
+} else if (mode(_MODE.MOUSE)) {
+    send +c
+} else if (mode(_MODE.SPECIAL)) {
+    send +c
+}
+return
 
 ;[NORMAL ]: dキー (コンビネーションの場合は#）
 ;[EDIT   ]: BSキー
@@ -134,8 +129,7 @@ $d::
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("RightDown")
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl + dキー (Dynalist: トピック削除)
 ;[EDIT   ]: Ctrl + dキー (Dynalist: トピック削除)
@@ -162,8 +156,7 @@ $^d::
     } else if (mode(_MODE.SPECIAL)) {
         send ^d
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + dキー
 ;[EDIT   ]: Enter
@@ -182,8 +175,7 @@ $+d::
     } else if (mode(_MODE.SPECIAL)) {
         send {Enter}
     }
-    return
-
+return
 
 ;[NORMAL ]: Alt + D
 ;[EDIT   ]: デバッグを開始してデバッグモードに移行
@@ -198,8 +190,7 @@ $!d::
         send !d
         setMode(_MODE.DEBUG)
     }
-    return
-
+return
 
 ;[NORMAL ]: eキー (コンビネーションキーの場合は=)
 ;[EDIT   ]: 1つ戻る
@@ -230,8 +221,7 @@ $e::
             send e
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl + eキー
 ;[EDIT   ]: 1つ進む
@@ -244,8 +234,7 @@ $^e::
     } else {
         send ^e
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + eキー
 ;[EDIT   ]: Shift + eキー（eclipse: 最後の編集場所へ移動)
@@ -262,8 +251,7 @@ $+e::
     } else {
         send +{e}
     }
-    return
-
+return
 
 ;[NORMAL ]: fキー(コンビネーションの場合は$）
 ;[EDIT   ]: 一番上に移動
@@ -291,8 +279,7 @@ $f::
     } else if (mode(_MODE.DEBUG)) {
         send {F10}
     }
-    return
-
+return
 
 ;[NORMAL ]: 検索
 ;[EDIT   ]: 検索
@@ -305,8 +292,7 @@ $^f::
     } else {
         send ^f
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + fキー
 ;[EDIT   ]: 一番下に移動
@@ -327,8 +313,7 @@ $+f::
     } else {
         send +f
     }
-    return
-
+return
 
 ;[NORMAL ]: gキー (コンビネーションの場合は &)
 ;[EDIT   ]: RANGEモードに切り替え
@@ -355,8 +340,7 @@ $g::
             send g
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: h (;からのコンビネーションの場合は~)
 ;[EDIT   ]: 左に移動
@@ -382,9 +366,8 @@ $h::
     } else if (mode(_MODE.DEBUG)) {
         send +{F11}
     }
-    return
-          
-          
+return
+
 ;[NORMAL ]: Ctrl + H
 ;[EDIT   ]: 5つ左に移動
 ;[RANGE  ]: 選択範囲を5つ左に移動
@@ -404,8 +387,7 @@ $^h::
     } else {
         send ^h
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + hキー
 ;[EDIT   ]: 15つ左に移動
@@ -426,8 +408,7 @@ $+h::
     } else {
         send +h
     }
-    return
-
+return
 
 ;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, cmder: タブを左に移動, chrome: 左のタブに移動)
 ;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, cmder: タブを左に移動, chrome: 左のタブに移動)
@@ -470,8 +451,7 @@ $!h::
             send !h
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: iキー (コンビネーションの場合は{}）
 ;[EDIT   ]: MOUSEモードに変更
@@ -500,8 +480,7 @@ $i::
             send {Numpad8}
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl + iキー (コンビネーションの場合 →<Space>{}←)
 ;[EDIT   ]: Ctrl + iキー
@@ -527,8 +506,7 @@ $^i::
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad8}{Enter}
     }
-    return
-
+return
 
 ;[NORMAL ]: shift + iキー
 ;[EDIT   ]: 上に1ページ移動
@@ -547,8 +525,7 @@ $+i::
     } else if (mode(_MODE.SPECIAL)) {
         Send ↑
     }
-    return
-
+return
 
 ;[NORMAL ]: Alt + iキー
 ;[EDIT   ]: Alt + iキー
@@ -567,8 +544,7 @@ $!i::
     } else if (mode(_MODE.SPECIAL)) {
         Send !i
     }
-    return
-
+return
 
 ;[NORMAL ]: jキー (コンビネーションの場合は''）
 ;[EDIT   ]: 下に移動
@@ -592,16 +568,15 @@ $j::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
-                send 4
-            } else {
-                send {Numpad4}
-            }
+        if (isTerminal() || isActive("ubuntu")) {
+            send 4
+        } else {
+            send {Numpad4}
+        }
     } else if (mode(_MODE.DEBUG)) {
         send +{F11}
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl + jキー
 ;[EDIT   ]: 下に5つ移動
@@ -624,8 +599,7 @@ $^j::
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad4}{Enter}
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + jキー
 ;[EDIT   ]: 下に1ページ移動
@@ -644,8 +618,7 @@ $+j::
     } else if (mode(_MODE.SPECIAL)) {
         send ←
     }
-    return
-
+return
 
 ;[NORMAL ]: Alt + jキー
 ;[EDIT   ]: Alt + jキー (Dynalist: トピックを下に移動)
@@ -672,8 +645,7 @@ $!j::
     } else if (mode(_MODE.SPECIAL)) {
         send !j
     }
-    return
-
+return
 
 ;[NORMAL ]: kキー (;からのコンビネーションの場合は``)
 ;[EDIT   ]: 上に移動
@@ -697,16 +669,15 @@ $k::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
-                send 5
-            } else {
-                send {Numpad5}
-            }
+        if (isTerminal() || isActive("ubuntu")) {
+            send 5
+        } else {
+            send {Numpad5}
+        }
     } else if (mode(_MODE.DEBUG)) {
         send {F10}
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl + kキー
 ;[EDIT   ]: 上に5つ移動
@@ -725,8 +696,7 @@ $^k::
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad5}{Enter}
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + kキー
 ;[EDIT   ]: 上に1ページ移動
@@ -745,8 +715,7 @@ $+k::
     } else if (mode(_MODE.SPECIAL)) {
         send ↓
     }
-    return
-
+return
 
 ;[NORMAL ]: Alt + kキー
 ;[EDIT   ]: Alt + 上キー (Dynalist: トピックを上に移動)
@@ -773,8 +742,7 @@ $!k::
     } else if (mode(_MODE.SPECIAL)) {
         send !k
     }
-    return
-
+return
 
 ;[NORMAL ]: lキー (コンビネーションキーの場合は_)
 ;[EDIT   ]: 右に移動
@@ -810,8 +778,7 @@ $l::
     } else if (mode(_MODE.DEBUG)) {
         send {F11}
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl+lキー
 ;[EDIT   ]: 右に5つ移動
@@ -830,8 +797,7 @@ $^l::
     } else if (mode(_MODE.SPECIAL)) {
         send {Numpad6}{Enter}
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + lキー
 ;[EDIT   ]: 右に15つ移動
@@ -850,8 +816,7 @@ $+l::
     } else if (mode(_MODE.SPECIAL)) {
         send +l
     }
-    return
-
+return
 
 ;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, cmder: タブを右に移動, chrome: 右のタブへ移動)
 ;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, cmder: タブを右に移動, chrome: 右のタブへ移動)
@@ -892,8 +857,7 @@ $!l::
     } else if (mode(_MODE.SPECIAL)) {
         send !l
     }
-    return
-
+return
 
 ;[NORMAL ]: mキー (コンビネーションキーの場合はダブルコーテーション)
 ;[EDIT   ]: 日本語入力OFF + モードをNORMALに変更
@@ -919,7 +883,7 @@ $m::
             }
         } else if (mode(_MODE.SNIPPET)) {
             send :fork_and_knife:
-        }
+            }
     } else {
         if (isSecondKey()) {
             send "
@@ -927,8 +891,7 @@ $m::
             send m
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl+M
 ;[EDIT   ]: Ctrl+M
@@ -945,9 +908,7 @@ $^m::
     } else {
         send ^m
     }
-    return
-
-
+return
 
 ;[NORMAL ]: shift + mキー
 ;[EDIT   ]: shift + mキー
@@ -968,8 +929,7 @@ $+m::
     } else {
         send +m
     }
-    return
-
+return
 
 ;[NORMAL ]: Nキー (コンビネーションの場合は =>)
 ;[EDIT   ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
@@ -993,8 +953,7 @@ $n::
             send n
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: 新規ウィンドウ
 ;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー) (Dynalist: Zoom out)
@@ -1011,8 +970,7 @@ $^n::
     } else {
         send ^n
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + Nキー
 ;[EDIT   ]: Shift + F3キー相当
@@ -1025,8 +983,7 @@ $+n::
     } else {
         send +n
     }
-    return
-
+return
 
 ;----- [N]Delete [R]Delete(範囲指定終了) [M]右クリック押下 [M]ホイールダウン-----
 ;[NORMAL ]: oキー(コンビネーションキーの場合は|)
@@ -1059,8 +1016,7 @@ $o::
             send o
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl + O
 ;[EDIT   ]: 単語単位でDelete
@@ -1082,8 +1038,7 @@ $^o::
     } else {
         send ^o
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + O
 ;[EDIT   ]: 5個文字をDeleteする
@@ -1108,7 +1063,7 @@ $+o::
     } else {
         send +o
     }
-    return
+return
 
 ;[NORMAL ]: pキー (コンビネーションキーの場合は%)
 ;[EDIT   ]: コマンドパレット(Ctrl + Shift + pキー => NORMALモード)
@@ -1132,8 +1087,7 @@ $p::
             send p
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift+pキー
 ;[EDIT   ]: ahkスクリプトのリロード
@@ -1146,8 +1100,7 @@ $+p::
     } else {
         send +p
     }
-    return
-
+return
 
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
 ;[EDIT   ]: Ctrl + Shift + q (Chrome: タブを閉じる)
@@ -1167,14 +1120,12 @@ $q::
         }
     } else {
         if (isSecondKey()) {
-          send ^+q
+            send ^+q
         } else {
-          send q
+            send q
         }
     }
-    return
-
-
+return
 
 ;[NORMAL ]: ウィンドウを閉じる
 ;[EDIT   ]: ウィンドウを閉じる
@@ -1187,8 +1138,7 @@ $^q::
     } else {
         send !{f4}
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + Q
 ;[EDIT   ]: Ctrl + Shift + Q
@@ -1201,8 +1151,7 @@ $+q::
     } else {
         send ^+q
     }
-    return
-
+return
 
 ;[NORMAL ]: rキー (コンビネーションキーの場合は==)
 ;[EDIT   ]: 仮想入力モードをスペシャルモードにする
@@ -1230,7 +1179,7 @@ $r::
             send r
         }
     }
-    return
+return
 
 ;[NORMAL ]: 更新
 ;[EDIT   ]: 更新
@@ -1243,7 +1192,7 @@ $^r::
     } else {
         send {F5}
     }
-    return
+return
 
 ;[NORMAL ]: sキー (コンビネーションキーの場合は())
 ;[EDIT   ]: Ctrl+Shift+S (Dynalistの場合は展開/格納) 
@@ -1282,8 +1231,7 @@ $s::
             send s
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Shif+sキー
 ;[EDIT   ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
@@ -1308,8 +1256,7 @@ $+s::
             send +s
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Ctrl+Shif+sキー(poderosaの場合は画面更新再開）
 ;[EDIT   ]: Ctrl+Shif+sキー(poderosaの場合は画面更新再開）
@@ -1322,8 +1269,7 @@ $^+s::
     } else {
         send ^+s
     }
-    return
-
+return
 
 ;[NORMAL ]: tキー (コンビネーションキーの場合は今日の日付)
 ;[EDIT   ]: ウィンドウの移動
@@ -1342,8 +1288,7 @@ $t::
             send t
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift+tキー (コンビネーションキーの場合は現在のタイムスタンプ)
 ;[EDIT   ]: Shift+tキー
@@ -1362,8 +1307,7 @@ $+t::
             send +t
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: uキー (コンビネーションキーの場合は"")
 ;[EDIT   ]: BackSpace
@@ -1398,7 +1342,7 @@ $u::
             send u
         }
     }
-    return
+return
 
 ;[NORMAL ]: Ctrl + U
 ;[EDIT   ]: 単語単位で削除
@@ -1419,8 +1363,7 @@ $^u::
     } else {
         send ^u
     }
-    return
-
+return
 
 ;[NORMAL ]: shift + uキー
 ;[EDIT   ]: 5個文字をBSする
@@ -1445,8 +1388,7 @@ $+u::
     } else {
         send +u
     }
-    return
-
+return
 
 ;[NORMAL ]: v (コンビネーションキーの場合はシングルコーテーション) 
 ;[EDIT   ]: 貼り付けしてモードをVirtual->NORMALに変更
@@ -1469,8 +1411,7 @@ $v::
             send v
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W)
 ;[EDIT   ]: 1単語右に移動
@@ -1498,8 +1439,7 @@ $w::
     } else if (mode(_MODE.DEBUG)) {
         send ^+b
     }
-    return
-
+return
 
 ;[NORMAL ]: Shift + wキー
 ;[EDIT   ]: ウィンドウをデュアルサイズで最大化する
@@ -1518,8 +1458,7 @@ $+w::
     } else if (mode(_MODE.SPECIAL)) {
         changeWindowSizeDualMax()
     }
-    return
-
+return
 
 ;[NORMAL ]: xキー(コンビネーションから場合は【】）
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
@@ -1544,8 +1483,7 @@ $x::
             send x
         }
     }
-    return
-
+return
 
 ;[NORMAL ]: yキー (コンビネーションの場合は ->)
 ;[EDIT   ]: 元に戻すのをやめる
@@ -1562,7 +1500,7 @@ $y::
             send y
         }
     }
-    return
+return
 
 ;[NORMAL ]: zキー (コンビネーションの場合は!)
 ;[EDIT   ]: 元に戻す
@@ -1581,5 +1519,5 @@ $z::
     } else {
         send ^z
     }
-    return
+return
 
