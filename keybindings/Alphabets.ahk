@@ -1291,14 +1291,22 @@ $s::
 ;[MOUSE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 ;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 $+s::
-    if (!mode(_MODE.NORMAL)) {
-        if (isActiveProcess("dynalist")) {
-            send ^+.
-        } else {
-            send ^+!s
-        }
+    if (isSecondKey()) {
+        ; TODO: お試し
+        SetTitleMatchMode, 2
+        WinGet, hwnd, ID, Slack
+        WinActivate, ahk_id %hwnd%
+        SetTitleMatchMode, 1
     } else {
-        send +s
+        if (!mode(_MODE.NORMAL)) {
+            if (isActiveProcess("dynalist")) {
+                send ^+.
+            } else {
+                send ^+!s
+            }
+        } else {
+            send +s
+        }
     }
     return
 
