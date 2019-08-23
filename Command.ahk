@@ -117,6 +117,15 @@ ActivateWindowByTitle(title) {
     SetTitleMatchMode, 1
 }
 
+;【概要】指定したツールのウィンドウをアクティブにする
+;【引数】設定で定義されたツール名
+;【戻値】なし
+ActivateWindowByTool(tool) {
+    clsname := getSettingsValue("WindowClassName", tool)
+    WinGet, hwnd, ID, ahk_class %clsname%
+    WinActivate, ahk_id %hwnd%
+}
+
 ;【概要】アクティブウィンドウの中央にカーソルを移動します
 ;【引数】なし
 ;【戻値】なし

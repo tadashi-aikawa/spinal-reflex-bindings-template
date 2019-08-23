@@ -1,11 +1,15 @@
-﻿;[NORMAL ]: 1キー
+﻿;[NORMAL ]: 1キー (;コンビネーションの場合はCmderを開く)
 ;[EDIT   ]: URLをエクスプローラーまたはブラウザで開く
 ;[RANGE  ]: URLをエクスプローラーまたはブラウザで開く
 ;[MOUSE  ]: URLをエクスプローラーまたはブラウザで開く
 ;[SPECIAL]: URLをエクスプローラーまたはブラウザで開く
 $1::
     if (mode(_MODE.NORMAL)) {
-        send 1
+        if (isSecondKey()) {
+            ActivateWindowByTool("cmder")
+        } else {
+            send 1
+        }
     } else {
         openUri()
     }
