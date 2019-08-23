@@ -84,8 +84,8 @@ MoveWindow(location) {
 ;【戻値】Window handler
 getWindowHandlerAtPosition(px, py) {
     VarSetCapacity(POINT, 8, 0x00)
-    NumPut(PX, POINT, 0x00, "int")
-    NumPut(PY, POINT, 0x04, "int")
+    NumPut(px, POINT, 0x00, "int")
+    NumPut(py, POINT, 0x04, "int")
     HWND := DllCall("WindowFromPoint", "Int64", NumGet(POINT, 0x00, "int64"))
     ANCESTOR_HWND := DllCall("GetAncestor", "UInt", HWND, "UInt", GA_ROOT := 2)
     WinExist("ahk_id" . ANCESTOR_HWND)
