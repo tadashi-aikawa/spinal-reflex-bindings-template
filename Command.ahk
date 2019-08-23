@@ -164,13 +164,6 @@ isConbinationKeyAndIMEOn(key) {
     return (A_PriorHotKey = key and A_TimeSincePriorHotkey < 200)
 }
 
-;【概要】現在押下されているキーが特定のキーが押されてから特定の時間内に押されているかを返します。
-;【引数】特定のキー
-;【戻値】true: 押されている
-isConbinationKey(key) {
-    return (A_PriorHotKey = key and A_TimeSincePriorHotkey < 200)
-}
-
 ;【概要】現在押下されているキーが;の後に押されたものかを返します。
 ;【引数】なし
 ;【戻値】true: 押されている

@@ -79,31 +79,31 @@ $c::
     }
 return
 
-;[NORMAL ]: Shift + cキー (コンビネーションの場合は:calendar:)
+;[NORMAL ]: Shift + cキー (コンビネーションの場合はGoogleカレンダーを表示する)
 ;[EDIT   ]: Shift + cキー (Dynalist: チェックリスト切り替えトグル)
 ;[RANGE  ]: Shift + cキー
 ;[MOUSE  ]: Shift + cキー
 ;[SPECIAL]: Shift + cキー
 $+c::
     if (mode(_MODE.NORMAL)) {
-        if (isConbinationKey("$;")) {
-            send :calendar:
-    } else {
+        if (isSecondKey()) {
+            ActivateWindowByTitle("カレンダー")
+        } else {
+            send +c
+        }
+    } else if (mode(_MODE.EDIT)) {
+        if (isActiveProcess("dynalist")) {
+            send ^+c
+        } else {
+            send +c
+        }
+    } else if (mode(_MODE.RANGE)) {
+        send +c
+    } else if (mode(_MODE.MOUSE)) {
+        send +c
+    } else if (mode(_MODE.SPECIAL)) {
         send +c
     }
-} else if (mode(_MODE.EDIT)) {
-    if (isActiveProcess("dynalist")) {
-        send ^+c
-    } else {
-        send +c
-    }
-} else if (mode(_MODE.RANGE)) {
-    send +c
-} else if (mode(_MODE.MOUSE)) {
-    send +c
-} else if (mode(_MODE.SPECIAL)) {
-    send +c
-}
 return
 
 ;[NORMAL ]: dキー (コンビネーションの場合は#）
