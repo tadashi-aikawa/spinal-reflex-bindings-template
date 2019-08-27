@@ -342,20 +342,6 @@ $g::
     }
 return
 
-;[NORMAL ]: Shift+gキー (コンビネーションの場合はGoogle ChromeのGmailを表示する)
-;[EDIT   ]: Shift+gキー
-;[RANGE  ]: Shift+gキー
-;[MOUSE  ]: Shift+gキー
-;[SPECIAL]: Shift+gキー
-;[DEBUG  ]: Shift+gキー
-$+g::
-    if (isSecondKey()) {
-        ActivateWindowByTitle("メール - Google Chrome")
-    } else {
-        send +g
-    }
-return
-
 ;[NORMAL ]: h (;からのコンビネーションの場合は~)
 ;[EDIT   ]: 左に移動
 ;[RANGE  ]: 選択範囲を左に移動
