@@ -16,6 +16,20 @@ $1::
     return
 
 
+;[NORMAL ]: 2キー (;コンビネーションの場合はChromeのいずれかのタブを開く)
+;[EDIT   ]: 2キー
+;[RANGE  ]: 2キー
+;[MOUSE  ]: 2キー
+;[SPECIAL]: 2キー
+$2::
+    if (isSecondKey()) {
+        ActivateWindowByTitle(" - Google Chrome")
+    } else {
+        send 2
+    }
+    return
+
+
 ;[NORMAL ]: F2キー
 ;[EDIT   ]: F2キー
 ;[RANGE  ]: F2キー
