@@ -910,7 +910,7 @@ $^m::
     }
 return
 
-;[NORMAL ]: shift + mキー
+;[NORMAL ]: Shift + mキー (コンビネーションの場合はmimizou-roomをVSCodeで表示する)
 ;[EDIT   ]: shift + mキー
 ;[RANGE  ]: shift + mキー
 ;[MOUSE  ]: shift + mキー
@@ -927,7 +927,11 @@ $+m::
             send +m
         }
     } else {
-        send +m
+        if (isSecondKey()) {
+            ActivateWindowByTitle("[mimizou-room]")
+        } else {
+            send +m
+        }
     }
 return
 
