@@ -236,22 +236,19 @@ $^e::
     }
 return
 
-;[NORMAL ]: Shift + eキー
-;[EDIT   ]: Shift + eキー（eclipse: 最後の編集場所へ移動)
-;[RANGE  ]: Shift + eキー（eclipse: 最後の編集場所へ移動)
-;[MOUSE  ]: Shift + eキー（eclipse: 最後の編集場所へ移動)
-;[SPECIAL]: Shift + eキー（eclipse: 最後の編集場所へ移動)
+;[NORMAL ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
+;[EDIT   ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
+;[RANGE  ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
+;[MOUSE  ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
+;[SPECIAL]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
 $+e::
-    if (isActive("eclipse")) {
-        if (!mode(_MODE.NORMAL)) {
-            send ^{q}
-        } else {
-            send +{e}
-        }
+    if (isSecondKey()) {
+        ActivateWindowByTool("tablacus")
     } else {
-        send +{e}
+        send +e
     }
 return
+
 
 ;[NORMAL ]: fキー(コンビネーションの場合は$）
 ;[EDIT   ]: 一番上に移動
