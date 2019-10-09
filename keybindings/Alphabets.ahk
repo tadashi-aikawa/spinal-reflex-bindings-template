@@ -1104,16 +1104,16 @@ $+p::
 return
 
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
-;[EDIT   ]: Ctrl + Shift + q (Chrome: タブを閉じる)
-;[RANGE  ]: Ctrl + Shift + q (Chrome: タブを閉じる)
-;[MOUSE  ]: Ctrl + Shift + q (Chrome: タブを閉じる)
+;[EDIT   ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
+;[RANGE  ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
+;[MOUSE  ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftUp")
         } else {
-            if (isActiveProcess("chrome")) {
+            if (isActiveProcess("chrome") || isActive("tablacus")) {
                 send ^w
             } else {
                 send ^+q
