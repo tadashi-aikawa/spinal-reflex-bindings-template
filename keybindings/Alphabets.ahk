@@ -1287,7 +1287,7 @@ $t::
     }
 return
 
-;[NORMAL ]: Shift+tキー (コンビネーションキーの場合はTodoist/Togglをアクティブにする)
+;[NORMAL ]: Shift+tキー (コンビネーションキーの場合はTogowlをアクティブにする)
 ;[EDIT   ]: Shift+tキー
 ;[RANGE  ]: Shift+tキー
 ;[MOUSE  ]: Shift+tキー
@@ -1298,8 +1298,7 @@ $+t::
         send +t
     } else {
         if (isSecondKey()) {
-            ActivateWindowByTitle("Todoist")
-            ActivateWindowByTitle("Toggl")
+            ActivateWindowByTitle("togowl-next")
         } else {
             send +t
         }
