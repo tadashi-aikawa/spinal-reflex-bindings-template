@@ -23,6 +23,15 @@ $a::
     }
 return
 
+;[All Mode]: Alt+a (Slack: Mentions & reactions)
+$!a::
+    if (isActiveProcess("slack")) {
+        send ^+m
+    } else {
+        send !a
+    }
+return
+
 ;[NORMAL ]: アクティブウィンドウを常時最前面表示にする
 ;[EDIT   ]: アクティブウィンドウを常時最前面表示にする
 ;[RANGE  ]: アクティブウィンドウを常時最前面表示にする
@@ -177,7 +186,7 @@ $+d::
     }
 return
 
-;[NORMAL ]: Alt + D
+;[NORMAL ]: Alt + D (Slack: Threads)
 ;[EDIT   ]: デバッグを開始してデバッグモードに移行
 ;[RANGE  ]: デバッグを開始してデバッグモードに移行
 ;[MOUSE  ]: デバッグを開始してデバッグモードに移行
@@ -185,7 +194,11 @@ return
 ;[DEBUG  ]: デバッグを開始してデバッグモードに移行
 $!d::
     if (mode(_MODE.NORMAL)) {
-        send !d
+        if (isActiveProcess("slack")) {
+            send ^+t
+        } else {
+            send !d
+        }
     } else {
         send !d
         setMode(_MODE.DEBUG)
@@ -1265,6 +1278,15 @@ $^+s::
         send ^q
     } else {
         send ^+s
+    }
+return
+
+;[All Mode]: Alt+a (Slack: Saved items)
+$!s::
+    if (isActiveProcess("slack")) {
+        send ^+s
+    } else {
+        send !s
     }
 return
 
