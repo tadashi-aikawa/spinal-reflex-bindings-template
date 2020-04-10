@@ -1309,6 +1309,17 @@ $t::
     }
 return
 
+;[All Mode]: Ctrl+t (Slack: timesを開く)
+$^t::
+    if (isActiveProcess("slack")) {
+        send ^k
+        send times_tadashi-aikawa
+        send {Enter}
+    } else {
+        send ^t
+    }
+return
+
 ;[NORMAL ]: Shift+tキー (コンビネーションキーの場合はTogowlをアクティブにする)
 ;[EDIT   ]: Shift+tキー
 ;[RANGE  ]: Shift+tキー
