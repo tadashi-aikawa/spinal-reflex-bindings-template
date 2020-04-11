@@ -1314,6 +1314,7 @@ $^t::
     if (isActiveProcess("slack")) {
         send ^k
         send times_tadashi-aikawa
+        Sleep 500
         send {Enter}
     } else {
         send ^t
