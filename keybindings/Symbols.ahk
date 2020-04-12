@@ -146,6 +146,21 @@ $^SC028::
     return
 
 
+;[NORMAL ]: Shift+コロン (コンビネーションからだとSlackの箇条書き)
+;[EDIT   ]: Shift+コロン
+;[RANGE  ]: Shift+コロン
+;[MOUSE  ]: Shift+コロン
+;[SPECIAL]: Shift+コロン
+;※ Ctrl + Shift + :
+$+SC028::
+    if (isSecondKey()) {
+        send 　:dot:
+    } else {
+        Send, +:
+    }
+    return
+
+
 ;[NORMAL ]: 現在の時刻を入力(hhmmss)
 ;[EDIT   ]: 現在の時刻を入力(hhmmss)
 ;[RANGE  ]: 現在の時刻を入力(hhmmss)
