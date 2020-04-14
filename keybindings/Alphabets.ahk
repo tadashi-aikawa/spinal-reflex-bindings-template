@@ -1209,7 +1209,7 @@ $^r::
 return
 
 ;[NORMAL ]: sキー (コンビネーションキーの場合は())
-;[EDIT   ]: Ctrl+Shift+S (Dynalistの場合は展開/格納) 
+;[EDIT   ]: Ctrl+Shift+S (Dynalist: 展開/格納)(Google Chrome: Ctrl+Shift+c)
 ;[RANGE  ]: Ctrl+Shift+S
 ;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
@@ -1219,6 +1219,8 @@ $s::
         if (mode(_MODE.EDIT)) {
             if (isActiveProcess("dynalist")) {
                 send ^.
+            } else if (isActiveProcess("chrome")) {
+                send ^+c
             } else {
                 send ^+{s}
             }
