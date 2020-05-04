@@ -167,14 +167,18 @@ $^d::
     }
 return
 
-;[NORMAL ]: Shift + dキー
+;[NORMAL ]: Shift + dキー (コンビネーションキーの場合はTodoistをアクティブにする)
 ;[EDIT   ]: Enter
 ;[RANGE  ]: Enter
 ;[MOUSE  ]: Enter
 ;[SPECIAL]: Enter
 $+d::
     if (mode(_MODE.NORMAL)) {
-        send +d
+        if (isSecondKey()) {
+            ActivateWindowByTitle(": Todoist")
+        } else {
+            send +d
+        }
     } else if (mode(_MODE.EDIT)) {
         send {Enter}
     } else if (mode(_MODE.RANGE)) {
