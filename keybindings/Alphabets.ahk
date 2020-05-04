@@ -1334,7 +1334,7 @@ $+t::
         send +t
     } else {
         if (isSecondKey()) {
-            ActivateWindowByTitle("togowl-next")
+            ActivateWindowByTitle("togowl-next - togowl-next")
         } else {
             send +t
         }
