@@ -1213,8 +1213,8 @@ $^r::
 return
 
 ;[NORMAL ]: sキー (コンビネーションキーの場合は())
-;[EDIT   ]: Ctrl+Shift+S (Dynalist: 展開/格納)(Google Chrome: Ctrl+Shift+c)
-;[RANGE  ]: Ctrl+Shift+S
+;[EDIT   ]: Ctrl+Shift+S + NORMALモードへ (Dynalist: 展開/格納)(Google Chrome: Ctrl+Shift+c)
+;[RANGE  ]: Ctrl+Shift+S + NORMALモードへ
 ;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
 ;[DEBUG  ]: 停止
@@ -1227,9 +1227,11 @@ $s::
                 send ^+c
             } else {
                 send ^+{s}
+                setMode(_MODE.NORMAL)
             }
         } else if (mode(_MODE.RANGE)) {
             send ^+{s}
+            setMode(_MODE.NORMAL)
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("CenterDown")
         } else if (mode(_MODE.MOUSE)) {
