@@ -1,4 +1,4 @@
-﻿;[NORMAL ]: 1キー (;コンビネーションの場合はCmderを開く)
+﻿;[NORMAL ]: 1キー (;コンビネーションの場合はTerminalを開く)
 ;[EDIT   ]: URLをエクスプローラーまたはブラウザで開く
 ;[RANGE  ]: URLをエクスプローラーまたはブラウザで開く
 ;[MOUSE  ]: URLをエクスプローラーまたはブラウザで開く
@@ -6,7 +6,7 @@
 $1::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
-            ActivateWindowByTool("cmder")
+            ActivateWindowByProcess("terminal")
         } else {
             send 1
         }

@@ -424,9 +424,9 @@ $+h::
     }
 return
 
-;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, cmder: タブを左に移動, chrome: 左のタブに移動)
-;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, cmder: タブを左に移動, chrome: 左のタブに移動)
-;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動, cmder: タブを左に移動, chrome: 左のタブに移動)
+;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
+;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
+;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
 ;[MOUSE  ]: マウスポインタを大きく左に移動
 ;[SPECIAL]: Alt + hキー
 $!h::
@@ -434,7 +434,7 @@ $!h::
         if (mode(_MODE.EDIT)) {
             if (isActiveProcess("dynalist")) {
                 send +{TAB}
-            } else if (isActive("cmder")) {
+            } else if (isTerminal()) {
                 send ^+{TAB}
             } else if (isActiveProcess("chrome")) {
                 send ^+{TAB}
@@ -444,7 +444,7 @@ $!h::
         } else if (mode(_MODE.RANGE)) {
             if (isActiveProcess("dynalist")) {
                 send +{TAB}
-            } else if (isActive("cmder")) {
+            } else if (isTerminal()) {
                 send ^+{TAB}
             } else if (isActiveProcess("chrome")) {
                 send ^+{TAB}
@@ -832,14 +832,14 @@ $+l::
     }
 return
 
-;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, cmder: タブを右に移動, chrome: 右のタブへ移動)
-;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, cmder: タブを右に移動, chrome: 右のタブへ移動)
-;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動, cmder: タブを右に移動, chrome: 右のタブへ移動)
+;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
+;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
+;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
 ;[MOUSE  ]: マウスポインタ右に少し移動
 ;[SPECIAL]: Alt + lキー
 $!l::
     if (mode(_MODE.NORMAL)) {
-        if (isActive("cmder")) {
+        if (isTerminal()) {
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
@@ -849,7 +849,7 @@ $!l::
     } else if (mode(_MODE.EDIT)) {
         if (isActiveProcess("dynalist")) {
             send {TAB}
-        } else if (isActive("cmder")) {
+        } else if (isTerminal()) {
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
@@ -1262,7 +1262,7 @@ return
 ;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 $+s::
     if (isSecondKey()) {
-        ActivateWindowByTitle("Slack")
+        ActivateWindowByProcess("slack")
     } else {
         if (!mode(_MODE.NORMAL)) {
             if (isActiveProcess("dynalist")) {

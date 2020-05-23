@@ -126,6 +126,15 @@ ActivateWindowByTool(tool) {
     WinActivate, ahk_id %hwnd%
 }
 
+;【概要】指定したプロセスのウィンドウをアクティブにする
+;【引数】設定で定義されたプロセス名
+;【戻値】なし
+ActivateWindowByProcess(process) {
+    pName := getSettingsValue("ProcessName", process)
+    WinGet, hwnd, ID, ahk_exe %pName%
+    WinActivate, ahk_id %hwnd%
+}
+
 ;【概要】アクティブウィンドウの中央にカーソルを移動します
 ;【引数】なし
 ;【戻値】なし

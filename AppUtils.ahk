@@ -32,7 +32,7 @@ isActive(name) {
 ;【概要】指定されたウィンドウがターミナルか (ゆるい判定..)
 ;【戻値】true / false
 isTerminal() {
-    return isActive("mintty") || isActive("cmder")
+    return isActive("mintty") || isActive("cmder") || isActiveProcess("terminal")
 }
 
 ;【概要】指定されたプロセスがアクティブであるか
