@@ -189,6 +189,7 @@ $PgUp::
 ;[RANGE  ]: Enter
 ;[MOUSE  ]: Enter
 ;[SPECIAL]: Enter
+; マウス/トラックボールにEnterを割り当てるための確保
 $PgDn::
     send {Enter}
     return
