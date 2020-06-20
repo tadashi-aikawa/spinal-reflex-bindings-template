@@ -329,23 +329,20 @@ $+,::
 ;******************************************************************
 
 ;[NORMAL ]: /キー
-;[EDIT   ]: Ctrl+J + NORMALモード
-;[RANGE  ]: Ctrl+J + NORMALモード
-;[MOUSE  ]: Ctrl+J + NORMALモード
+;[EDIT   ]: Alt+Tab
+;[RANGE  ]: Alt+Tab
+;[MOUSE  ]: Alt+Tab
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send ^j
-            setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.SPECIAL)) {
+        if (mode(_MODE.SPECIAL)) {
             if (isTerminal() || isActive("ubuntu")) {
                 send .
             } else {
                 send {NumpadDot}
             }
         } else {
-            send /
+            send !{tab}
         }
     } else {
         send /
