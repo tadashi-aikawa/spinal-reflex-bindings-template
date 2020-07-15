@@ -29,12 +29,6 @@ isActive(name) {
     }
 }
 
-;【概要】指定されたウィンドウがターミナルか (ゆるい判定..)
-;【戻値】true / false
-isTerminal() {
-    return isActive("mintty") || isActive("cmder") || isActiveProcess("terminal")
-}
-
 ;【概要】指定されたプロセスがアクティブであるか
 ;【引数】name: プロセス名
 ;【戻値】true / false
@@ -47,3 +41,17 @@ isActiveProcess(name) {
         return false
     }
 }
+
+;【概要】指定されたウィンドウがターミナルか (ゆるい判定..)
+;【戻値】true / false
+isTerminal() {
+    return isActive("mintty") || isActive("cmder") || isActiveProcess("terminal")
+}
+
+;【概要】指定されたウィンドウがUbuntuか (おおざっぱな判定..)
+;【戻値】true / false
+isUbuntu() {
+    ;Virtual BoxかVCXSRVを使っている想定
+    return isActive("ubuntu") || isActiveProcess("vcxsrv")
+}
+

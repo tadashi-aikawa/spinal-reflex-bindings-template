@@ -71,7 +71,7 @@ $Enter::
             MouseGetPos nowX, nowY
             Click nowX, nowY
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 0
             } else {
                 send {Numpad0}
@@ -99,7 +99,7 @@ $^Enter::
             MouseGetPos nowX, nowY
             send ^{Click nowX, nowY}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 0
             } else {
                 send {Numpad0}

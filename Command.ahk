@@ -203,7 +203,7 @@ sendMultiByte(keys) {
 ;【引数】true: 日本語入力ON / false: 日本語入力OFF
 ;【戻値】なし
 setIME(imeOn) {
-    if (isActive("ubuntu")) {
+    if (isUbuntu()) {
         if (imeOn) {
             send {sc046}
         } else {

@@ -193,7 +193,7 @@ $.::
         } else if (mode(_MODE.MOUSE)) {
             ; DO NOTHING
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 3
             } else {
                 send {Numpad3}
@@ -257,7 +257,7 @@ $,::
         } else if (mode(_MODE.MOUSE)) {
             setMode(_MODE.DEBUG)
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 2
             } else {
                 send {Numpad2}
@@ -336,7 +336,7 @@ $+,::
 $/::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send .
             } else {
                 send {NumpadDot}

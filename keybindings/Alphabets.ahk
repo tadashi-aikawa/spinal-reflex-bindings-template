@@ -488,7 +488,7 @@ $i::
     } else if (mode(_MODE.MOUSE)) {
         setMode(_MODE.NORMAL)
     } else if (mode(_MODE.SPECIAL)) {
-        if (isTerminal() || isActive("ubuntu")) {
+        if (isTerminal() || isUbuntu()) {
             send 8
         } else {
             send {Numpad8}
@@ -582,7 +582,7 @@ $j::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        if (isTerminal() || isActive("ubuntu")) {
+        if (isTerminal() || isUbuntu()) {
             send 4
         } else {
             send {Numpad4}
@@ -683,7 +683,7 @@ $k::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        if (isTerminal() || isActive("ubuntu")) {
+        if (isTerminal() || isUbuntu()) {
             send 5
         } else {
             send {Numpad5}
@@ -782,7 +782,7 @@ $l::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseRightMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        if (isTerminal() || isActive("ubuntu")) {
+        if (isTerminal() || isUbuntu()) {
             send 6
         } else {
             send {Numpad6}
@@ -890,7 +890,7 @@ $m::
         } else if (mode(_MODE.MOUSE)) {
             send {LButton Down}
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 1
             } else {
                 send {Numpad1}
@@ -1018,7 +1018,7 @@ $o::
         } else if (mode(_MODE.MOUSE)) {
             scrollDownSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 9
             } else {
                 send {Numpad9}
@@ -1066,7 +1066,7 @@ return
 $+o::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isTerminal() || isActive("intellij") || isActive("ubuntu") || isActive("vscode")) {
+            if (isTerminal() || isActive("intellij") || isUbuntu() || isActive("vscode")) {
                 sendInput {DEL 5}
             } else {
                 sendInput +{RIGHT 5}{DEL}
@@ -1382,7 +1382,7 @@ $u::
         } else if (mode(_MODE.MOUSE)) {
             scrollUpSmall()
         } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isActive("ubuntu")) {
+            if (isTerminal() || isUbuntu()) {
                 send 7
             } else {
                 send {Numpad7}
@@ -1430,7 +1430,7 @@ return
 $+u::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isTerminal() || isActive("intellij") || isActive("ubuntu") || isActive("vscode")) {
+            if (isTerminal() || isActive("intellij") || isUbuntu() || isActive("vscode")) {
                 sendInput {BS 5}
             } else {
                 sendInput +{Left 5}{BS}
