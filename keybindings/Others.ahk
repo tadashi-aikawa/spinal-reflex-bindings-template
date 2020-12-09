@@ -49,10 +49,8 @@ $Space::
 ;----- いかなる場合も『日本語入力』『モード』をOFFにする -----
 $ESC::
     send {ESC}
-    if (isTerminal()) {
-        setIME(false)
-        setMode(_MODE.NORMAL)
-    }
+    setIME(false)
+    setMode(_MODE.NORMAL)
     return
 
 
