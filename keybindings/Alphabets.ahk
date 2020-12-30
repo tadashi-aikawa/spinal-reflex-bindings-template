@@ -1058,7 +1058,7 @@ $^o::
     }
 return
 
-;[NORMAL ]: Shift + O
+;[NORMAL ]: Shift + O (コンビネーションキーの場合はObsidianを開く)
 ;[EDIT   ]: 5個文字をDeleteする
 ;[RANGE  ]: Shift + O
 ;[MOUSE  ]: マウスホイールを大きく下に動かす
@@ -1079,7 +1079,11 @@ $+o::
             send +o
         }
     } else {
-        send +o
+        if (isSecondKey()) {
+            ActivateWindowByProcess("obsidian")
+        } else {
+            send +o
+        }
     }
 return
 
