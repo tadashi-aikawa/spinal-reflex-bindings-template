@@ -189,6 +189,13 @@ isSecondKey() {
     return (A_PriorHotKey = "$;")
 }
 
+;【概要】現在押下されているキーがCtrl+jの後に押されたものかを返します。
+;【引数】なし
+;【戻値】true: 押されている
+isSecondKeyAfterCtrlJ() {
+    return (A_PriorHotKey = "$^j")
+}
+
 ;【概要】マルチバイト文字列をsendします。
 ;        日本語入力のON/OFFに関わらず決定された状態で出力します。
 ;        複数指定することもできます。

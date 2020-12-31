@@ -209,7 +209,7 @@ $!d::
     }
 return
 
-;[NORMAL ]: eキー (コンビネーションキーの場合は=)
+;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとならファイルを開く)
 ;[EDIT   ]: 1つ戻る
 ;[RANGE  ]: 1つ戻る
 ;[MOUSE  ]: 中央上のエリアにフォーカスを移してNORMALモードに
@@ -232,6 +232,10 @@ $e::
             send !{left}
         }
     } else {
+        if (isSecondKeyAfterCtrlJ()) {
+            send ^e
+            return
+        }
         if (isSecondKey()) {
             send {space}={space}
         } else {
@@ -267,7 +271,7 @@ $+e::
 return
 
 
-;[NORMAL ]: fキー(コンビネーションの場合は$）
+;[NORMAL ]: fキー(コンビネーションの場合は$）(ObsidianでCtrl+jのあとならファイルを開く)
 ;[EDIT   ]: 一番上に移動
 ;[RANGE  ]: 選択範囲を一番上に移動
 ;[MOUSE  ]: 右下のエリアにフォーカスを移してNORMALモードに
@@ -275,6 +279,10 @@ return
 ;[DEBUG  ]: ステップオーバー (F10)
 $f::
     if (mode(_MODE.NORMAL)) {
+        if (isSecondKeyAfterCtrlJ()) {
+            send ^e
+            return
+        }
         if (isSecondKey()) {
             send {$}
         } else {
@@ -329,7 +337,7 @@ $+f::
     }
 return
 
-;[NORMAL ]: gキー (コンビネーションの場合は &)
+;[NORMAL ]: gキー (コンビネーションの場合は &)(ObsidianでCtrl+jのあとなら全文検索)
 ;[EDIT   ]: RANGEモードに切り替え
 ;[RANGE  ]: EDITモードに切り替え
 ;[MOUSE  ]: RANGEモードに切り替え
@@ -348,10 +356,14 @@ $g::
             setMode(_MODE.RANGE)
         }
     } else {
-        if (isSecondKey()) {
-            send &
+        if (isSecondKeyAfterCtrlJ()) {
+            send ^g
         } else {
-            send g
+            if (isSecondKey()) {
+                send &
+            } else {
+                send g
+            }
         }
     }
 return
@@ -592,14 +604,18 @@ $j::
     }
 return
 
-;[NORMAL ]: Ctrl + jキー
+;[NORMAL ]: Ctrl + jキー (Obsidianの場合はコンビネーション)
 ;[EDIT   ]: 下に5つ移動
 ;[RANGE  ]: 選択範囲を下に5つ移動
 ;[MOUSE  ]: マウスポインタを下に移動
 ;[SPECIAL]: 4キー + Enter
 $^j::
     if (mode(_MODE.NORMAL)) {
-        send ^j
+        if (isActiveProcess("Obsidian")) {
+            ;Do Nothing
+        } else {
+            send ^j
+        }
     } else if (mode(_MODE.EDIT)) {
         if (isActive("poderose")) {
             send {ESC}b
@@ -1004,7 +1020,7 @@ $+n::
 return
 
 ;----- [N]Delete [R]Delete(範囲指定終了) [M]右クリック押下 [M]ホイールダウン-----
-;[NORMAL ]: oキー(コンビネーションキーの場合は|)
+;[NORMAL ]: oキー(コンビネーションキーの場合は|)(ObsidianでCtrl+jのあとならアウトラインに移動する)
 ;[EDIT   ]: DELキー
 ;[RANGE  ]: DELキー(処理後に範囲指定を終了する)
 ;[MOUSE  ]: マウスホイールを少し下に動かす
@@ -1025,6 +1041,10 @@ $o::
             }
         }
     } else {
+        if (isSecondKeyAfterCtrlJ()) {
+            send ^+o
+            return
+        }
         if (isSecondKey()) {
             imeOn := getIME()
             setIME(false)
@@ -1259,12 +1279,16 @@ $s::
     }
 return
 
-;[NORMAL ]: Shif+sキー
+;[NORMAL ]: Shif+sキー (ObsidianでCtrl+jのあとなら設定を開く)
 ;[EDIT   ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 ;[RANGE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 ;[MOUSE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 ;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 $+s::
+    if (isSecondKeyAfterCtrlJ()) {
+        send ^,
+        return
+    }
     if (isSecondKey()) {
         ActivateWindowByProcess("slack")
     } else {
