@@ -232,7 +232,7 @@ $e::
             send !{left}
         }
     } else {
-        if (isSecondKeyAfterCtrlJ()) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
             send ^e
             return
         }
@@ -279,7 +279,7 @@ return
 ;[DEBUG  ]: ステップオーバー (F10)
 $f::
     if (mode(_MODE.NORMAL)) {
-        if (isSecondKeyAfterCtrlJ()) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
             send ^e
             return
         }
@@ -356,7 +356,7 @@ $g::
             setMode(_MODE.RANGE)
         }
     } else {
-        if (isSecondKeyAfterCtrlJ()) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
             send ^g
         } else {
             if (isSecondKey()) {
@@ -1041,7 +1041,7 @@ $o::
             }
         }
     } else {
-        if (isSecondKeyAfterCtrlJ()) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
             send ^+o
             return
         }
@@ -1285,7 +1285,7 @@ return
 ;[MOUSE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 ;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
 $+s::
-    if (isSecondKeyAfterCtrlJ()) {
+    if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
         send ^,
         return
     }
