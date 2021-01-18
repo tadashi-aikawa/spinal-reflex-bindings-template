@@ -1498,7 +1498,7 @@ $v::
     }
 return
 
-;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W)
+;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W) (ObsidianでCtrl+jのあとなら設定を開く)
 ;[EDIT   ]: 1単語右に移動
 ;[RANGE  ]: 選択範囲を1単語右に移動
 ;[MOUSE  ]: 左上のエリアにフォーカスを移してNORMALモードに
@@ -1508,9 +1508,13 @@ $w::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
             send ^w
-        } else {
-            send w
+            return
         }
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send !+t
+            return
+        }
+        send w
     } else if (mode(_MODE.EDIT)) {
         send ^{Right}
     } else if (mode(_MODE.RANGE)) {
