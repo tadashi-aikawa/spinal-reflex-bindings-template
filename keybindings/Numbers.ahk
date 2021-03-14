@@ -16,14 +16,14 @@ $1::
     return
 
 
-;[NORMAL ]: 2キー (;コンビネーションの場合はChromeのいずれかのタブを開く)
+;[NORMAL ]: 2キー (コンビネーションキーの場合はObsidianを開く)
 ;[EDIT   ]: 2キー
 ;[RANGE  ]: 2キー
 ;[MOUSE  ]: 2キー
 ;[SPECIAL]: 2キー
 $2::
     if (isSecondKey()) {
-        ActivateWindowByTitle(" - Google Chrome")
+        ActivateWindowByProcess("obsidian")
     } else {
         send 2
     }
