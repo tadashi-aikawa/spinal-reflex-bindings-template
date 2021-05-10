@@ -14,7 +14,7 @@
 SendMode Play
 ; 10msのコマンド間スリープを0にする (パフォーマンス改善による押しっぱなし対策)
 SetBatchLines, -1
-
+BlockInput, Send
 SetWinDelay, 10
 SetMouseDelay, 10
 
