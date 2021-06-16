@@ -209,7 +209,7 @@ $!d::
     }
 return
 
-;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとならファイルを開く)
+;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとならファイルを開く) (ChromeでCtrl+jのあとならタブ検索)
 ;[EDIT   ]: 1つ戻る
 ;[RANGE  ]: 1つ戻る
 ;[MOUSE  ]: 中央上のエリアにフォーカスを移してNORMALモードに
@@ -234,6 +234,10 @@ $e::
     } else {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
             send ^e
+            return
+        }
+        if (isActiveProcess("chrome") && isSecondKeyAfterCtrlJ()) {
+            send ^+a
             return
         }
         if (isSecondKey()) {
@@ -604,14 +608,14 @@ $j::
     }
 return
 
-;[NORMAL ]: Ctrl + jキー (Obsidianの場合はコンビネーション)
+;[NORMAL ]: Ctrl + jキー (Obsidian/chromeの場合はコンビネーション)
 ;[EDIT   ]: 下に5つ移動
 ;[RANGE  ]: 選択範囲を下に5つ移動
 ;[MOUSE  ]: マウスポインタを下に移動
 ;[SPECIAL]: 4キー + Enter
 $^j::
     if (mode(_MODE.NORMAL)) {
-        if (isActiveProcess("Obsidian")) {
+        if (isActiveProcess("Obsidian") || isActiveProcess("chrome")) {
             ;Do Nothing
         } else {
             send ^j
