@@ -209,7 +209,7 @@ $!d::
     }
 return
 
-;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとならファイルを開く) (ChromeでCtrl+jのあとならタブ検索)
+;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとなら最近のファイルを開く) (ChromeでCtrl+jのあとならタブ検索)
 ;[EDIT   ]: 1つ戻る
 ;[RANGE  ]: 1つ戻る
 ;[MOUSE  ]: 中央上のエリアにフォーカスを移してNORMALモードに
@@ -233,7 +233,7 @@ $e::
         }
     } else {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^e
+            send ^+e
             return
         }
         if (isActiveProcess("chrome") && isSecondKeyAfterCtrlJ()) {
@@ -284,7 +284,7 @@ return
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^e
+            send ^+p
             return
         }
         if (isSecondKey()) {
