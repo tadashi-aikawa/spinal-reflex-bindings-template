@@ -372,7 +372,7 @@ $g::
     }
 return
 
-;[NORMAL ]: h (;からのコンビネーションの場合は~)
+;[NORMAL ]: h (;からのコンビネーションの場合は~)(ObsidianでCtrl+jのあとならRecent Search)
 ;[EDIT   ]: 左に移動
 ;[RANGE  ]: 選択範囲を左に移動
 ;[MOUSE  ]: マウスポインタを左に微かに移動
@@ -380,10 +380,14 @@ return
 ;[DEBUG  ]: ステップアウト (SHIFT + F11)
 $h::
     if (mode(_MODE.NORMAL)) {
-        if (isSecondKey()) {
-            send ~
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send ^+h
         } else {
-            send h
+            if (isSecondKey()) {
+                send ~
+            } else {
+                send h
+            }
         }
     } else if (mode(_MODE.EDIT)) {
         send {Left}
