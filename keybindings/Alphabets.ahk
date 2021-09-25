@@ -381,7 +381,7 @@ return
 $h::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^+h
+            send ^!h
         } else {
             if (isSecondKey()) {
                 send ~
