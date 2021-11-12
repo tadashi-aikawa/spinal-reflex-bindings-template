@@ -1,7 +1,7 @@
 ﻿;[NORMAL ]: aキー(コンビネーションから場合は^）
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
-;[MOUSE  ]: ポインタを１画面分右に移動
+;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
 $a::
     if (!mode(_MODE.NORMAL)) {
@@ -10,7 +10,9 @@ $a::
         } else if (mode(_MODE.RANGE)) {
             send +{home}
         } else if (mode(_MODE.MOUSE)) {
-            moveMouseLeftScreen()
+            ActivateWindow("LeftDown")
+            setMode(_MODE.NORMAL)
+            FlashWindow()
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftDown")
         }
@@ -118,7 +120,7 @@ return
 ;[NORMAL ]: dキー (コンビネーションの場合は#）
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
-;[MOUSE  ]: 中央下のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 右下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
 $d::
     if (mode(_MODE.NORMAL)) {
@@ -132,7 +134,7 @@ $d::
     } else if (mode(_MODE.RANGE)) {
         send {BS}
     } else if (mode(_MODE.MOUSE)) {
-        ActivateWindow("CenterDown")
+        ActivateWindow("RightDown")
         setMode(_MODE.NORMAL)
         FlashWindow()
     } else if (mode(_MODE.SPECIAL)) {
@@ -212,7 +214,7 @@ return
 ;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとなら最近のファイルを開く) (ChromeでCtrl+jのあとならタブ検索)
 ;[EDIT   ]: 1つ戻る
 ;[RANGE  ]: 1つ戻る
-;[MOUSE  ]: 中央上のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 右上のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを右上に最大化して移動する
 ;[SNIPPET]: :evergreen_tree::
 ;[DEBUG  ]: 評価を開く
@@ -221,7 +223,7 @@ $e::
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("RightUp")
         } else if (mode(_MODE.MOUSE)) {
-            ActivateWindow("CenterUp")
+            ActivateWindow("RightUp")
             setMode(_MODE.NORMAL)
             FlashWindow()
         } else if (mode(_MODE.SNIPPET)) {
@@ -1151,12 +1153,16 @@ return
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
 ;[EDIT   ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
 ;[RANGE  ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
-;[MOUSE  ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
+;[MOUSE  ]: 左上のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             MoveWindow("LeftUp")
+        } else if (mode(_MODE.MOUSE)) {
+            ActivateWindow("LeftUp")
+            setMode(_MODE.NORMAL)
+            FlashWindow()
         } else {
             if (isActiveProcess("chrome") || isActive("tablacus")) {
                 send ^w
@@ -1202,17 +1208,13 @@ return
 ;[NORMAL ]: rキー (コンビネーションキーの場合は==)
 ;[EDIT   ]: 仮想入力モードをスペシャルモードにする
 ;[RANGE  ]: 仮想入力モードをスペシャルモードにする
-;[MOUSE  ]: 右上のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: r
 ;[SPECIAL]: 仮想入力モードを標準にする
 ;[DEBUG  ]: 再開
 $r::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.SPECIAL)) {
             setMode(_MODE.EDIT)
-        } else if (mode(_MODE.MOUSE)) {
-            ActivateWindow("RightUp")
-            setMode(_MODE.NORMAL)
-            FlashWindow()
         } else if (mode(_MODE.DEBUG)) {
             send {F8}
         } else {
@@ -1243,7 +1245,7 @@ return
 ;[NORMAL ]: sキー (コンビネーションキーの場合は())
 ;[EDIT   ]: Ctrl+Shift+S + NORMALモードへ (Dynalist: 展開/格納)(Google Chrome: Ctrl+Shift+c)
 ;[RANGE  ]: Ctrl+Shift+S + NORMALモードへ
-;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 中央下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
 ;[DEBUG  ]: 停止
 $s::
@@ -1263,7 +1265,7 @@ $s::
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("CenterDown")
         } else if (mode(_MODE.MOUSE)) {
-            ActivateWindow("LeftDown")
+            ActivateWindow("CenterDown")
             setMode(_MODE.NORMAL)
             FlashWindow()
         } else if (mode(_MODE.DEBUG)) {
@@ -1505,7 +1507,7 @@ return
 ;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W) (ObsidianでCtrl+jのあとなら設定を開く)
 ;[EDIT   ]: 1単語右に移動
 ;[RANGE  ]: 選択範囲を1単語右に移動
-;[MOUSE  ]: 左上のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 中央上のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央上に最大化して移動する
 ;[DEBUG  ]: ブレークポイントトグル
 $w::
@@ -1524,7 +1526,7 @@ $w::
     } else if (mode(_MODE.RANGE)) {
         send ^+{Right}
     } else if (mode(_MODE.MOUSE)) {
-        ActivateWindow("LeftUp")
+        ActivateWindow("CenterUp")
         setMode(_MODE.NORMAL)
         FlashWindow()
     } else if (mode(_MODE.SPECIAL)) {

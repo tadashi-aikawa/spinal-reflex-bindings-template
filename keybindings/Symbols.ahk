@@ -5,7 +5,7 @@
 ;[NORMAL ]: コンビネーション開始
 ;[EDIT   ]: 行末へ移動
 ;[RANGE  ]: 行末に選択範囲を移動
-;[MOUSE  ]: ポインタを１画面分左に移動
+;[MOUSE  ]: セミコロン
 ;[SPECIAL]: セミコロン
 $;::
     if (!mode(_MODE.NORMAL)) {
@@ -13,8 +13,6 @@ $;::
             send {end}
         } else if (mode(_MODE.RANGE)) {
             send +{end}
-        } else if (mode(_MODE.MOUSE)) {
-            moveMouseRightScreen()
         } else if (mode(_MODE.SPECIAL)) {
             send :
         }
