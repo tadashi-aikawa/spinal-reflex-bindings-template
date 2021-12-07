@@ -326,7 +326,7 @@ $+,::
 ; スラッシュ
 ;******************************************************************
 
-;[NORMAL ]: /キー
+;[NORMAL ]: /キー (コンビネーションキーの場合は今日の日付、スラッシュ区切り)
 ;[EDIT   ]: Alt+Tab
 ;[RANGE  ]: Alt+Tab
 ;[MOUSE  ]: Alt+Tab
@@ -343,7 +343,12 @@ $/::
             send !{tab}
         }
     } else {
-        send /
+        if (isSecondKey()) {
+            Clipboard = %A_Year%/%A_Mon%/%A_MDay%
+            Send, ^v
+        } else {
+            send /
+        }
     }
     return
 
