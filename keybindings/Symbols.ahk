@@ -124,7 +124,7 @@ $SC028::
     return
 
 
-;[NORMAL ]: 現在の時刻を入力(hh:mm:ss) (コンビネーションからだと行末に移動してコロン)
+;[NORMAL ]: 現在の時刻を入力(hh:mm) (コンビネーションからだと行末に移動してコロン)
 ;[EDIT   ]: Ctrl+: 
 ;[RANGE  ]: Ctrl+:
 ;[MOUSE  ]: Ctrl+:
@@ -136,7 +136,7 @@ $^SC028::
             send {End}
             send :
         } else {
-            Clipboard = %A_Hour%:%A_Min%:%A_Sec%
+            Clipboard = %A_Hour%:%A_Min%
             Send, ^v
             return
         }
