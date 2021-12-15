@@ -112,7 +112,7 @@ $^Enter::
     return
 
 
-;[NORMAL ]: Shift+Enterキー
+;[NORMAL ]: Shift+Enterキー (IMEがONのときは候補の1つもを選択する)
 ;[EDIT   ]: Shift+Enterキー
 ;[RANGE  ]: Shift+Enterキー
 ;[MOUSE  ]: Shift+左クリック
@@ -128,7 +128,11 @@ $+Enter::
             send +{Enter}
         }
     } else {
-        send +{Enter}
+        if (getIME()) {
+            send {down}{Enter}
+        } else {
+            send +{Enter}
+        }
     }
     return
 

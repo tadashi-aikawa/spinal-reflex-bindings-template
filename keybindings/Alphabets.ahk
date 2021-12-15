@@ -1435,7 +1435,7 @@ $u::
     }
 return
 
-;[NORMAL ]: Ctrl + U
+;[NORMAL ]: Ctrl + U (IMEがONの場合はF7でカタカナ変換)
 ;[EDIT   ]: 単語単位で削除
 ;[RANGE  ]: 単語単位で削除
 ;[MOUSE  ]: マウスホイールを上に動かす
@@ -1452,7 +1452,11 @@ $^u::
             send {Numpad7}{Enter}
         }
     } else {
-        send ^u
+        if (getIME()) {
+            send {F7}
+        } else {
+            send ^u
+        }
     }
 return
 
