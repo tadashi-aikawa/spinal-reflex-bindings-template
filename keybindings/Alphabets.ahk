@@ -1242,7 +1242,7 @@ $^r::
     }
 return
 
-;[NORMAL ]: sキー (コンビネーションキーの場合は())
+;[NORMAL ]: sキー (コンビネーションキーの場合は()) (ObsidianでCtrl+jのあとならスターファイルを開く)
 ;[EDIT   ]: Ctrl+Shift+S + NORMALモードへ (Dynalist: 展開/格納)(Google Chrome: Ctrl+Shift+c)
 ;[RANGE  ]: Ctrl+Shift+S + NORMALモードへ
 ;[MOUSE  ]: 中央下のエリアにフォーカスを移してNORMALモードに
@@ -1272,6 +1272,10 @@ $s::
             send ^{F2}
         }
     } else {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send ^!s
+            return
+        }
         if (isSecondKey()) {
             imeOn := getIME()
             setIME(false)
