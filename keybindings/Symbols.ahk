@@ -354,3 +354,25 @@ $/::
     }
     return
 
+
+;******************************************************************
+; ハイフン
+;******************************************************************
+
+;[NORMAL ]: ハイフンキー (ObsidianでCtrl+jのあとなら水平分割)
+;[EDIT   ]: ハイフンキー
+;[RANGE  ]: ハイフンキー
+;[MOUSE  ]: ハイフンキー
+;[SPECIAL]: ハイフンキー
+$-::
+    if (mode(_MODE.NORMAL)) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send ^!-
+            return
+        } else {
+            send -
+        }
+    } else {
+        send -
+    }
+return
