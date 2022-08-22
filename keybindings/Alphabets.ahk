@@ -62,7 +62,7 @@ $b::
     }
 return
 
-;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）
+;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）(ObsidianでCtrl+jのあとならカレンダー検索)
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]:
@@ -82,6 +82,10 @@ $c::
             }
         }
     } else {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send ^+c
+            return
+        }
         if (isSecondKey()) {
             send {`` 3}
         } else {
