@@ -53,7 +53,7 @@ $3::
     if (!mode(_MODE.NORMAL)) {
         send #{tab}
     } else {
-        if (isActiveProcess("Obsidian")) {
+        if (isActiveProcess("Obsidian") && isSecondKey()) {
             send, {#}{#}{#}{space}
         } else {
             send 3
