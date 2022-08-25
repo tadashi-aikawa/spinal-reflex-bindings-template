@@ -80,7 +80,7 @@ $4::
     if (!mode(_MODE.NORMAL)) {
         WinMinimize, A
     } else {
-        if (isActiveProcess("Obsidian")) {
+        if (isActiveProcess("Obsidian") && isSecondKey()) {
             send, {#}{#}{#}{#}{space}
         } else {
             send 4
