@@ -378,7 +378,7 @@ $g::
     }
 return
 
-;[NORMAL ]: h (;からのコンビネーションの場合は~)(ObsidianでCtrl+jのあとならRecent Search)
+;[NORMAL ]: h (;からのコンビネーションの場合は~)(ObsidianでCtrl+jのあとならBacklink Search)
 ;[EDIT   ]: 左に移動
 ;[RANGE  ]: 選択範囲を左に移動
 ;[MOUSE  ]: マウスポインタを左に微かに移動
@@ -387,7 +387,7 @@ return
 $h::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^!h
+            send ^!+h
         } else {
             if (isSecondKey()) {
                 send ~
@@ -1408,7 +1408,7 @@ $!t::
     }
 return
 
-;[NORMAL ]: uキー (コンビネーションキーの場合は"")
+;[NORMAL ]: uキー (コンビネーションキーの場合は"")(ObsidianでCtrl+jのあとならchangelogの更新)
 ;[EDIT   ]: BackSpace
 ;[RANGE  ]: BackSpace後範囲指定を終了する
 ;[MOUSE  ]: マウスホイールを少し上に動かす
@@ -1438,7 +1438,11 @@ $u::
             Sleep 50
             send {Left}
         } else {
-            send u
+            if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+                send ^!+u
+            } else {
+                send u
+            }
         }
     }
 return
