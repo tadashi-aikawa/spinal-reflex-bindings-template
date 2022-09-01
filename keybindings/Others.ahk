@@ -161,6 +161,26 @@ $TAB::
     }
     return
 
+;[NORMAL ]: Shift+TABキー (Obsidianなら逆インデント. v0.16.0でTABが動作不安定になったので回避策)
+;[EDIT   ]: Shift+TABキー
+;[RANGE  ]: Shift+TABキー + モードをNORMALに変更
+;[MOUSE  ]: Shift+TABキー
+;[SPECIAL]: Shift+TABキー
+$+TAB::
+    if (!mode(_MODE.NORMAL)) {
+        if (mode(_MODE.RANGE)) {
+            setMode(_MODE.EDIT)
+        }
+        send {+TAB}
+    } else {
+        if (isActiveProcess("Obsidian")) {
+            send {ESC}<<i
+        } else {
+            send {+TAB}
+        }
+    }
+    return
+
 
 ;[NORMAL ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
 ;[EDIT   ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
