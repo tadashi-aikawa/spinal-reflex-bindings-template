@@ -125,7 +125,7 @@ return
 $d::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^+!d
+            send {F15}
             return
         }
         if (isSecondKey()) {
@@ -239,7 +239,7 @@ $e::
         }
     } else {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^+e
+            send {F14}
             return
         }
         if (isActiveProcess("chrome") && isSecondKeyAfterCtrlJ()) {
@@ -290,7 +290,7 @@ return
 $f::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^+p
+            send {F13}
             return
         }
         if (isSecondKey()) {
@@ -387,7 +387,7 @@ return
 $h::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^!+h
+            send {F17}
         } else {
             if (isSecondKey()) {
                 send ~
@@ -1056,7 +1056,7 @@ $o::
         }
     } else {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^+o
+            send {F18}
             return
         }
         if (isSecondKey()) {
@@ -1277,7 +1277,7 @@ $s::
         }
     } else {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^!s
+            send {F16}
             return
         }
         if (isSecondKey()) {
