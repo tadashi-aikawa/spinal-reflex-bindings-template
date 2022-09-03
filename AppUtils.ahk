@@ -35,11 +35,7 @@ isActive(name) {
 isActiveProcess(name) {
     pName := getSettingsValue("ProcessName", name)
     WinGet, ahk_process, ProcessName, A
-    if (pName == ahk_process) {
-        return true
-    } else {
-        return false
-    }
+    return pName == ahk_process
 }
 
 ;【概要】指定されたウィンドウがターミナルか (ゆるい判定..)
