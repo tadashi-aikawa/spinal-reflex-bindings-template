@@ -62,7 +62,7 @@ $b::
     }
 return
 
-;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）(ObsidianでCtrl+jのあとならカレンダー検索)
+;[NORMAL ]: cキー (コンビネーションの場合はコードブロック）
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]:
@@ -82,10 +82,6 @@ $c::
             }
         }
     } else {
-        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^+c
-            return
-        }
         if (isSecondKey()) {
             send {`` 3}
         } else {
@@ -121,13 +117,17 @@ $+c::
     }
 return
 
-;[NORMAL ]: dキー (コンビネーションの場合は#）
+;[NORMAL ]: dキー (コンビネーションの場合は#）(ObsidianでCtrl+jのあとならカレンダー検索)
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
 ;[MOUSE  ]: 右下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
 $d::
     if (mode(_MODE.NORMAL)) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send ^+!d
+            return
+        }
         if (isSecondKey()) {
             send {#}
         } else {
