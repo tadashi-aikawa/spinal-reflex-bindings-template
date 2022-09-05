@@ -176,7 +176,7 @@ $+TAB::
         if (isActiveProcess("Obsidian")) {
             send {ESC}<<i
         } else {
-            send {+TAB}
+            send +{TAB}
         }
     }
     return
