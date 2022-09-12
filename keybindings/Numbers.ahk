@@ -23,7 +23,7 @@ $1::
 ;[SPECIAL]: 2キー
 $2::
     if (isSecondKey()) {
-        ActivateWindowByProcess("obsidian")
+        ActivateWindowByToolWindowTitle("obsidian")
     } else {
         send 2
     }

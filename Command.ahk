@@ -117,6 +117,17 @@ ActivateWindowByTitle(title) {
     SetTitleMatchMode, 1
 }
 
+;【概要】ツールウィンドウタイトルの文字列を含むウィンドウをアクティブにする
+;【引数】設定で定義されたウィンドウタイトル名
+;【戻値】なし
+ActivateWindowByToolWindowTitle(tool) {
+    SetTitleMatchMode, 2
+    titleName := getSettingsValue("WindowTitleName", tool)
+    WinGet, hwnd, ID, %titleName%
+    WinActivate, ahk_id %hwnd%
+    SetTitleMatchMode, 1
+}
+
 ;【概要】指定したツールのウィンドウをアクティブにする
 ;【引数】設定で定義されたツール名
 ;【戻値】なし
