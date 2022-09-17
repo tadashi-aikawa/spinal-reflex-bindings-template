@@ -141,7 +141,7 @@ $+Enter::
 ; タブ
 ;******************************************************************
 
-;[NORMAL ]: TABキー (Obsidianならインデント. v0.16.0でTABが動作不安定になったので回避策)
+;[NORMAL ]: TABキー
 ;[EDIT   ]: TABキー
 ;[RANGE  ]: TABキー + モードをNORMALに変更
 ;[MOUSE  ]: TABキー
@@ -153,15 +153,11 @@ $TAB::
         }
         send {TAB}
     } else {
-        if (isActiveProcess("Obsidian")) {
-            send {ESC}>>i
-        } else {
-            send {TAB}
-        }
+        send {TAB}
     }
     return
 
-;[NORMAL ]: Shift+TABキー (Obsidianなら逆インデント. v0.16.0でTABが動作不安定になったので回避策)
+;[NORMAL ]: Shift+TABキー
 ;[EDIT   ]: Shift+TABキー
 ;[RANGE  ]: Shift+TABキー + モードをNORMALに変更
 ;[MOUSE  ]: Shift+TABキー
@@ -173,11 +169,7 @@ $+TAB::
         }
         send {+TAB}
     } else {
-        if (isActiveProcess("Obsidian")) {
-            send {ESC}<<i
-        } else {
-            send +{TAB}
-        }
+        send +{TAB}
     }
     return
 
