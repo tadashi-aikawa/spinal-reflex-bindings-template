@@ -1509,7 +1509,11 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            send +{Ins}
+            if(isTerminal()) {
+                send +{Ins}
+            } else {
+                send ^v
+            }
         }
     } else {
         if (isSecondKey()) {
