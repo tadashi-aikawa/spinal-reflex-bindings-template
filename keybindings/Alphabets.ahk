@@ -75,7 +75,7 @@ $c::
             send :calendar:
         } else {
             setMode(_MODE.EDIT)
-            if (isTerminal()) {
+            if (isTerminal() || isActive("intellij")) {
                 send ^{Ins}
             } else {
                 send ^c
@@ -1509,7 +1509,7 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if(isTerminal()) {
+            if (isTerminal() || isActive("intellij")) {
                 send +{Ins}
             } else {
                 send ^v
