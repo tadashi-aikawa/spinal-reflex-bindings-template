@@ -788,7 +788,7 @@ $!k::
     }
 return
 
-;[NORMAL ]: lキー (コンビネーションキーの場合は_)
+;[NORMAL ]: lキー (コンビネーションキーの場合は_) (Obsidianの場合はLink search)
 ;[EDIT   ]: 右に移動
 ;[RANGE  ]: 選択範囲を右に移動
 ;[MOUSE  ]: マウスポインタを右に微かに移動
@@ -803,7 +803,11 @@ $l::
             send _
             setIME(imeOn)
         } else {
-            send l
+            if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+                send {F19}
+            } else {
+                send l
+            }
         }
     } else if (mode(_MODE.EDIT)) {
         send {right}
