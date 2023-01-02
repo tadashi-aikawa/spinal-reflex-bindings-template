@@ -2,11 +2,11 @@
 ;【引数】なし
 ;【戻値】なし
 openUri() {
-    Clipboard =        ;ClipWaitで確実にコピーするため？
+    Clipboard = ;ClipWaitで確実にコピーするため？
     Send ^c
     Sleep 200
-    word := RegExReplace(Clipboard, "\r\n", "")        ;URLに改行が含まれる場合は削除する
-    
+    word := RegExReplace(Clipboard, "\r\n", "") ;URLに改行が含まれる場合は削除する
+
     SplitPath, word, name, dir, ext, noext, drive
     IfInString, drive, http://
     {
@@ -30,7 +30,7 @@ changeWindowSizeMaxOrRestore() {
     fullY2 := getSettingsValue("ScreenSize", "fullY2")
     fullX3 := getSettingsValue("ScreenSize", "fullX3")
     fullY3 := getSettingsValue("ScreenSize", "fullY3")
-    
+
     WinGetPos, ,, aeroX, aeroY, A
     if (fullX1 = aeroX && fullY1 = aeroY)
     {
@@ -40,12 +40,12 @@ changeWindowSizeMaxOrRestore() {
     {
         WinRestore, A
         return
-    }  else if (fullX3 = aeroX && fullY3 = aeroY)
+    } else if (fullX3 = aeroX && fullY3 = aeroY)
     {
         WinRestore, A
         return
     }
-    
+
     WinMaximize, A
 }
 
@@ -56,8 +56,8 @@ changeWindowSizeMaxOrRestore() {
 changeWindowSizeDualMax() {
     fullX := getSettingsValue("DualFullScreenSize", "X")
     fullY := getSettingsValue("DualFullScreenSize", "Y")
-    
-    WinRestore, A  ;ウィンドウサイズを変更するため最大化を元に戻す
+
+    WinRestore, A ;ウィンドウサイズを変更するため最大化を元に戻す
     WinMove A, , 0, 0, %fullX%, %fullY%
 }
 
@@ -70,7 +70,7 @@ MoveWindow(location) {
     winX := getSettingsValue("QuickMoveWindow", location . "WinX")
     winY := getSettingsValue("QuickMoveWindow", location . "WinY")
     isFull := getSettingsValue("QuickMoveWindow", location . "IsFull")
-    
+
     ; WinMaximizeの後にWinMoveすると、最小化から復帰したときウィンドウ位置が不正になる
     WinRestore, A
     WinMove A, , %locX%, %locY%, %winX%, %winY%
@@ -100,7 +100,7 @@ ActivateWindow(location) {
     locY := getSettingsValue("QuickMoveWindow", location . "LocY")
     winX := getSettingsValue("QuickMoveWindow", location . "WinX")
     winY := getSettingsValue("QuickMoveWindow", location . "WinY")
-    
+
     ; MsgBox, %locX% . - . %locY% . - . %winX% . - . %winY%
     padding := 50
     hwnd := getWindowHandlerAtPosition(locX + padding, locY + padding)
@@ -153,9 +153,9 @@ MoveCenterInActiveWindow() {
     WinGetPos, winX, winY, width, height, A
     CoordMode, Mouse, Screen
     MouseGetPos, mX, mY
-    
+
     moveMouse(winX + width / 2 - mX, winY + height / 2 - mY)
-    
+
     CoordMode, Mouse, Relative
 }
 
