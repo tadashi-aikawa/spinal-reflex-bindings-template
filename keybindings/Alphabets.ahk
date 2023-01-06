@@ -66,13 +66,12 @@ return
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]:
-;[SPECIAL]: コピーしてモードをVirtual->NORMALに変更
-;[SNIPPET]: :calendar:
+;[SPECIAL]: ウィンドウリサイズ特殊キー
 $c::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
-        } else if (mode(_MODE.SNIPPET)) {
-            send :calendar:
+        } else if (mode(_MODE.SPECIAL)) {
+            MoveWindow("RightSpecial")
         } else {
             setMode(_MODE.EDIT)
             if (isTerminal() || isActive("intellij")) {
@@ -279,7 +278,6 @@ $+e::
         send +e
     }
 return
-
 
 ;[NORMAL ]: fキー(コンビネーションの場合は$）(ObsidianでCtrl+jのあとならファイルを開く)
 ;[EDIT   ]: 一番上に移動
@@ -931,7 +929,7 @@ $m::
             }
         } else if (mode(_MODE.SNIPPET)) {
             send :fork_and_knife:
-            }
+        }
     } else {
         if (isSecondKey()) {
             send "
@@ -1501,7 +1499,7 @@ $+u::
     }
 return
 
-;[NORMAL ]: v (コンビネーションキーの場合はシングルコーテーション) 
+;[NORMAL ]: v (コンビネーションキーの場合はシングルコーテーション)
 ;[EDIT   ]: 貼り付けしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: 貼り付けしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]:
@@ -1583,12 +1581,12 @@ return
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[MOUSE  ]
-;[SPECIAL]: ウィンドウを右半分に寄せる
+;[SPECIAL]: ウィンドウリサイズ特殊キー
 $x::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
         } else if (mode(_MODE.SPECIAL)) {
-            send #{Right}
+            MoveWindow("CenterSpecial")
         } else {
             setMode(_MODE.EDIT)
             send ^x
@@ -1625,7 +1623,7 @@ return
 ;[EDIT   ]: 元に戻す
 ;[RANGE  ]: 元に戻す
 ;[MOUSE  ]: 元に戻す
-;[SPECIAL]: ウィンドウを左半分に寄せる
+;[SPECIAL]: ウィンドウリサイズ特殊キー
 $z::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
@@ -1634,9 +1632,8 @@ $z::
             send z
         }
     } else if (mode(_MODE.SPECIAL)) {
-        send #{Left}
+        MoveWindow("LeftSpecial")
     } else {
         send ^z
     }
 return
-
