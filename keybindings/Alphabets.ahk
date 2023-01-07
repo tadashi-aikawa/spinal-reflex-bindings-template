@@ -283,7 +283,7 @@ return
 ;[EDIT   ]: 一番上に移動
 ;[RANGE  ]: 選択範囲を一番上に移動
 ;[MOUSE  ]: 右下のエリアにフォーカスを移してNORMALモードに
-;[SPECIAL]: 縦にフルスクリーン
+;[SPECIAL]: フルスクリーン
 ;[DEBUG  ]: ステップオーバー (F10)
 $f::
     if (mode(_MODE.NORMAL)) {
@@ -305,7 +305,7 @@ $f::
         setMode(_Mode.NORMAL)
         FlashWindow()
     } else if (mode(_MODE.SPECIAL)) {
-        send #+{UP}
+        send #{UP}
     } else if (mode(_MODE.DEBUG)) {
         send {F10}
     }
