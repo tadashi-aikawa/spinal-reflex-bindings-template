@@ -66,12 +66,16 @@ return
 ;[EDIT   ]: コピーしてモードをVirtual->NORMALに変更
 ;[RANGE  ]: コピーしてモードをVirtual->NORMALに変更
 ;[MOUSE  ]:
-;[SPECIAL]: ウィンドウリサイズ特殊キー
+;[SPECIAL]: ウィンドウリサイズ特殊キー (コンビネーションの場合はリマインド)
 $c::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
         } else if (mode(_MODE.SPECIAL)) {
-            MoveWindow("RightSpecial")
+            if (isSecondKey()) {
+                MoveWindow("RightSpecialRest")
+            } else {
+                MoveWindow("RightSpecial")
+            }
         } else {
             setMode(_MODE.EDIT)
             if (isTerminal() || isActive("intellij")) {
@@ -1623,7 +1627,7 @@ return
 ;[EDIT   ]: 元に戻す
 ;[RANGE  ]: 元に戻す
 ;[MOUSE  ]: 元に戻す
-;[SPECIAL]: ウィンドウリサイズ特殊キー
+;[SPECIAL]: ウィンドウリサイズ特殊キー (コンビネーションの場合はリマインド)
 $z::
     if (mode(_MODE.NORMAL)) {
         if (isSecondKey()) {
@@ -1632,7 +1636,11 @@ $z::
             send z
         }
     } else if (mode(_MODE.SPECIAL)) {
-        MoveWindow("LeftSpecial")
+        if (isSecondKey()) {
+            MoveWindow("LeftSpecialRest")
+        } else {
+            MoveWindow("LeftSpecial")
+        }
     } else {
         send ^z
     }
