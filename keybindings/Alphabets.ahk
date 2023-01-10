@@ -2,7 +2,7 @@
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
 ;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
-;[SPECIAL]: アクティブウィンドウを左下に最大化して移動する
+;[SPECIAL]: ウィンドウリサイズ特殊キー (コンビネーションの場合はリマインド)
 $a::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
@@ -14,7 +14,11 @@ $a::
             setMode(_MODE.NORMAL)
             FlashWindow()
         } else if (mode(_MODE.SPECIAL)) {
-            MoveWindow("LeftDown")
+            if (isSecondKey()) {
+                MoveWindow("LeftDownRest")
+            } else {
+                MoveWindow("LeftDown")
+            }
         }
     } else {
         if (isSecondKey()) {
@@ -124,7 +128,7 @@ return
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
 ;[MOUSE  ]: 右下のエリアにフォーカスを移してNORMALモードに
-;[SPECIAL]: アクティブウィンドウを右下に最大化して移動する
+;[SPECIAL]: ウィンドウリサイズ特殊キー (コンビネーションの場合はリマインド)
 $d::
     if (mode(_MODE.NORMAL)) {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
@@ -145,7 +149,12 @@ $d::
         setMode(_MODE.NORMAL)
         FlashWindow()
     } else if (mode(_MODE.SPECIAL)) {
-        MoveWindow("RightDown")
+        if (isSecondKey()) {
+            MoveWindow("RightDownRest")
+
+        }else {
+            MoveWindow("RightDown")
+        }
     }
 return
 
