@@ -254,7 +254,7 @@ $e::
             send {F14}
             return
         }
-        if (isActiveProcess("chrome") && isSecondKeyAfterCtrlJ()) {
+        if ((isActiveProcess("chrome") || isActiveProcess("sidekick")) && isSecondKeyAfterCtrlJ()) {
             send ^+a
             return
         }
@@ -461,9 +461,9 @@ $+h::
     }
 return
 
-;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
-;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
-;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
+;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome/sidekick: 左のタブに移動)
+;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome/sidekick: 左のタブに移動)
+;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome/sidekick: 左のタブに移動)
 ;[MOUSE  ]: マウスポインタを大きく左に移動
 ;[SPECIAL]: Alt + hキー
 $!h::
@@ -475,6 +475,8 @@ $!h::
                 send ^+{TAB}
             } else if (isActiveProcess("chrome")) {
                 send ^+{TAB}
+            } else if (isActiveProcess("sidekick")) {
+                send ^{PgUp}
             } else {
                 send !{Left}
             }
@@ -485,6 +487,8 @@ $!h::
                 send ^+{TAB}
             } else if (isActiveProcess("chrome")) {
                 send ^+{TAB}
+            } else if (isActiveProcess("sidekick")) {
+                send ^{PgUp}
             } else {
                 send !{Left}
             }
@@ -498,6 +502,8 @@ $!h::
             send ^+{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^+{TAB}
+        } else if (isActiveProcess("sidekick")) {
+            send ^{PgUp}
         } else {
             send !h
         }
@@ -638,14 +644,14 @@ $j::
     }
 return
 
-;[NORMAL ]: Ctrl + jキー (Obsidian/chromeの場合はコンビネーション)
+;[NORMAL ]: Ctrl + jキー (Obsidian/chrome/sidekickの場合はコンビネーション)
 ;[EDIT   ]: 下に5つ移動
 ;[RANGE  ]: 選択範囲を下に5つ移動
 ;[MOUSE  ]: マウスポインタを下に移動
 ;[SPECIAL]: 4キー + Enter
 $^j::
     if (mode(_MODE.NORMAL)) {
-        if (isActiveProcess("Obsidian") || isActiveProcess("chrome")) {
+        if (isActiveProcess("Obsidian") || isActiveProcess("chrome") || isActiveProcess("sidekick")) {
             ;Do Nothing
         } else {
             send ^j
@@ -886,9 +892,9 @@ $+l::
     }
 return
 
-;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
-;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
-;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
+;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome/sidekick: 右のタブへ移動)
+;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome/sidekick: 右のタブへ移動)
+;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome/sidekick: 右のタブへ移動)
 ;[MOUSE  ]: マウスポインタ右に少し移動
 ;[SPECIAL]: Alt + lキー
 $!l::
@@ -897,6 +903,8 @@ $!l::
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
+        } else if (isActiveProcess("sidekick")) {
+            send ^{PgDn}
         } else {
             send !l
         }
@@ -907,6 +915,8 @@ $!l::
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
+        } else if (isActiveProcess("sidekick")) {
+            send ^{PgDn}
         } else {
             send !l
         }
@@ -917,6 +927,8 @@ $!l::
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
+        } else if (isActiveProcess("sidekick")) {
+            send ^{PgDn}
         } else {
             send !l
         }
@@ -1188,8 +1200,8 @@ $+p::
 return
 
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
-;[EDIT   ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
-;[RANGE  ]: Ctrl + Shift + q (Chrome/Tablacus: タブを閉じる)
+;[EDIT   ]: Ctrl + Shift + q (Chrome/sidekick: タブを閉じる)
+;[RANGE  ]: Ctrl + Shift + q (Chrome/sidekick: タブを閉じる)
 ;[MOUSE  ]: 左上のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: Windowを左上に移動
 $q::
@@ -1201,7 +1213,7 @@ $q::
             setMode(_MODE.NORMAL)
             FlashWindow()
         } else {
-            if (isActiveProcess("chrome") || isActive("tablacus")) {
+            if (isActiveProcess("chrome") || isActiveProcess("sidekick")) {
                 send ^w
             } else {
                 send ^+q
