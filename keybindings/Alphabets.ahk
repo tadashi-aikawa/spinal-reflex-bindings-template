@@ -510,15 +510,6 @@ $!h::
     }
 return
 
-;[NORMAL ]: 1つ前のデスクトップに移動
-;[EDIT   ]: 1つ前のデスクトップに移動
-;[RANGE  ]: 1つ前のデスクトップに移動
-;[MOUSE  ]: 1つ前のデスクトップに移動
-;[SPECIAL]: 1つ前のデスクトップに移動
-$^!h::
-    send ^#{Left}
-return
-
 ;[NORMAL ]: iキー (コンビネーションの場合は{}）
 ;[EDIT   ]: MOUSEモードに変更
 ;[RANGE  ]: MOUSEモードに変更
@@ -937,15 +928,6 @@ $!l::
     } else if (mode(_MODE.SPECIAL)) {
         send !l
     }
-return
-
-;[NORMAL ]: 1つ後のデスクトップに移動
-;[EDIT   ]: 1つ後のデスクトップに移動
-;[RANGE  ]: 1つ後のデスクトップに移動
-;[MOUSE  ]: 1つ後のデスクトップに移動
-;[SPECIAL]: 1つ後のデスクトップに移動
-$^!l::
-    send ^#{Right}
 return
 
 ;[NORMAL ]: mキー (コンビネーションキーの場合はダブルコーテーション)
