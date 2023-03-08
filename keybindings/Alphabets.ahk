@@ -419,7 +419,7 @@ $h::
     }
 return
 
-;[NORMAL ]: Ctrl + H
+;[NORMAL ]: Ctrl + H (ObsidianでCtrl+jのあとならFold more)
 ;[EDIT   ]: 5つ左に移動
 ;[RANGE  ]: 選択範囲を5つ左に移動
 ;[MOUSE  ]: マウスポインタを左に移動
@@ -436,7 +436,11 @@ $^h::
             send ^h
         }
     } else {
-        send ^h
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send {F20}
+        } else {
+            send ^h
+        }
     }
 return
 
@@ -845,14 +849,18 @@ $l::
     }
 return
 
-;[NORMAL ]: Ctrl+lキー
+;[NORMAL ]: Ctrl+lキー (ObsidianでCtrl+jのあとならFold less)
 ;[EDIT   ]: 右に5つ移動
 ;[RANGE  ]: 選択範囲を右に5つ移動
 ;[MOUSE  ]: マウスポインタを右にそこそこ移動
 ;[SPECIAL]: 6キー + Enter
 $^l::
     if (mode(_MODE.NORMAL)) {
-        send ^l
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send {F21}
+        } else {
+            send ^l
+        }
     } else if (mode(_MODE.EDIT)) {
         sendInput {Right 5}
     } else if (mode(_MODE.RANGE)) {
