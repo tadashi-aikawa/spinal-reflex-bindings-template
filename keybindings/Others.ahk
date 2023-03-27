@@ -43,6 +43,15 @@ $Space::
     }
     return
 
+;Ctrl+Spaceキー (ターミナルの場合はCtrl+Spaceが使えないのでF5で代用)
+$^Space::
+    if (isTerminal()) {
+        send {F5}
+    } else {
+        send ^{Space}
+    }
+    return
+
 ;******************************************************************
 ; ESC
 ;******************************************************************
@@ -86,7 +95,7 @@ $Enter::
     return
 
 
-;[NORMAL ]: Ctrl+Enterキー
+;[NORMAL ]: Ctrl+Enterキー (ターミナルの場合はCtrl+Enterが使えないのでF12で代用)
 ;[EDIT   ]: Ctrl+Enterキー
 ;[RANGE  ]: Ctrl+Enterキー
 ;[MOUSE  ]: Ctrl+左クリック
@@ -107,7 +116,11 @@ $^Enter::
             send ^{Enter}
         }
     } else {
-        send ^{Enter}
+        if (isTerminal()) {
+            send {F12}
+        } else {
+            send ^{Enter}
+        }
     }
     return
 

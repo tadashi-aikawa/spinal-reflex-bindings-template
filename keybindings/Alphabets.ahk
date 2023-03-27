@@ -712,6 +712,15 @@ $!j::
     }
 return
 
+;Ctrl+Shift+jキー (ターミナルの場合はCtrl+Shift+jが使えないのでAlt+jで代用)
+$^+j::
+    if (isTerminal()) {
+        send !j
+    } else {
+        send ^+j
+    }
+    return
+
 ;[NORMAL ]: kキー (;からのコンビネーションの場合は``)
 ;[EDIT   ]: 上に移動
 ;[RANGE  ]: 上に選択範囲を移動
@@ -808,6 +817,15 @@ $!k::
         send !k
     }
 return
+
+;Ctrl+Shift+kキー (ターミナルの場合はCtrl+Shift+kが使えないのでAlt+kで代用)
+$^+k::
+    if (isTerminal()) {
+        send !k
+    } else {
+        send ^+k
+    }
+    return
 
 ;[NORMAL ]: lキー (コンビネーションキーの場合は_) (Obsidianの場合はLink search)
 ;[EDIT   ]: 右に移動
