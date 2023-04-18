@@ -16,7 +16,7 @@ $1::
     return
 
 
-;[NORMAL ]: 2キー (コンビネーションキーの場合はObsidianを開く )
+;[NORMAL ]: 2キー (コンビネーションキーの場合はObsidianを開く ) (Obsidianの場合は2hop search)
 ;[EDIT   ]: 2キー
 ;[RANGE  ]: 2キー
 ;[MOUSE  ]: 2キー
@@ -25,7 +25,11 @@ $2::
     if (isSecondKey()) {
         ActivateWindowByToolWindowTitle("obsidian")
     } else {
-        send 2
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+            send {F22}
+        } else {
+            send 2
+        }
     }
     return
 
