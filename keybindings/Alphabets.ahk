@@ -792,25 +792,13 @@ $+k::
 return
 
 ;[NORMAL ]: Alt + kキー
-;[EDIT   ]: Alt + 上キー (Dynalist: トピックを上に移動)
-;[RANGE  ]: Alt + 上キー (Dynalist: トピックを上に移動)
+;[EDIT   ]: Alt + kキー
+;[RANGE  ]: Alt + kキー
 ;[MOUSE  ]: マウスポインタを上に少し移動
 ;[SPECIAL]: Alt + kキー
 $!k::
     if (mode(_MODE.NORMAL)) {
         send !k
-    } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^{Up}
-        } else {
-            send !{Up}
-        }
-    } else if (mode(_MODE.RANGE)) {
-        if (isActiveProcess("dynalist")) {
-            send ^{Up}
-        } else {
-            send !{Up}
-        }
     } else if (mode(_MODE.MOUSE)) {
         moveMouseUpSmall()
     } else if (mode(_MODE.SPECIAL)) {
