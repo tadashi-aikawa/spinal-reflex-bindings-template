@@ -54,20 +54,6 @@ $!2::
     }
     return
 
-;[NORMAL ]: 3キー
-;[EDIT   ]: ウィンドウ切り替え(Win + Tab)
-;[RANGE  ]: ウィンドウ切り替え(Win + Tab)
-;[MOUSE  ]: ウィンドウ切り替え(Win + Tab)
-;[SPECIAL]: ウィンドウ切り替え(Win + Tab)
-$3::
-    if (!mode(_MODE.NORMAL)) {
-        send #{tab}
-    } else {
-        send 3
-    }
-    return
-
-
 ;[NORMAL ]: F3キー
 ;[EDIT   ]: F3キー
 ;[RANGE  ]: F3キー
