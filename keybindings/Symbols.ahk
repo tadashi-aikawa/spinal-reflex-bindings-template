@@ -329,9 +329,9 @@ $+,::
 ;******************************************************************
 
 ;[NORMAL ]: /キー (コンビネーションキーの場合は今日の日付、スラッシュ区切り)
-;[EDIT   ]: Alt+Tab
-;[RANGE  ]: Alt+Tab
-;[MOUSE  ]: Alt+Tab
+;[EDIT   ]: /キー
+;[RANGE  ]: /キー
+;[MOUSE  ]: /キー
 ;[SPECIAL]: .キー
 $/::
     if (!mode(_MODE.NORMAL)) {
@@ -342,7 +342,7 @@ $/::
                 send {NumpadDot}
             }
         } else {
-            send !{tab}
+            send /
         }
     } else {
         if (isSecondKey()) {
