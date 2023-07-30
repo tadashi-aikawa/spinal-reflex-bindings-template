@@ -1,4 +1,4 @@
-﻿;[NORMAL ]: aキー(コンビネーションから場合は^）
+﻿;[NORMAL ]: aキー(コンビネーションから場合は^）(ObsidianでCtrl+jのあとならプロパティの追加)
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
 ;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
@@ -21,7 +21,9 @@ $a::
             }
         }
     } else {
-        if (isSecondKey()) {
+        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+          send {F23}
+        } else if (isSecondKey()) {
             send {^}
         } else {
             send a
