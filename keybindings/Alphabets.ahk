@@ -504,14 +504,18 @@ $!h::
             send !h
         }
     } else {
-        if (isActive("cmder")) {
-            send ^+{TAB}
-        } else if (isActiveProcess("chrome")) {
-            send ^+{TAB}
-        } else if (isActiveProcess("sidekick")) {
-            send ^{PgUp}
+        if (isSecondKey()) {
+            send, #^{Left}
         } else {
-            send !h
+            if (isActive("cmder")) {
+                send ^+{TAB}
+            } else if (isActiveProcess("chrome")) {
+                send ^+{TAB}
+            } else if (isActiveProcess("sidekick")) {
+                send ^{PgUp}
+            } else {
+                send !h
+            }
         }
     }
 return
@@ -906,14 +910,18 @@ return
 ;[SPECIAL]: Alt + lキー
 $!l::
     if (mode(_MODE.NORMAL)) {
-        if (isTerminal()) {
-            send ^{TAB}
-        } else if (isActiveProcess("chrome")) {
-            send ^{TAB}
-        } else if (isActiveProcess("sidekick")) {
-            send ^{PgDn}
+        if (isSecondKey()) {
+            send, #^{Right}
         } else {
-            send !l
+            if (isTerminal()) {
+                send ^{TAB}
+            } else if (isActiveProcess("chrome")) {
+                send ^{TAB}
+            } else if (isActiveProcess("sidekick")) {
+                send ^{PgDn}
+            } else {
+                send !l
+            }
         }
     } else if (mode(_MODE.EDIT)) {
         if (isActiveProcess("dynalist")) {
