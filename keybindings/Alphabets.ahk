@@ -269,17 +269,13 @@ $^e::
     }
 return
 
-;[NORMAL ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
-;[EDIT   ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
-;[RANGE  ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
-;[MOUSE  ]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
-;[SPECIAL]: Shift + eキー (コンビネーションの場合はTablacus Explorerを開く)
+;[NORMAL ]: Shift + eキー
+;[EDIT   ]: Shift + eキー
+;[RANGE  ]: Shift + eキー
+;[MOUSE  ]: Shift + eキー
+;[SPECIAL]: Shift + eキー
 $+e::
-    if (isSecondKey()) {
-        ActivateWindowByTool("tablacus")
-    } else {
-        send +e
-    }
+    send +e
 return
 
 ;[NORMAL ]: fキー(コンビネーションの場合は$）(ObsidianでCtrl+jのあとならファイルを開く)
