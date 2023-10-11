@@ -38,10 +38,10 @@ isActiveProcess(name) {
     return pName == ahk_process
 }
 
-;【概要】指定されたウィンドウがターミナルか (ゆるい判定..)
+;【概要】指定されたウィンドウがターミナルか (ゆるい判定..minttyはgit bashかな...)
 ;【戻値】true / false
 isTerminal() {
-    return isActive("mintty") || isActive("cmder") || isActiveProcess("terminal")
+    return isActive("mintty") || isActiveProcess("terminal")
 }
 
 ;【概要】指定されたウィンドウがUbuntuか (おおざっぱな判定..)

@@ -487,9 +487,7 @@ $!h::
         if (isSecondKey()) {
             send, #^{Left}
         } else {
-            if (isActive("cmder")) {
-                send ^+{TAB}
-            } else if (isActiveProcess("chrome")) {
+            if (isActiveProcess("chrome")) {
                 send ^+{TAB}
             } else {
                 send !h
@@ -900,9 +898,7 @@ $!l::
             send !l
         }
     } else if (mode(_MODE.RANGE)) {
-        if (isActive("cmder")) {
-            send ^{TAB}
-        } else if (isActiveProcess("chrome")) {
+        if (isActiveProcess("chrome")) {
             send ^{TAB}
         } else {
             send !l
