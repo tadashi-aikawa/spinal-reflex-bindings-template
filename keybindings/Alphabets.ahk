@@ -22,7 +22,7 @@ $a::
         }
     } else {
         if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-          send {F23}
+            send {F23}
         } else if (isSecondKey()) {
             send {^}
         } else {
@@ -719,7 +719,7 @@ $^+j::
     } else {
         send ^+j
     }
-    return
+return
 
 ;[NORMAL ]: kキー (;からのコンビネーションの場合は``)
 ;[EDIT   ]: 上に移動
@@ -813,7 +813,7 @@ $^+k::
     } else {
         send ^+k
     }
-    return
+return
 
 ;[NORMAL ]: lキー (コンビネーションキーの場合は_) (Obsidianの場合はLink search)
 ;[EDIT   ]: 右に移動
