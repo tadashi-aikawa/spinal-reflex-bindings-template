@@ -100,7 +100,7 @@ $c::
 return
 
 ;[NORMAL ]: Shift + cキー (コンビネーションの場合はGoogleカレンダーを表示する)
-;[EDIT   ]: Shift + cキー (Dynalist: チェックリスト切り替えトグル)
+;[EDIT   ]: Shift + cキー
 ;[RANGE  ]: Shift + cキー
 ;[MOUSE  ]: Shift + cキー
 ;[SPECIAL]: Shift + cキー
@@ -112,11 +112,7 @@ $+c::
             send +c
         }
     } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^+c
-        } else {
-            send +c
-        }
+        send +c
     } else if (mode(_MODE.RANGE)) {
         send +c
     } else if (mode(_MODE.MOUSE)) {
@@ -160,24 +156,16 @@ $d::
     }
 return
 
-;[NORMAL ]: Ctrl + dキー (Dynalist: トピック削除)
-;[EDIT   ]: Ctrl + dキー (Dynalist: トピック削除)
+;[NORMAL ]: Ctrl + dキー
+;[EDIT   ]: Ctrl + dキー
 ;[RANGE  ]: Ctrl + dキー
 ;[MOUSE  ]: Ctrl + dキー
 ;[SPECIAL]: Ctrl + dキー
 $^d::
     if (mode(_MODE.NORMAL)) {
-        if (isActiveProcess("dynalist")) {
-            send ^+{Del}
-        } else {
-            send ^d
-        }
+        send ^d
     } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^+{Del}
-        } else {
-            send ^d
-        }
+        send ^d
     } else if (mode(_MODE.RANGE)) {
         send ^d
     } else if (mode(_MODE.MOUSE)) {
@@ -467,17 +455,15 @@ $+h::
     }
 return
 
-;[NORMAL ]: Alt + hキー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
-;[EDIT   ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
-;[RANGE  ]: Alt + 左キー (Dynalist: トピックを左に移動, ターミナル: タブを左に移動, chrome: 左のタブに移動)
+;[NORMAL ]: Alt + hキー (ターミナル: タブを左に移動, chrome: 左のタブに移動)
+;[EDIT   ]: Alt + 左キー (ターミナル: タブを左に移動, chrome: 左のタブに移動)
+;[RANGE  ]: Alt + 左キー (ターミナル: タブを左に移動, chrome: 左のタブに移動)
 ;[MOUSE  ]: マウスポインタを大きく左に移動
 ;[SPECIAL]: Alt + hキー
 $!h::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActiveProcess("dynalist")) {
-                send +{TAB}
-            } else if (isTerminal()) {
+            if (isTerminal()) {
                 send ^+{TAB}
             } else if (isActiveProcess("chrome")) {
                 send ^+{TAB}
@@ -485,9 +471,7 @@ $!h::
                 send !{Left}
             }
         } else if (mode(_MODE.RANGE)) {
-            if (isActiveProcess("dynalist")) {
-                send +{TAB}
-            } else if (isTerminal()) {
+            if (isTerminal()) {
                 send ^+{TAB}
             } else if (isActiveProcess("chrome")) {
                 send ^+{TAB}
@@ -686,25 +670,17 @@ $+j::
 return
 
 ;[NORMAL ]: Alt + jキー
-;[EDIT   ]: Alt + jキー (Dynalist: トピックを下に移動)
-;[RANGE  ]: Alt + jキー (Dynalist: トピックを下に移動)
+;[EDIT   ]: Alt + jキー
+;[RANGE  ]: Alt + jキー
 ;[MOUSE  ]: マウスポインタを下に少し移動
 ;[SPECIAL]: Alt + jキー
 $!j::
     if (mode(_MODE.NORMAL)) {
         send !j
     } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send ^{Down}
-        } else {
-            send !{Down}
-        }
+        send !{Down}
     } else if (mode(_MODE.RANGE)) {
-        if (isActiveProcess("dynalist")) {
-            send ^{Down}
-        } else {
-            send !{Down}
-        }
+        send !{Down}
     } else if (mode(_MODE.MOUSE)) {
         moveMouseDownSmall()
     } else if (mode(_MODE.SPECIAL)) {
@@ -897,9 +873,9 @@ $+l::
     }
 return
 
-;[NORMAL ]: Alt + lキー  (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
-;[EDIT   ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
-;[RANGE  ]: Alt + lキー (Dynalist: トピックを右に移動, ターミナル: タブを右に移動, chrome: 右のタブへ移動)
+;[NORMAL ]: Alt + lキー (ターミナル: タブを右に移動, chrome: 右のタブへ移動)
+;[EDIT   ]: Alt + lキー (ターミナル: タブを右に移動, chrome: 右のタブへ移動)
+;[RANGE  ]: Alt + lキー (ターミナル: タブを右に移動, chrome: 右のタブへ移動)
 ;[MOUSE  ]: マウスポインタ右に少し移動
 ;[SPECIAL]: Alt + lキー
 $!l::
@@ -916,9 +892,7 @@ $!l::
             }
         }
     } else if (mode(_MODE.EDIT)) {
-        if (isActiveProcess("dynalist")) {
-            send {TAB}
-        } else if (isTerminal()) {
+        if (isTerminal()) {
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
@@ -926,9 +900,7 @@ $!l::
             send !l
         }
     } else if (mode(_MODE.RANGE)) {
-        if (isActiveProcess("dynalist")) {
-            send {TAB}
-        } else if (isActive("cmder")) {
+        if (isActive("cmder")) {
             send ^{TAB}
         } else if (isActiveProcess("chrome")) {
             send ^{TAB}
@@ -1019,15 +991,13 @@ $+m::
 return
 
 ;[NORMAL ]: Nキー (コンビネーションの場合は =>)
-;[EDIT   ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
-;[RANGE  ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
-;[MOUSE  ]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
-;[SPECIAL]: F3キー相当 (Dynalist: Zoom in) (Chrome: 新しいタブを開く + NORMALモード)
+;[EDIT   ]: F3キー相当 (Chrome: 新しいタブを開く + NORMALモード)
+;[RANGE  ]: F3キー相当 (Chrome: 新しいタブを開く + NORMALモード)
+;[MOUSE  ]: F3キー相当 (Chrome: 新しいタブを開く + NORMALモード)
+;[SPECIAL]: F3キー相当 (Chrome: 新しいタブを開く + NORMALモード)
 $n::
     if (!mode(_MODE.NORMAL)) {
-        if (isActiveProcess("dynalist")) {
-            send ^]
-        } else if (isActiveProcess("chrome")) {
+        if (isActiveProcess("chrome")) {
             send ^t
             setMode(_MODE.NORMAL)
         } else {
@@ -1043,17 +1013,13 @@ $n::
 return
 
 ;[NORMAL ]: 新規ウィンドウ
-;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー) (Dynalist: Zoom out)
+;[EDIT   ]: Ctrl+Shift+F3 (実装のプレビュー)
 ;[RANGE  ]: Ctrl+Shift+F3 (実装のプレビュー)
 ;[MOUSE  ]: Ctrl+Shift+F3 (実装のプレビュー)
 ;[SPECIAL]: Ctrl+Shift+F3 (実装のプレビュー)
 $^n::
     if (!mode(_MODE.NORMAL)) {
-        if (isActiveProcess("dynalist")) {
-            send ^[
-        } else {
-            send ^+{F3}
-        }
+        send ^+{F3}
     } else {
         send ^n
     }
@@ -1286,7 +1252,7 @@ $^r::
 return
 
 ;[NORMAL ]: sキー (コンビネーションキーの場合は()) (ObsidianでCtrl+jのあとならスターファイルを開く)
-;[EDIT   ]: Ctrl+Shift+S + NORMALモードへ (Dynalist: 展開/格納)(Google Chrome: Ctrl+Shift+c)
+;[EDIT   ]: Ctrl+Shift+S + NORMALモードへ (Google Chrome: Ctrl+Shift+c)
 ;[RANGE  ]: Ctrl+Shift+S + NORMALモードへ
 ;[MOUSE  ]: 中央下のエリアにフォーカスを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
@@ -1294,9 +1260,7 @@ return
 $s::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.EDIT)) {
-            if (isActiveProcess("dynalist")) {
-                send ^.
-            } else if (isActiveProcess("chrome")) {
+            if (isActiveProcess("chrome")) {
                 send ^+c
             } else {
                 send ^+{s}
@@ -1333,10 +1297,10 @@ $s::
 return
 
 ;[NORMAL ]: Shif+sキー (ObsidianでCtrl+jのあとなら設定を開く)
-;[EDIT   ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
-;[RANGE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
-;[MOUSE  ]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
-;[SPECIAL]: Ctrl+Alt+Shift+sキー (Dynalistの場合は全展開/全格納)
+;[EDIT   ]: Ctrl+Alt+Shift+sキー
+;[RANGE  ]: Ctrl+Alt+Shift+sキー
+;[MOUSE  ]: Ctrl+Alt+Shift+sキー
+;[SPECIAL]: Ctrl+Alt+Shift+sキー
 $+s::
     if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
         send ^,
@@ -1346,11 +1310,7 @@ $+s::
         ActivateWindowByProcess("slack")
     } else {
         if (!mode(_MODE.NORMAL)) {
-            if (isActiveProcess("dynalist")) {
-                send ^+.
-            } else {
-                send ^+!s
-            }
+            send ^+!s
         } else {
             send +s
         }
