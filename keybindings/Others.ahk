@@ -210,23 +210,23 @@ $^TAB::
 ; PageUp PageDown
 ;******************************************************************
 
-;[NORMAL ]: 前のデスクトップへ移動
-;[EDIT   ]: 前のデスクトップへ移動
-;[RANGE  ]: 前のデスクトップへ移動
-;[MOUSE  ]: 前のデスクトップへ移動
-;[SPECIAL]: 前のデスクトップへ移動
+;[NORMAL ]: BS
+;[EDIT   ]: BS
+;[RANGE  ]: BS
+;[MOUSE  ]: BS
+;[SPECIAL]: BS
 $PgUp::
-    send #^{Left}
+    send {BS}
     return
 
-;[NORMAL ]: 次のデスクトップへ移動
-;[EDIT   ]: 次のデスクトップへ移動
-;[RANGE  ]: 次のデスクトップへ移動
-;[MOUSE  ]: 次のデスクトップへ移動
-;[SPECIAL]: 次のデスクトップへ移動
+;[NORMAL ]: Enter
+;[EDIT   ]: Enter
+;[RANGE  ]: Enter
+;[MOUSE  ]: Enter
+;[SPECIAL]: Enter
 ; マウス/トラックボールにEnterを割り当てるための確保
 $PgDn::
-    send #^{Right}
+    send {Enter}
     return
 
 
