@@ -54,6 +54,24 @@ $!2::
     }
     return
 
+;[NORMAL ]: 3キー (;コンビネーションの場合はIntellij IDEAを開く)
+;[EDIT   ]: 3キー
+;[RANGE  ]: 3キー
+;[MOUSE  ]: 3キー
+;[SPECIAL]: 3キー
+$3::
+    if (mode(_MODE.NORMAL)) {
+        if (isSecondKey()) {
+            ActivateWindowByProcess("idea")
+        } else {
+            Send, 3
+        }
+    } else {
+        Send, 3
+    }
+    return
+
+
 ;[NORMAL ]: F3キー
 ;[EDIT   ]: F3キー
 ;[RANGE  ]: F3キー
