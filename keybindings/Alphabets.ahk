@@ -379,7 +379,7 @@ return
 ;[EDIT   ]: 左に移動
 ;[RANGE  ]: 選択範囲を左に移動
 ;[MOUSE  ]: マウスポインタを左に微かに移動
-;[SPECIAL]: hキー
+;[SPECIAL]: ウィンドウを左半分にリサイズ
 ;[DEBUG  ]: ステップアウト (SHIFT + F11)
 $h::
     if (mode(_MODE.NORMAL)) {
@@ -399,7 +399,7 @@ $h::
     } else if (mode(_MODE.MOUSE)) {
         moveMouseLeftMicro()
     } else if (mode(_MODE.SPECIAL)) {
-        send h
+        send #{Left}
     } else if (mode(_MODE.DEBUG)) {
         send +{F11}
     }
