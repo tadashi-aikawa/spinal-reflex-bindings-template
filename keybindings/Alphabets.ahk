@@ -492,15 +492,6 @@ $!h::
     }
 return
 
-;[NORMAL ]: ウィンドウを左半分にリサイズ
-;[EDIT   ]: ウィンドウを左半分にリサイズ
-;[RANGE  ]: ウィンドウを左半分にリサイズ
-;[MOUSE  ]: ウィンドウを左半分にリサイズ
-;[SPECIAL]: ウィンドウを左半分にリサイズ
-RButton & h::
-    send #{Left}
-return
-
 ;[NORMAL ]: iキー (コンビネーションの場合は{}）
 ;[EDIT   ]: MOUSEモードに変更
 ;[RANGE  ]: MOUSEモードに変更
