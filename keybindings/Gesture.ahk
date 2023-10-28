@@ -2,10 +2,6 @@
 ; マウスジェスチャー
 ;******************************************************************
 
-doMRdr() {
-    send {TAB}
-}
-
 doMRd() {
     send ^#{Right}
 }
@@ -15,21 +11,11 @@ doMRu() {
 }
 
 doMRl() {
-    if (isActive("excelVBA")) {
-        send +^{F2}
-    } else {
-        send !{Left}
-    }
+  send #{Left}
 }
 
 doMRr() {
-    if (isActive("eclipse") || isActive("intellij")) {
-        send {F3}
-    } else if (isActive("excelVBA")) {
-        send +{F2}
-    } else {
-        send !{Right}
-    }
+  send #{Right}
 }
 
 doMR() {
