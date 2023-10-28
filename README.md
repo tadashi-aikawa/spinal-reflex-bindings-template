@@ -60,7 +60,7 @@ name = home
 * `ModeController.ahk`
     * 仮想キーボードのモード制御
 * `MouseGesture.ahk`
-    * マウスジェスチャーの設定&キーバインド
+    * マウスジェスチャーの実装
 * `MouseUtils.ahk`
     * マウス操作のユーティリティ
 * `Command.ahk`
@@ -74,6 +74,8 @@ name = home
         * 記号に関するキーバインド設定
     * `Others.ahk`
         * その他キーバインド設定
+    * `Gesture.ahk`
+        * マウスジェスチャーのバインド設定
 * `settings (Directory)`
     * 環境毎の設定ファイル保存場所.
 

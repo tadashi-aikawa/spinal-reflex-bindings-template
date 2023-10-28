@@ -22,4 +22,5 @@ SetMouseDelay, 10
 #include %A_ScriptDir%\keybindings\Numbers.ahk
 #include %A_ScriptDir%\keybindings\Symbols.ahk
 #include %A_ScriptDir%\keybindings\Others.ahk
+#include %A_ScriptDir%\keybindings\Gesture.ahk
 
