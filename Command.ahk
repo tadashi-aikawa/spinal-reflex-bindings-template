@@ -79,6 +79,33 @@ MoveWindow(location) {
     }
 }
 
+;【概要】現在のウィンドウを横1920、縦最大にして画面中央に表示
+SetFullHDWidthAtCenter() {
+    WinGetPos, WinX, WinY,,, A
+    SysGet, MonitorCount, MonitorCount
+    Loop, %MonitorCount%
+    {
+        SysGet, Monitor, Monitor, %A_Index%
+        if (WinX >= MonitorLeft - 30
+            and WinX <= MonitorRight + 30
+            and WinY >= MonitorTop - 30
+            and WinY <= MonitorBottom + 30)
+        {
+            TargetMonitor := A_Index
+            break
+        }
+    }
+
+    SysGet, Monitor, Monitor, %TargetMonitor%
+    NewX := MonitorLeft + (MonitorRight - MonitorLeft - 1920) / 2
+    NewY := MonitorTop - 1
+    TaskBarHeight := 48 - 3
+    WinHeight := MonitorBottom - MonitorTop - TaskBarHeight
+    WinRestore, A
+
+    WinMove, A,, NewX, NewY, 1920, WinHeight
+}
+
 ;【概要】指定位置のウィンドウハンドラを取得する
 ;【引数】px: x座標, py: y座標
 ;【戻値】Window handler

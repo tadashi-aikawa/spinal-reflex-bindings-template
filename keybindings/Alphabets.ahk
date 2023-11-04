@@ -304,7 +304,8 @@ $f::
         setMode(_Mode.NORMAL)
         FlashWindow()
     } else if (mode(_MODE.SPECIAL)) {
-        send #{UP}
+        ; send #{UP}
+        SetFullHDWidthAtCenter()
     } else if (mode(_MODE.DEBUG)) {
         send {F10}
     }
