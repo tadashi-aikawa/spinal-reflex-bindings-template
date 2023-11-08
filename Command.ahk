@@ -86,10 +86,11 @@ SetFullHDWidthAtCenter() {
     Loop, %MonitorCount%
     {
         SysGet, Monitor, Monitor, %A_Index%
-        if (WinX >= MonitorLeft - 30
-            and WinX <= MonitorRight + 30
-            and WinY >= MonitorTop - 30
-            and WinY <= MonitorBottom + 30)
+        padding := 30
+        if (WinX >= MonitorLeft - padding
+            and WinX <= MonitorRight - padding
+            and WinY >= MonitorTop - padding
+            and WinY <= MonitorBottom - padding)
         {
             TargetMonitor := A_Index
             break
