@@ -130,8 +130,7 @@ ActivateWindow(location) {
     winY := getSettingsValue("QuickMoveWindow", location . "WinY")
 
     ; MsgBox, %locX% . - . %locY% . - . %winX% . - . %winY%
-    padding := 50
-    hwnd := getWindowHandlerAtPosition(locX + padding, locY + padding)
+    hwnd := getWindowHandlerAtPosition(locX + winX / 2, locY + winY / 2)
     WinActivate, ahk_id %hwnd%
 }
 
