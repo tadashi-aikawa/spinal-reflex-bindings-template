@@ -1,7 +1,7 @@
 ﻿;[NORMAL ]: aキー(コンビネーションから場合は^）(ObsidianでCtrl+jのあとならプロパティの追加)
 ;[EDIT   ]: 行頭へ移動
 ;[RANGE  ]: 行頭に選択範囲を移動
-;[MOUSE  ]: 左下のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 左下のエリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: ウィンドウリサイズ特殊キー (コンビネーションの場合はリマインド)
 $a::
     if (!mode(_MODE.NORMAL)) {
@@ -12,7 +12,7 @@ $a::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("LeftDown")
             setMode(_MODE.NORMAL)
-            FlashWindow()
+            MoveCenterInActiveWindow()
         } else if (mode(_MODE.SPECIAL)) {
             if (isSecondKey()) {
                 MoveWindow("LeftDownRest")
@@ -125,7 +125,7 @@ return
 ;[NORMAL ]: dキー (コンビネーションの場合は#）(ObsidianでCtrl+jのあとならカレンダー検索)
 ;[EDIT   ]: BSキー
 ;[RANGE  ]: BSキー
-;[MOUSE  ]: 右下のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 右下のエリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: ウィンドウリサイズ特殊キー (コンビネーションの場合はリマインド)
 $d::
     if (mode(_MODE.NORMAL)) {
@@ -145,7 +145,7 @@ $d::
     } else if (mode(_MODE.MOUSE)) {
         ActivateWindow("RightDown")
         setMode(_MODE.NORMAL)
-        FlashWindow()
+        MoveCenterInActiveWindow()
     } else if (mode(_MODE.SPECIAL)) {
         if (isSecondKey()) {
             MoveWindow("RightDownRest")
@@ -220,7 +220,7 @@ return
 ;[NORMAL ]: eキー (コンビネーションキーの場合は=) (ObsidianでCtrl+jのあとなら最近のファイルを開く) (ChromeでCtrl+jのあとならタブ検索)
 ;[EDIT   ]: 1つ戻る
 ;[RANGE  ]: 1つ戻る
-;[MOUSE  ]: 右上のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 右上のエリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを右上に最大化して移動する
 ;[SNIPPET]: :evergreen_tree::
 ;[DEBUG  ]: 評価を開く
@@ -231,7 +231,7 @@ $e::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("RightUp")
             setMode(_MODE.NORMAL)
-            FlashWindow()
+            MoveCenterInActiveWindow()
         } else if (mode(_MODE.SNIPPET)) {
             send :evergreen_tree:
         } else if (mode(_MODE.DEBUG)) {
@@ -302,7 +302,6 @@ $f::
     } else if (mode(_MODE.MOUSE)) {
         ActivateWindow("RightDown")
         setMode(_Mode.NORMAL)
-        FlashWindow()
     } else if (mode(_MODE.SPECIAL)) {
         ; send #{UP}
         SetFullHDWidthAtCenter()
@@ -1155,7 +1154,7 @@ return
 ;[NORMAL ]: qキー(コンビネーションから場合はCtrl + Shift + q)
 ;[EDIT   ]: Ctrl + Shift + q (Chromeタブを閉じる)
 ;[RANGE  ]: Ctrl + Shift + q (Chromeタブを閉じる)
-;[MOUSE  ]: 左上のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 左上のエリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: Windowを左上に移動
 $q::
     if (!mode(_MODE.NORMAL)) {
@@ -1164,7 +1163,7 @@ $q::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("LeftUp")
             setMode(_MODE.NORMAL)
-            FlashWindow()
+            MoveCenterInActiveWindow()
         } else {
             if (isActiveProcess("chrome")) {
                 send ^w
@@ -1247,7 +1246,7 @@ return
 ;[NORMAL ]: sキー (コンビネーションキーの場合は()) (ObsidianでCtrl+jのあとならスターファイルを開く)
 ;[EDIT   ]: Ctrl+Shift+S + NORMALモードへ (Google Chrome: Ctrl+Shift+c)
 ;[RANGE  ]: Ctrl+Shift+S + NORMALモードへ
-;[MOUSE  ]: 中央下のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 中央下のエリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央下に最大化して移動する
 ;[DEBUG  ]: 停止
 $s::
@@ -1267,7 +1266,7 @@ $s::
         } else if (mode(_MODE.MOUSE)) {
             ActivateWindow("CenterDown")
             setMode(_MODE.NORMAL)
-            FlashWindow()
+            MoveCenterInActiveWindow()
         } else if (mode(_MODE.DEBUG)) {
             send ^{F2}
         }
@@ -1519,7 +1518,7 @@ return
 ;[NORMAL ]: wキー (コンビネーションキーの場合はCtrl+W) (ObsidianでCtrl+jのあとなら設定を開く)
 ;[EDIT   ]: 1単語右に移動
 ;[RANGE  ]: 選択範囲を1単語右に移動
-;[MOUSE  ]: 中央上のエリアにフォーカスを移してNORMALモードに
+;[MOUSE  ]: 中央上のエリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: アクティブウィンドウを中央上に最大化して移動する
 ;[DEBUG  ]: ブレークポイントトグル
 $w::
@@ -1540,7 +1539,7 @@ $w::
     } else if (mode(_MODE.MOUSE)) {
         ActivateWindow("CenterUp")
         setMode(_MODE.NORMAL)
-        FlashWindow()
+        MoveCenterInActiveWindow()
     } else if (mode(_MODE.SPECIAL)) {
         MoveWindow("CenterUp")
     } else if (mode(_MODE.DEBUG)) {
