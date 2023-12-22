@@ -1114,6 +1114,15 @@ $+o::
     }
 return
 
+;Ctrl+Shift+oキー (ターミナルの場合はCtrl+Shift+oが使えないのでAlt+oで代用)
+$^+o::
+    if (isTerminal()) {
+        send !o
+    } else {
+        send ^+o
+    }
+return
+
 ;[NORMAL ]: pキー (コンビネーションキーの場合は%)
 ;[EDIT   ]: コマンドパレット(Ctrl + Shift + pキー => NORMALモード)
 ;[RANGE  ]: pキ－
