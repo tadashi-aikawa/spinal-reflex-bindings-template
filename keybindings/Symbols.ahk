@@ -376,3 +376,20 @@ $-::
         send -
     }
 return
+
+;******************************************************************
+; 山かっこ(閉じる)
+;******************************************************************
+;[NORMAL ]: ]キー (ObsidianでCtrl+jのあとならLink search)
+;[EDIT   ]: ]キー
+;[RANGE  ]: ]キー
+;[MOUSE  ]: ]キー
+;[SPECIAL]: ]キー
+$]::
+  if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
+      Send, {F24}
+  } else {
+      Send, ] 
+  }
+return
+
