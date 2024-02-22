@@ -393,3 +393,16 @@ $]::
   }
 return
 
+;[NORMAL ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
+;[EDIT   ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
+;[RANGE  ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
+;[MOUSE  ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
+;[SPECIAL]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
+$^+]::
+  if (isTerminal()) {
+      Send !] 
+  } else {
+      Send ^+] 
+  }
+return
+
