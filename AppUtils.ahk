@@ -41,7 +41,7 @@ isActiveProcess(name) {
 ;【概要】指定されたウィンドウがターミナルか (ゆるい判定..minttyはgit bashかな...)
 ;【戻値】true / false
 isTerminal() {
-    return isActive("mintty") || isActiveProcess("terminal")
+    return isActive("mintty") || isActiveProcess("terminal") || isActiveProcess("wezterm")
 }
 
 ;【概要】指定されたウィンドウがUbuntuか (おおざっぱな判定..)
