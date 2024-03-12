@@ -1578,11 +1578,14 @@ return
 ;[NORMAL ]: xキー(コンビネーションから場合は【】）
 ;[EDIT   ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
 ;[RANGE  ]: Ctrl + xキー ＆ モードをVirtual->NORMALに変更
-;[MOUSE  ]
+;[MOUSE  ]: 中央特殊エリアにフォーカスとポインタを移してNORMALモードに
 ;[SPECIAL]: ウィンドウリサイズ特殊キー
 $x::
     if (!mode(_MODE.NORMAL)) {
         if (mode(_MODE.MOUSE)) {
+            ActivateWindow("CenterSpecial")
+            setMode(_MODE.NORMAL)
+            MoveCenterInActiveWindow()
         } else if (mode(_MODE.SPECIAL)) {
             MoveWindow("CenterSpecial")
         } else {
