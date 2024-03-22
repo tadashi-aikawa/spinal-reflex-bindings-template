@@ -1215,7 +1215,7 @@ $+q::
     }
 return
 
-;[NORMAL ]: rキー (コンビネーションキーの場合は==)
+;[NORMAL ]: rキー (コンビネーションキーの場合はR)
 ;[EDIT   ]: 仮想入力モードをスペシャルモードにする
 ;[RANGE  ]: 仮想入力モードをスペシャルモードにする
 ;[MOUSE  ]: r
@@ -1232,7 +1232,7 @@ $r::
         }
     } else {
         if (isSecondKey()) {
-            send {space}=={space}
+            send R
         } else {
             send r
         }
