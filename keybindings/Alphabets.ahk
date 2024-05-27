@@ -1632,6 +1632,10 @@ $z::
         } else {
             send z
         }
+    } else if (mode(_MODE.MOUSE)) {
+        ActivateWindow("LeftSpecial")
+        setMode(_MODE.NORMAL)
+        MoveCenterInActiveWindow()
     } else if (mode(_MODE.SPECIAL)) {
         if (isSecondKey()) {
             MoveWindow("LeftSpecialRest")
