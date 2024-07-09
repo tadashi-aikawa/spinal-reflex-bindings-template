@@ -84,7 +84,7 @@ $c::
             }
         } else {
             setMode(_MODE.EDIT)
-            if (isTerminal() || isActive("intellij") || isActive("vscode")) {
+            if (isTerminal() || isActive("intellij")) {
                 send ^{Ins}
             } else {
                 send ^c
@@ -1509,7 +1509,7 @@ $v::
             send {down}
         } else {
             setMode(_MODE.EDIT)
-            if (isTerminal() || isActive("intellij") || isActive("vscode")) {
+            if (isTerminal() || isActive("intellij")) {
                 send +{Ins}
             } else {
                 send ^v
