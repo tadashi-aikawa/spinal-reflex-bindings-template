@@ -335,7 +335,6 @@ return
 ;[N] Shift + jキー
 ;[E] 下に1ページ移動
 ;[R] 選択範囲を下に1ページ移動
-;[M] マウスポインタを下に大きく移動
 $+j::
     if (modes("N")) {
         send +j
@@ -343,8 +342,6 @@ $+j::
         send {PgDn}
     } else if (modes("R")) {
         send +{PgDn}
-    } else if (modes("M")) {
-        moveMouseDownLarge()
     }
 return
 
