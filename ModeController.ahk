@@ -13,8 +13,6 @@ _MODE.EDIT := {"id":1, "color":"000000", "label":"Edit"}
 _MODE.RANGE := {"id":2, "color":"00FF00", "label":"Range"}
 _MODE.MOUSE := {"id":3, "color":"FF0000", "label":"Mouse"}
 _MODE.SPECIAL := {"id":4, "color":"0000FF", "label":"Special"}
-_MODE.SNIPPET := {"id":5, "color":"AAAA00", "label":"Snippet"}
-_MODE.DEBUG := {"id":6, "color":"FF00FF", "label":"Debug"}
 
 ;-------------------------------
 ;ディスプレイ設定
