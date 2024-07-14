@@ -1,137 +1,100 @@
-﻿;[NORMAL ]: 1キー (;コンビネーションの場合はTerminalを開く)
-;[EDIT   ]: URLをエクスプローラーまたはブラウザで開く
-;[RANGE  ]: URLをエクスプローラーまたはブラウザで開く
-;[MOUSE  ]: URLをエクスプローラーまたはブラウザで開く
-;[SPECIAL]: URLをエクスプローラーまたはブラウザで開く
+﻿;[N]  1キー (; -> Terminalを開く)
+;[ER] URLをエクスプローラーまたはブラウザで開く
 $1::
-    if (mode(_MODE.NORMAL)) {
-        if (isSecondKey()) {
+    if (modes("N")) {
+        if (2K(";")) {
             ActivateWindowByProcess("terminal")
         } else {
             send 1
         }
-    } else {
+    } else if (modes("ER")) {
         openUri()
     }
-    return
+return
 
 
-;[NORMAL ]: 2キー (コンビネーションキーの場合はObsidianを開く ) (Obsidianの場合は2hop search)
-;[EDIT   ]: 2キー
-;[RANGE  ]: 2キー
-;[MOUSE  ]: 2キー
-;[SPECIAL]: 2キー
+;[N] 2キー (; -> Obsidianを開く) (Obsidian: C-j -> 2hop search)
 $2::
-    if (isSecondKey()) {
-        ActivateWindowByToolWindowTitle("obsidian")
-    } else {
-        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send {F22}
+    if (modes("N")) {
+        if (2K(";")) {
+            ActivateWindowByToolWindowTitle("obsidian")
         } else {
-            send 2
+            if (AP("Obsidian") && 2K("^j")) {
+                send {F22}
+            } else {
+                send 2
+            }
         }
     }
-    return
+return
 
 
-;[NORMAL ]: F2キー
-;[EDIT   ]: F2キー
-;[RANGE  ]: F2キー
-;[MOUSE  ]: F2キー
-;[SPECIAL]: F2キー
+;[EERMS]: F2キー
 $^2::
     send {f2}
-    return
+return
 
-;[NORMAL ]: Alt+2  (Obsidianの場合、見出しレベル2)
-;[EDIT   ]: Alt+2  (Obsidianの場合、見出しレベル2)
-;[RANGE  ]: Alt+2  (Obsidianの場合、見出しレベル2)
-;[MOUSE  ]: Alt+2  (Obsidianの場合、見出しレベル2)
-;[SPECIAL]: Alt+2  (Obsidianの場合、見出しレベル2)
+;[N]: 見出しレベル2の挿入
 $!2::
-    if (isActiveProcess("Obsidian")) {
+    if (modes("N")) {
         send, {#}{#}{space}
     }
-    return
+return
 
-;[NORMAL ]: 3キー (;コンビネーションの場合はIntellij IDEAを開く)
-;[EDIT   ]: 3キー
-;[RANGE  ]: 3キー
-;[MOUSE  ]: 3キー
-;[SPECIAL]: 3キー
-$3::
-    if (mode(_MODE.NORMAL)) {
-        if (isSecondKey()) {
-            ActivateWindowByProcess("idea")
-        } else {
-            Send, 3
-        }
-    } else {
-        Send, 3
-    }
-    return
-
-
-;[NORMAL ]: F3キー
-;[EDIT   ]: F3キー
-;[RANGE  ]: F3キー
-;[MOUSE  ]: F3キー
-;[SPECIAL]: F3キー
+;[EERMS]: F3キー
 $^3::
-    send {F3}
-    return
+    send {f3}
+return
 
-;[NORMAL ]: Alt+3  (Obsidianの場合、見出しレベル3)
-;[EDIT   ]: Alt+3  (Obsidianの場合、見出しレベル3)
-;[RANGE  ]: Alt+3  (Obsidianの場合、見出しレベル3)
-;[MOUSE  ]: Alt+3  (Obsidianの場合、見出しレベル3)
-;[SPECIAL]: Alt+3  (Obsidianの場合、見出しレベル3)
+;[N]: 見出しレベル3の挿入
 $!3::
-    if (isActiveProcess("Obsidian")) {
+    if (modes("N")) {
         send, {#}{#}{#}{space}
     }
-    return
+return
 
-;[NORMAL ]: 4キー
-;[EDIT   ]: ウィンドウ最小化
-;[RANGE  ]: ウィンドウ最小化
-;[MOUSE  ]: ウィンドウ最小化
-;[SPECIAL]: ウィンドウ最小化
+;[N] 4キー
+;[E] ウィンドウ最小化
 $4::
-    if (!mode(_MODE.NORMAL)) {
-        WinMinimize, A
-    } else {
+    if (modes("N")) {
         send 4
+    } else if (modes("E")) {
+        WinMinimize, A
     }
-    return
+return
 
-;[NORMAL ]: Alt+4  (Obsidianの場合、見出しレベル4)
-;[EDIT   ]: Alt+4  (Obsidianの場合、見出しレベル4)
-;[RANGE  ]: Alt+4  (Obsidianの場合、見出しレベル4)
-;[MOUSE  ]: Alt+4  (Obsidianの場合、見出しレベル4)
-;[SPECIAL]: Alt+4  (Obsidianの場合、見出しレベル4)
+;[N]: 見出しレベル4の挿入
 $!4::
-    if (isActiveProcess("Obsidian")) {
+    if (modes("N")) {
         send, {#}{#}{#}{#}{space}
     }
-    return
+return
 
+;[N]: 見出しレベル5の挿入
+$!5::
+    if (modes("N")) {
+        send, {#}{#}{#}{#}{#}{space}
+    }
+return
 
-;[NORMAL ]: { (中カッコ開始）
-;[EDIT   ]: { (中カッコ開始）
-;[RANGE  ]: { (中カッコ開始）
-;[MOUSE  ]: { (中カッコ開始）
-;[SPECIAL]: { (中カッコ開始）
+;[N]: 見出しレベル6の挿入
+$!6::
+    if (modes("N")) {
+        send, {#}{#}{#}{#}{#}{#}{space}
+    }
+return
+
+;[N] { (中カッコ開始）
 $^8::
-    send {{}
-    return
+    if (modes("N")) {
+        send {{}
+    }
+return
 
 
-;[NORMAL ]: } (中カッコ終了）
-;[EDIT   ]: } (中カッコ終了）
-;[RANGE  ]: } (中カッコ終了）
-;[MOUSE  ]: } (中カッコ終了）
-;[SPECIAL]: } (中カッコ終了）
+;[N] } (中カッコ終了）
 $^9::
-    send {}}
-    return
+    if (modes("N")) {
+        send {}}
+    }
+return

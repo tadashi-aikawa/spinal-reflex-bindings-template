@@ -11,11 +11,11 @@ doMRu() {
 }
 
 doMRl() {
-  send #{Left}
+    send #{Left}
 }
 
 doMRr() {
-  send #{Right}
+    send #{Right}
 }
 
 doMR() {

@@ -12,8 +12,7 @@ $vk1C::
         setMode(_MODE.NORMAL)
         setIME(false)
     }
-    return
-
+return
 
 ;******************************************************************
 ; コントロール
@@ -22,26 +21,18 @@ $vk1C::
 ;----- マウスカーソル配下のウィンドウをアクティブにする -----
 ; コンビネーション時はアクティブウィンドウの中央にマウスカーソルを召喚する
 $Ctrl::
-    if (isSecondKey()) {
+    if (2K(";")) {
         MoveCenterInActiveWindow()
     } else {
         MouseGetPos, , , hWindow
         WinActivate, ahk_id %hWindow%
         FlashWindow() 
     }
-    return
+return
 
 ;******************************************************************
 ; Space
 ;******************************************************************
-
-$Space::
-    if (isSecondKey()) {
-        Send {Right}{Space}
-    } else {
-        Send {Space}
-    }
-    return
 
 ;Ctrl+Spaceキー (ターミナルの場合はCtrl+Spaceが使えないのでF5で代用)
 $^Space::
@@ -50,7 +41,7 @@ $^Space::
     } else {
         send ^{Space}
     }
-    return
+return
 
 ;Shift+Spaceキー (ターミナルの場合はShift+Spaceが使えないのでShift+F6 or F18(WSL)で代用)
 $+Space::
@@ -60,7 +51,7 @@ $+Space::
     } else {
         send +{Space}
     }
-    return
+return
 
 ;******************************************************************
 ; ESC
@@ -73,172 +64,106 @@ $ESC::
     Send, {Shift up}
     Send, {Ctrl up}
     Send, {Alt up}
-    return
+return
 
 ;----- ウィンドウ切り替えは無効化 -----
 $!ESC::
-    return
+return
 
 
 ;******************************************************************
 ; Enter
 ;******************************************************************
 
-;[NORMAL ]: Enterキー (コンビネーション時は;入力後にEnter)
-;[EDIT   ]: Enterキー
-;[RANGE  ]: Enterキー
-;[MOUSE  ]: 左クリック
-;[SPECIAL]: 0キー
+;[N]  Enterキー (; -> ;<Enter>)
+;[ER] Enterキー
+;[M]  マウスの左クリック
+;[S]  0キー
 $Enter::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.MOUSE)) {
-            MouseGetPos nowX, nowY
-            Click nowX, nowY
-        } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isUbuntu()) {
-                send 0
-            } else {
-                send {Numpad0}
-            }
+    if (modes("N")) {
+        if (2K(";")) {
+            send `;{Enter}
         } else {
             send {Enter}
         }
-    } else {
-        if (isSecondKey()) {
-            send `;
-        }
+    } else if (modes("ER")) {
         send {Enter}
-    }
-    return
-
-
-;[NORMAL ]: Ctrl+Enterキー (ターミナルの場合はCtrl+Enterが使えないのでF12で代用)
-;[EDIT   ]: Ctrl+Enterキー
-;[RANGE  ]: Ctrl+Enterキー
-;[MOUSE  ]: Ctrl+左クリック
-;[SPECIAL]: Enterキー
-$^Enter::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.MOUSE)) {
-            MouseGetPos nowX, nowY
-            send ^{Click nowX, nowY}
-        } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isUbuntu()) {
-                send 0
-            } else {
-                send {Numpad0}
-            }
-            send {Enter}
+    } else if (modes("M")) {
+        MouseGetPos nowX, nowY
+        Click nowX, nowY
+    } else if (modes("S")) {
+        if (isTerminal() || isUbuntu()) {
+            send 0
         } else {
-            send ^{Enter}
+            send {Numpad0}
         }
-    } else {
+    }
+return
+
+;[N]  Ctrl+Enterキー (ターミナルの場合はCtrl+Enterが使えないのでF12で代用)
+$^Enter::
+    if (modes("N")) {
         if (isTerminal()) {
             send {F12}
         } else {
             send ^{Enter}
         }
     }
-    return
+return
 
-
-;[NORMAL ]: Shift+Enterキー (IMEがONのときは候補の1つもを選択する)
-;[EDIT   ]: Shift+Enterキー
-;[RANGE  ]: Shift+Enterキー
-;[MOUSE  ]: Shift+左クリック
-;[SPECIAL]: Enterキー
+;[NE] Shift+Enterキー (IMEがONのときは候補の1つもを選択する)
 $+Enter::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.MOUSE)) {
-            MouseGetPos nowX, nowY
-            send +{Click nowX, nowY}
-        } else if (mode(_MODE.SPECIAL)) {
-            send {Enter}
-        } else {
-            send +{Enter}
-        }
-    } else {
+    if (modes("NE")) {
         if (getIME()) {
             send {down}{Enter}
         } else {
             send +{Enter}
         }
     }
-    return
-
+return
 
 ;******************************************************************
 ; タブ
 ;******************************************************************
 
-;[NORMAL ]: TABキー
-;[EDIT   ]: TABキー
-;[RANGE  ]: TABキー + モードをNORMALに変更
-;[MOUSE  ]: TABキー
-;[SPECIAL]: TABキー
+;[NE] TABキー
+;[R]  TABキー + モードをNORMALに変更
 $TAB::
-    if (!mode(_MODE.NORMAL)) {
+    if (modes("NE")) {
+        send {TAB}
+    } else if (modes("R")) {
         if (mode(_MODE.RANGE)) {
             setMode(_MODE.EDIT)
         }
-        send {TAB}
-    } else {
         send {TAB}
     }
-    return
+return
 
-;[NORMAL ]: Shift+TABキー
-;[EDIT   ]: Shift+TABキー
-;[RANGE  ]: Shift+TABキー + モードをNORMALに変更
-;[MOUSE  ]: Shift+TABキー
-;[SPECIAL]: Shift+TABキー
+;[NE] Shift+TABキー
+;[R]  Shift+TABキー + モードをNORMALに変更
 $+TAB::
-    if (!mode(_MODE.NORMAL)) {
+    if (modes("NE")) {
+        send +{TAB}
+    } else if (modes("R")) {
         if (mode(_MODE.RANGE)) {
             setMode(_MODE.EDIT)
         }
-        send {+TAB}
-    } else {
         send +{TAB}
     }
-    return
-
-
-;[NORMAL ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
-;[EDIT   ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
-;[RANGE  ]: Ctrl + TABキー (Chromeのときは直近のタブに移動する)
-;[MOUSE  ]: Ctrl + TABキー
-;[SPECIAL]: Ctrl + TABキー
-$^TAB::
-    if (isActiveProcess("chrome")) {
-        ;CLUTを使用
-        send !a
-    } else {
-        send ^{TAB}
-    }
-    return
-
+return
 
 ;******************************************************************
 ; PageUp PageDown
 ;******************************************************************
 
-;[NORMAL ]: BS
-;[EDIT   ]: BS
-;[RANGE  ]: BS
-;[MOUSE  ]: BS
-;[SPECIAL]: BS
+;BS
 $PgUp::
     send {BS}
-    return
+return
 
-;[NORMAL ]: Enter
-;[EDIT   ]: Enter
-;[RANGE  ]: Enter
-;[MOUSE  ]: Enter
-;[SPECIAL]: Enter
+; Enter
 ; マウス/トラックボールにEnterを割り当てるための確保
 $PgDn::
     send {Enter}
-    return
+return
 

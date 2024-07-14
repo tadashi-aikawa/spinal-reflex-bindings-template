@@ -20,47 +20,6 @@ openUri() {
     }
 }
 
-;【概要】ウィンドウサイズの最大化⇔元のサイズ
-;【引数】なし
-;【戻値】なし
-changeWindowSizeMaxOrRestore() {
-    fullX1 := getSettingsValue("ScreenSize", "fullX1")
-    fullY1 := getSettingsValue("ScreenSize", "fullY1")
-    fullX2 := getSettingsValue("ScreenSize", "fullX2")
-    fullY2 := getSettingsValue("ScreenSize", "fullY2")
-    fullX3 := getSettingsValue("ScreenSize", "fullX3")
-    fullY3 := getSettingsValue("ScreenSize", "fullY3")
-
-    WinGetPos, ,, aeroX, aeroY, A
-    if (fullX1 = aeroX && fullY1 = aeroY)
-    {
-        WinRestore, A
-        return
-    } else if (fullX2 = aeroX && fullY2 = aeroY)
-    {
-        WinRestore, A
-        return
-    } else if (fullX3 = aeroX && fullY3 = aeroY)
-    {
-        WinRestore, A
-        return
-    }
-
-    WinMaximize, A
-}
-
-;【概要】ウィンドウサイズをデュアルサイズで最大化します
-;        ただし、縦幅は短い方に合わせます
-;【引数】なし
-;【戻値】なし
-changeWindowSizeDualMax() {
-    fullX := getSettingsValue("DualFullScreenSize", "X")
-    fullY := getSettingsValue("DualFullScreenSize", "Y")
-
-    WinRestore, A ;ウィンドウサイズを変更するため最大化を元に戻す
-    WinMove A, , 0, 0, %fullX%, %fullY%
-}
-
 ;【概要】ウィンドウを最適な大きさで、任意の場所に移動する
 ;【引数】場所 (LeftUp / LeftDown / CenterUp / CenterDown / RightUp / RightDown )
 ;【戻値】なし
@@ -134,16 +93,6 @@ ActivateWindow(location) {
     WinActivate, ahk_id %hwnd%
 }
 
-;【概要】タイトルの文字列を含むウィンドウをアクティブにする
-;【引数】タイトル(部分一致)
-;【戻値】なし
-ActivateWindowByTitle(title) {
-    SetTitleMatchMode, 2
-    WinGet, hwnd, ID, %title%
-    WinActivate, ahk_id %hwnd%
-    SetTitleMatchMode, 1
-}
-
 ;【概要】ツールウィンドウタイトルの文字列を含むウィンドウをアクティブにする
 ;【引数】設定で定義されたウィンドウタイトル名
 ;【戻値】なし
@@ -202,36 +151,11 @@ moveScreen() {
     Send #+{right}
 }
 
-;【概要】現在押下されているキーが2連続目に押されているかを返します
-;【引数】なし
-;【戻値】true: 2連続目に押されている
-isDoubleKey() {
-    return (A_PriorHotKey = A_ThisHotKey and A_TimeSincePriorHotkey < 200)
-}
-
-;【概要】現在押下されているキーが特定のキーが押されてから特定の時間内に押されているかを返します。
-;        ただし、日本語入力がONになっている場合は必ずFalseを返します。
-;【引数】特定のキー
-;【戻値】true: 押されている
-isConbinationKeyAndIMEOn(key) {
-    if (IME_GET()) {
-        return false
-    }
-    return (A_PriorHotKey = key and A_TimeSincePriorHotkey < 200)
-}
-
-;【概要】現在押下されているキーが;の後に押されたものかを返します。
-;【引数】なし
-;【戻値】true: 押されている
-isSecondKey() {
-    return (A_PriorHotKey = "$;")
-}
-
-;【概要】現在押下されているキーがCtrl+jの後に押されたものかを返します。
-;【引数】なし
-;【戻値】true: 押されている
-isSecondKeyAfterCtrlJ() {
-    return (A_PriorHotKey = "$^j")
+;【概要】2キーバインドのキーかどうかを判定します
+;【引数】Prefixキー
+;【戻値】boolean
+2K(prefix) {
+    return (A_PriorHotKey = "$" . prefix)
 }
 
 ;【概要】マルチバイト文字列をsendします。
@@ -261,4 +185,13 @@ setIME(imeOn) {
 
 getIME() {
     return IME_GET()
+}
+
+; クリップボードの貼り付け
+paste() {
+    if (isTerminal() || AW("intellij")) {
+        send +{Ins}
+    } else {
+        send ^v
+    }
 }

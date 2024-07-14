@@ -102,6 +102,28 @@ mode(mode) {
     return (g_mode = mode)
 }
 
+; modes: 可変長引数. [N or E or R or M or S]
+modes(modes) {
+    global g_mode, _MODE
+    ; 文字列を1文字ずつ分解してループ
+    Loop, Parse, modes
+    {
+        mode := A_LoopField
+        if (mode = "N" && mode(_MODE.NORMAL)) {
+            return true
+        } else if (mode = "E" && mode(_MODE.EDIT)) {
+            return true
+        } else if (mode = "R" && mode(_MODE.RANGE)) {
+            return true
+        } else if (mode = "M" && mode(_MODE.MOUSE)) {
+            return true
+        } else if (mode = "S" && mode(_MODE.SPECIAL)) {
+            return true
+        }
+    }
+
+    return false
+}
 
 ;******************************************************************
 ; モードラベル初期設定

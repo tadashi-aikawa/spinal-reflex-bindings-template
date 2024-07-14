@@ -2,402 +2,191 @@
 ; セミコロン
 ;******************************************************************
 
-;[NORMAL ]: コンビネーション開始
-;[EDIT   ]: 行末へ移動
-;[RANGE  ]: 行末に選択範囲を移動
-;[MOUSE  ]: セミコロン
-;[SPECIAL]: セミコロン
+;[N] 2キーバインドのPrefixキー
+;[E] 行末へ移動
+;[R] 行末に選択範囲を移動
+;[S] コロン
 $;::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send {end}
-        } else if (mode(_MODE.RANGE)) {
-            send +{end}
-        } else if (mode(_MODE.SPECIAL)) {
-            send :
-        }
-    } else {
+    if (modes("N")) {
         ; Do nothing...
-    }
-    return
-
-
-;[NORMAL ]: Shift + ;キー
-;[EDIT   ]: 15つ右に移動
-;[RANGE  ]: 選択範囲を15つ右に移動
-;[MOUSE  ]: Shift + ;キー
-;[SPECIAL]: Shift + ;キー
-$+;::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            sendInput {right 15}
-        } else if (mode(_MODE.RANGE)) {
-            sendInput +{right 15}
-        } else if (mode(_MODE.MOUSE)) {
-            send +`;
-        } else if (mode(_MODE.SPECIAL)) {
-            send +`;
-        }
-    } else {
-        send +`;
-    }
-    return
-
-
-;[NORMAL ]: セミコロン (コンビネーションからだと行末に移動してセミコロン)
-;[EDIT   ]: 行末へ移動
-;[RANGE  ]: 行末へ移動
-;[MOUSE  ]: 行末へ移動
-;[SPECIAL]: 行末へ移動
-$^;::
-    if (mode(_MODE.NORMAL)) {
-        if (isSecondKey()) {
-            send {End}
-        }
-        send `;
-    } else {
-        ; Copy => 行末移動の操作でCtrlのupが間に合わず予期せぬ挙動になるのを防ぐため
+    } else if (modes("E")) {
         send {end}
+    } else if (modes("R")) {
+        send +{end}
+    } else if (modes("S")) {
+        send :
     }
     return
 
+;[N] Shift + ;キー
+;[E] 15つ右に移動
+;[R] 選択範囲を15つ右に移動
+$+;::
+    if (modes("N")) {
+        send +`;
+    } else if (modes("E")) {
+        sendInput {right 15}
+    } else if (modes("R")) {
+        sendInput +{right 15}
+    }
+return
 
-;[NORMAL ]: 本日の日付を入力(YYYYMMDD)
-;[EDIT   ]: 本日の日付を入力(YYYYMMDD)
-;[RANGE  ]: 本日の日付を入力(YYYYMMDD)
-;[MOUSE  ]: 本日の日付を入力(YYYYMMDD)
-;[SPECIAL]: 本日の日付を入力(YYYYMMDD)
+;[N] セミコロン (; -> 行末に移動してセミコロン)
+$^;::
+    if (modes("N")) {
+        if (2K(";")) {
+            send {End}`;
+        } else {
+            send `;
+        }
+    }
+return
+
+;[NE]: 本日の日付を入力(YYYYMMDD)
 $^+;::
-    if(isActive("excel")) {
-        send ^+;
-    } else {
-        Clipboard = %A_Year%%A_Mon%%A_MDay%
-        Send, ^v
+    if (modes("NE")) {
+        if (AW("excel")) {
+            send ^+;
+        } else {
+            Clipboard = %A_Year%%A_Mon%%A_MDay%
+            paste()
+        }
     }
-    return
-
-
-;******************************************************************
-; アットマーク
-;******************************************************************
-
-;[NORMAL ]: @キ
-;[EDIT   ]: Ctrl + Shift + aキー => NORMALモード
-;[RANGE  ]: @キー
-;[MOUSE  ]: @キー
-;[SPECIAL]: @キー
-;[SNIPPET]: GitHub形式のコードブロック
-$@::
-    if (mode(_MODE.EDIT)) {
-        send ^+a
-        setMode(_MODE.NORMAL)
-    } else if (mode(_MODE.SNIPPET)) {
-        send ``````{ENTER}{ENTER}``````{UP}
-        setMode(_MODE.NORMAL)
-    } else {
-        send @
-    }
-    return
-
+return
 
 ;******************************************************************
 ; コロン
 ;******************************************************************
 
-;[NORMAL ]: :キー (コンビネーションからだと →:<Space>)
-;[EDIT   ]: 日本語入力ON + モードをNORMALに変更
-;[RANGE  ]: 日本語入力ON + モードをNORMALに変更
-;[MOUSE  ]: 日本語入力ON + モードをNORMALに変更
-;[SPECIAL]: 日本語入力ON + モードをNORMALに変更
+;[N]    :キー
+;[ERMS] 日本語入力ON + モードをNORMALに変更
 ;※ :
 $SC028::
-    if (!mode(_MODE.NORMAL)) {
+    if (modes("N")) {
+        send :
+    } else if (modes("ERMS")) {
         setIME(true)
         setMode(_MODE.NORMAL)
-    } else {
-        if (isSecondKey()) {
-            send {Right}:{space}
-        } else {
-            send :
-        }
     }
-    return
+return
 
-
-;[NORMAL ]: 現在の時刻を入力(hh:mm) (コンビネーションからだと行末に移動してコロン)
-;[EDIT   ]: Ctrl+: 
-;[RANGE  ]: Ctrl+:
-;[MOUSE  ]: Ctrl+:
-;[SPECIAL]: Ctrl+:
+;[NE] 現在の時刻を入力(hh:mm) (コンビネーションからだと行末に移動してコロン)
 ;※ Ctrl + :
 $^SC028::
-    if (mode(_MODE.NORMAL)) {
-        if (isSecondKey()) {
-            send {End}
-            send :
-        } else {
-            Clipboard = %A_Hour%:%A_Min%
-            Send, ^v
-            return
-        }
-    } else {
-        send ^:
+    if (modes("NE")) {
+        Clipboard = %A_Hour%:%A_Min%
+        paste()
     }
-    return
+return
 
-
-;[NORMAL ]: Shift+コロン (コンビネーションからだとSlackの箇条書き)
-;[EDIT   ]: Shift+コロン
-;[RANGE  ]: Shift+コロン
-;[MOUSE  ]: Shift+コロン
-;[SPECIAL]: Shift+コロン
-;※ Ctrl + Shift + :
-$+SC028::
-    if (isSecondKey()) {
-        send 　:dot:
-    } else {
-        Send, +:
-    }
-    return
-
-
-;[NORMAL ]: 現在の時刻を入力(hhmmss)
-;[EDIT   ]: 現在の時刻を入力(hhmmss)
-;[RANGE  ]: 現在の時刻を入力(hhmmss)
-;[MOUSE  ]: 現在の時刻を入力(hhmmss)
-;[SPECIAL]: 現在の時刻を入力(hhmmss)
+;[NE] 現在の時刻を入力(hhmmss)
 ;※ Ctrl + Shift + :
 $^+SC028::
-    Clipboard = %A_Hour%%A_Min%%A_Sec%
-    Send, ^v
-    return
-
+    if (modes("NE")) {
+        Clipboard = %A_Hour%%A_Min%%A_Sec%
+        paste()
+    }
+return
 
 ;******************************************************************
 ; ピリオド
 ;******************************************************************
 
-;[NORMAL ]: .キー
-;[EDIT   ]: =キー
-;[RANGE  ]: =キー
-;[MOUSE  ]: コンビネーションの1キー目
-;[SPECIAL]: 3キー
+;[N] .キー
+;[S] 3キー
 $.::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send `=
-            setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.RANGE)) {
-            send `=
-            setMode(_MODE.NORMAL)
-        } else if (mode(_MODE.MOUSE)) {
-            ; DO NOTHING
-        } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isUbuntu()) {
-                send 3
-            } else {
-                send {Numpad3}
-            }
-        }
-    } else {
+    if (modes("N")) {
         send .
+    } else if (modes("S")) {
+        if (isTerminal() || isUbuntu()) {
+            send 3
+        } else {
+            send {Numpad3}
+        }
     }
-    return
+return
 
-
-;[NORMAL ]: 右クリックメニュー
-;[EDIT   ]: 右クリックメニュー
-;[RANGE  ]: 右クリックメニュー
-;[MOUSE  ]: 右クリックメニュー
-;[SPECIAL]: 右クリックメニュー
+; 右クリックメニュー
 $^.::
     send {appsKey}
     return
 
-
-;[NORMAL ]: shift + .キー
-;[EDIT   ]: スペースキー × 10
-;[RANGE  ]: shift + .キー
-;[MOUSE  ]: shift + .キー
-;[SPECIAL]: shift + .キー
+;[N] shift + .キー
+;[E] スペースキー × 10
 $+.::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send {space 10}
-        } else if (mode(_MODE.RANGE)) {
-            send +.
-        } else if (mode(_MODE.MOUSE)) {
-            send +.
-        } else if (mode(_MODE.SPECIAL)) {
-            send +.
-        }
-    } else {
+    if (modes("N")) {
         send +.
+    } else if (modes("E")) {
+        send {space 10}
     }
-    return
-
+return
 
 ;******************************************************************
 ; カンマ
 ;******************************************************************
 
-;[NORMAL ]: ,キー (コンビネーションからだと →,<Space>)
-;[EDIT   ]: DEBUGモードに変更
-;[RANGE  ]: DEBUGモードに変更
-;[MOUSE  ]: DEBUGモードに変更
-;[SPECIAL]: 2キー
-;[SNIPPET]: DEBUGモードに変更
-;[DEBUG  ]: EDITモードに変更
+;[N] ,キー
+;[S] 2キー
 $,::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            setMode(_MODE.DEBUG)
-        } else if (mode(_MODE.RANGE)) {
-            setMode(_MODE.DEBUG)
-        } else if (mode(_MODE.MOUSE)) {
-            setMode(_MODE.DEBUG)
-        } else if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isUbuntu()) {
-                send 2
-            } else {
-                send {Numpad2}
-            }
-        } else if (mode(_MODE.SPECIAL)) {
-            setMode(_MODE.EDIT)
-        }
-    } else {
-        if (isSecondKey()) {
-            send {Right},{space}
+    if (modes("N")) {
+        send `,
+    } else if (modes("S")) {
+        if (isTerminal() || isUbuntu()) {
+            send 2
         } else {
-            send `,
+            send {Numpad2}
         }
     }
-    return
+return
 
-
-;[NORMAL ]: Ctrl + , キー (コンビネーションからだと行末に移動してカンマ)
-;[EDIT   ]: Ctrl + , キー
-;[RANGE  ]: Ctrl + , キー
-;[MOUSE  ]: Ctrl + , キー
-;[SPECIAL]: 2キー
-$^,::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send ^,
-        } else if (mode(_MODE.RANGE)) {
-            send ^,
-        } else if (mode(_MODE.MOUSE)) {
-            send ^,
-        } else if (mode(_MODE.SPECIAL)) {
-            send {Numpad2}{Enter}
-        }
-    } else {
-        if (isSecondKey()) {
-            send {End}
-            send `,
-        } else {
-            send ^,
-        }
-    }
-    return
-
-
-;[NORMAL ]: shift + ,キー
-;[EDIT   ]: スペースキー × 5
-;[RANGE  ]: shift + ,キー
-;[MOUSE  ]: shift + ,キー
-;[SPECIAL]: shift + ,キー
+;[N] shift + ,キー
+;[E] スペースキー × 5
 $+,::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.EDIT)) {
-            send {space 5}
-        } else if (mode(_MODE.RANGE)) {
-            send +,
-        } else if (mode(_MODE.MOUSE)) {
-            send +,
-        } else if (mode(_MODE.SPECIAL)) {
-            send +,
-        }
-    } else {
+    if (modes("N")) {
         send +,
+    } else if (modes("E")) {
+        send {space 5}
     }
-    return
-
+return
 
 ;******************************************************************
 ; スラッシュ
 ;******************************************************************
 
-;[NORMAL ]: /キー (コンビネーションキーの場合は今日の日付、スラッシュ区切り)
-;[EDIT   ]: /キー
-;[RANGE  ]: /キー
-;[MOUSE  ]: /キー
-;[SPECIAL]: .キー
+;[N] /キー (; -> 今日の日付/スラッシュ区切り (ex: 2024/07/14))
+;[S] .キー
 $/::
-    if (!mode(_MODE.NORMAL)) {
-        if (mode(_MODE.SPECIAL)) {
-            if (isTerminal() || isUbuntu()) {
-                send .
-            } else {
-                send {NumpadDot}
-            }
-        } else {
-            send /
-        }
-    } else {
-        if (isSecondKey()) {
+    if (modes("N")) {
+        if (2K(";")) {
             Clipboard = %A_Year%/%A_Mon%/%A_MDay%
-            Send, ^v
+            paste()
         } else {
             send /
         }
-    }
-    return
-
-
-;******************************************************************
-; ハイフン
-;******************************************************************
-
-;[NORMAL ]: ハイフンキー (ObsidianでCtrl+jのあとなら水平分割)
-;[EDIT   ]: ハイフンキー
-;[RANGE  ]: ハイフンキー
-;[MOUSE  ]: ハイフンキー
-;[SPECIAL]: ハイフンキー
-$-::
-    if (mode(_MODE.NORMAL)) {
-        if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-            send ^!-
-            return
+    } else if (modes("S")) {
+        if (isTerminal() || isUbuntu()) {
+            send .
         } else {
-            send -
+            send {NumpadDot}
         }
-    } else {
-        send -
     }
 return
 
 ;******************************************************************
 ; 山かっこ(閉じる)
 ;******************************************************************
-;[NORMAL ]: ]キー (ObsidianでCtrl+jのあとならLink search)
-;[EDIT   ]: ]キー
-;[RANGE  ]: ]キー
-;[MOUSE  ]: ]キー
-;[SPECIAL]: ]キー
+;[NE]: ]キー (Obsidian: C-j -> Link search)
 $]::
-  if (isActiveProcess("Obsidian") && isSecondKeyAfterCtrlJ()) {
-      Send, {F24}
-  } else {
-      Send, ] 
-  }
+    if (modes("NE")) {
+        if (AP("Obsidian") && 2K("^j")) {
+            Send, {F24}
+        } else {
+            Send, ] 
+        }
+    }
 return
 
-;[NORMAL ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
-;[EDIT   ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
-;[RANGE  ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
-;[MOUSE  ]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
-;[SPECIAL]: Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
+; Ctrl+Shift+]キー (ターミナルの場合はCtrl+Shift+]が使えないのでAlt+]で代用)
 $^+]::
   if (isTerminal()) {
       Send !] 

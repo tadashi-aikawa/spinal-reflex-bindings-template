@@ -28,6 +28,9 @@ isActive(name) {
         return false
     }
 }
+AW(name) {
+  return isActive(name)
+}
 
 ;【概要】指定されたプロセスがアクティブであるか
 ;【引数】name: プロセス名
@@ -36,6 +39,9 @@ isActiveProcess(name) {
     pName := getSettingsValue("ProcessName", name)
     WinGet, ahk_process, ProcessName, A
     return pName == ahk_process
+}
+AP(name) {
+  return isActiveProcess(name)
 }
 
 ;【概要】指定されたウィンドウがターミナルか (ゆるい判定..minttyはgit bashかな...)
