@@ -93,10 +93,14 @@ return
 ;******************************************************************
 
 ;[N] .キー
+;[E] = を入力しモードをNORMALに
 ;[S] 3キー
 $.::
     if (modes("N")) {
         send .
+    } else if (modes("E")) {
+        send `=
+        setMode(_MODE.NORMAL)
     } else if (modes("S")) {
         if (isTerminal() || isUbuntu()) {
             send 3
