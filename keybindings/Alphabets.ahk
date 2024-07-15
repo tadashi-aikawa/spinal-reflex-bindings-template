@@ -639,9 +639,9 @@ return
 ;[S]    EDITモードに切り替え
 $r::
     if (modes("N")) {
-      send r
+        send r
     } else if (modes("EMR")) {
-      setMode(_MODE.SPECIAL)
+        setMode(_MODE.SPECIAL)
     } else if (modes("S")) {
         setMode(_MODE.EDIT)
     }
