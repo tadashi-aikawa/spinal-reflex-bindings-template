@@ -2,14 +2,26 @@
 ; ユーティリティ 初めにincludeすること
 ;******************************************************************
 
+global settingsCache := {}
+
 ;【概要】設定ファイルから値を取得します
+;        一度取得した値はキャッシュされます (キャッシュクリアしたい場合はreloadが必要)
 ;【引数】section: 設定ファイルのセクション名
 ;        key:     設定ファイルのキー名
 ;【戻値】設定値
 ;【備考】設定値はSettings.iniの設定値によって取得元を変更します
 getSettingsValue(section, key) {
+    global settingsCache
+
+    cacheKey := section . "|" . key
+    if settingsCache.HasKey(cacheKey) {
+        return settingsCache[cacheKey]
+    }
+
     IniRead setting, %A_ScriptDir%\Settings.ini, FILE, name
     IniRead value, %A_ScriptDir%\settings\%setting%.ini, %section%, %key%
+
+    settingsCache[cacheKey] := value
 
     return value
 }
