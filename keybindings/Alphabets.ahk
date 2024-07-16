@@ -635,7 +635,7 @@ $^q::
 return
 
 ;[N]    rキー
-;[EMR] SPECIALモードに切り替え
+;[EMR]  SPECIALモードに切り替え
 ;[S]    EDITモードに切り替え
 $r::
     if (modes("N")) {
