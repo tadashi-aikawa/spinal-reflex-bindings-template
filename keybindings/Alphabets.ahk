@@ -634,12 +634,16 @@ $^q::
     send !{f4}
 return
 
-;[N]    rキー
+;[N]    rキー (; -> R)
 ;[EMR]  SPECIALモードに切り替え
 ;[S]    EDITモードに切り替え
 $r::
     if (modes("N")) {
-        send r
+        if (2K(";")) {
+            send R
+        } else {
+            send r
+        }
     } else if (modes("EMR")) {
         setMode(_MODE.SPECIAL)
     } else if (modes("S")) {
