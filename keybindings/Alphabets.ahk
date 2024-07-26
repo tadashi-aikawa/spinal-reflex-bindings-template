@@ -48,7 +48,8 @@ $b::
 return
 
 ;[N]  cキー (; -> コードブロック)
-;[ER] コピーしてモードをVirtual->NORMALに変更
+;[E] コピー
+;[R] コピーしてモードをEDITに変更
 ;[S]  ウィンドウリサイズ特殊キー (; -> restサイズ)
 $c::
     if (modes("N")) {
@@ -57,13 +58,19 @@ $c::
         } else {
             send c
         }
-    } else if (modes("ER")) {
-        setMode(_MODE.EDIT)
+    } else if (modes("E")) {
         if (isTerminal() || AW("intellij")) {
             send ^{Ins}
         } else {
             send ^c
         }
+    } else if (modes("R")) {
+        if (isTerminal() || AW("intellij")) {
+            send ^{Ins}
+        } else {
+            send ^c
+        }
+        setMode(_MODE.EDIT)
     } else if (modes("S")) {
         if (2K(";")) {
             MoveWindow("RightSpecialRest")
