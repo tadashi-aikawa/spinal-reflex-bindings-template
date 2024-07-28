@@ -57,13 +57,14 @@ return
 ; ESC
 ;******************************************************************
 ;----- モードを標準に戻し、『日本語入力』『モード』をOFFにして、修飾キーも上げる -----
+; TODO: 一旦試しに無効化してみる
 $ESC::
     send {ESC}
     setIME(false)
     setMode(_MODE.NORMAL)
-    Send, {Shift up}
-    Send, {Ctrl up}
-    Send, {Alt up}
+    ; Send, {Shift up}
+    ; Send, {Ctrl up}
+    ; Send, {Alt up}
 return
 
 ;----- ウィンドウ切り替えは無効化 -----
