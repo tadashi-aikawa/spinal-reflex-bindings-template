@@ -62,13 +62,21 @@ $ESC::
     send {ESC}
     setIME(false)
     setMode(_MODE.NORMAL)
-    ; Send, {Shift up}
-    ; Send, {Ctrl up}
-    ; Send, {Alt up}
+    Send, {Shift up}{Ctrl up}{Alt up}{LWin up}{RWin up}
 return
 
-;----- ウィンドウ切り替えは無効化 -----
+;---- 修飾キーが押しっぱなしになってしまった場合の発動もフォロー(2つ同時は無理だけど)
+$+ESC::
+    Send, {Shift up}{Ctrl up}{Alt up}{LWin up}{RWin up}
+return
+$^ESC::
+    Send, {Shift up}{Ctrl up}{Alt up}{LWin up}{RWin up}
+return
 $!ESC::
+    Send, {Shift up}{Ctrl up}{Alt up}{LWin up}{RWin up}
+return
+$#ESC::
+    Send, {Shift up}{Ctrl up}{Alt up}{LWin up}{RWin up}
 return
 
 
@@ -167,13 +175,4 @@ return
 $PgDn::
     send {Enter}
 return
-
-
-;******************************************************************
-; Backspace
-;******************************************************************
-
-; 全ての修飾キー無効化
-$Backspace::
-    Send, {Shift up}{Ctrl up}{Alt up}{LWin up}{RWin up}
 
