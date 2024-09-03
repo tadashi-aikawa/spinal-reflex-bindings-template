@@ -123,11 +123,11 @@ return
 ;[NE] Shift+Enterキー (IMEがONのときは候補の1つもを選択する) (ターミナルの場合はShift+Enterが使えないのでF11で代用)
 $+Enter::
     if (modes("NE")) {
-        if (isTerminal()) {
-            send {F11}
+        if (getIME()) {
+            send {down}{Enter}
         } else {
-            if (getIME()) {
-                send {down}{Enter}
+            if (isTerminal()) {
+                send {F11}
             } else {
                 send +{Enter}
             }
