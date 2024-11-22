@@ -139,10 +139,10 @@ return
 ; タブ
 ;******************************************************************
 
-;[NE] TABキー
-;[R]  TABキー + モードをNORMALに変更
+;[NES] TABキー
+;[R]   TABキー + モードをNORMALに変更
 $TAB::
-    if (modes("NE")) {
+    if (modes("NES")) {
         send {TAB}
     } else if (modes("R")) {
         if (mode(_MODE.RANGE)) {
@@ -152,10 +152,10 @@ $TAB::
     }
 return
 
-;[NE] Shift+TABキー
-;[R]  Shift+TABキー + モードをNORMALに変更
+;[NES] Shift+TABキー
+;[R]   Shift+TABキー + モードをNORMALに変更
 $+TAB::
-    if (modes("NE")) {
+    if (modes("NES")) {
         send +{TAB}
     } else if (modes("R")) {
         if (mode(_MODE.RANGE)) {
