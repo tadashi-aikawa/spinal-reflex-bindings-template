@@ -66,6 +66,13 @@ SetFullHDWidthAtCenter() {
     WinMove, A,, NewX, NewY, 1920, WinHeight
 }
 
+;【概要】現在のウィンドウの幅・高さを変更
+setWindowSize(width, height) {
+    WinGetPos, WinX, WinY, WinW, WinH, A
+    WinRestore, A
+    WinMove, A, , WinX, WinY, width, height
+}
+
 ;【概要】指定位置のウィンドウハンドラを取得する
 ;【引数】px: x座標, py: y座標
 ;【戻値】Window handler
