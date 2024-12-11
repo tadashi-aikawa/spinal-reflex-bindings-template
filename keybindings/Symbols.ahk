@@ -179,17 +179,13 @@ return
 ;******************************************************************
 ; 山かっこ(閉じる)
 ;******************************************************************
-;[NE]: ]キー  (; -> タスク箇条書き)(Obsidian: C-j -> Link search)
+;[NE]: ]キー (Obsidian: C-j -> Link search)
 $]::
     if (modes("NE")) {
-        if (2K(";")) {
-            send - [ ]{Space} 
+        if (AP("Obsidian") && 2K("^j")) {
+            Send, {F24}
         } else {
-            if (AP("Obsidian") && 2K("^j")) {
-                Send, {F24}
-            } else {
-                Send, ] 
-            }
+            Send, ] 
         }
     }
 return
