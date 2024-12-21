@@ -168,19 +168,16 @@ $f::
     }
 return
 
-;[NM] Shift + fキー
+;[NMS] Shift + fキー
 ;[E]  一番下に移動
 ;[R]  選択範囲を一番下に移動
-;[S]  フルスクリーン
 $+f::
-    if (modes("NM")) {
+    if (modes("NMS")) {
         send +f
     } else if (modes("E")) {
         send ^{End}
     } else if (modes("R")) {
         send +^{End}
-    } else if (modes("S")) {
-        setWindowSize(1280, 720)
     }
 return
 
