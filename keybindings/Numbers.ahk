@@ -55,6 +55,7 @@ $3::
     } else if (modes("S")) {
         setWindowSize(1024, 600)
     }
+return
 
 ;[EERMS]: F3キー
 $^3::
