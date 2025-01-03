@@ -668,7 +668,7 @@ $^r::
 return
 
 ;[N] sキー (; -> ()) (Obsidian: C-j -> スターファイル検索)
-;[E] Ctrl+Shift+S + NORMALモードへ (Google Chrome: Ctrl+Shift+c)
+;[E] Ctrl+Shift+S + NORMALモードへ (Google Chrome: s + SPICIALモードへ)
 ;[R] Ctrl+Shift+S + NORMALモードへ
 ;[M] 中央下のエリアにフォーカスとポインタを移してNORMALモードに
 ;[S] アクティブウィンドウを中央下に最大化して移動する
@@ -688,7 +688,8 @@ $s::
         }
     } else if (modes("E")) {
         if (AP("chrome")) {
-            send ^+c
+            send s
+            setMode(_MODE.SPECIAL)
         } else {
             send ^+{s}
             setMode(_MODE.NORMAL)
